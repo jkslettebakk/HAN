@@ -1,0 +1,370 @@
+#undef DEBUG
+#undef DLSMDEBUG
+#undef COSEMDEBUG
+#define OBISDEBUG
+#define JSONDEBUG
+#define COSEMSTRUCTURE
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO.Ports;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Slettebakk_OBIS;
+
+namespace Slettebakk_COSEM
+{
+        class COSEMClass
+        {
+            List<byte> cOSEMHeadingData = new List<byte>();
+            List<byte> cOSEMData = new List<byte>();
+            int cosemHeadingDataLength = 9;
+            int cosemDataLength;
+            int dLMSstartCosemBlock = 9;
+            byte[] LLC = new byte[3]; // LLC (Logic Link Control) frame header, E6 E7 00
+            byte[] UIFrameHeade = new byte[6]; // (00 00 00 00)
+            public byte[] cOSEMtypeobject = new byte[2]; // Object or Array
+            public string tabLength = "\t";
+            obisCodesClass obisCode = new obisCodesClass();
+
+            public void cOSEMInitialize()
+            {
+                cOSEMtypeobject[0] = 0x02; // initialize to two
+                cOSEMtypeobject[1] = 0x00; // initiated to zero
+#if OBISDEBUG
+                obisCode.showObisValues();
+#endif
+            }
+
+            void cOSEMHeading()
+            {
+                LLC[0] = cOSEMHeadingData[0]; // E6 (Aidon values? General meetering values?)
+                LLC[1] = cOSEMHeadingData[1]; // E7
+                LLC[2] = cOSEMHeadingData[2]; // 00
+                UIFrameHeade[0] = cOSEMHeadingData[3]; // 0F
+                UIFrameHeade[1] = cOSEMHeadingData[4]; // 40
+                UIFrameHeade[2] = cOSEMHeadingData[5]; // 00
+                UIFrameHeade[3] = cOSEMHeadingData[6]; // 00
+                UIFrameHeade[4] = cOSEMHeadingData[7]; // 00
+                UIFrameHeade[5] = cOSEMHeadingData[8]; // 00
+            }
+
+
+
+            string cOSEMObisJsonCode(List<byte> data, int start, int length)
+            {
+                string jsonString = ",\n\'obis code\' : \'";
+                string cosemTemp = "";
+#if DEBUG
+                    Console.WriteLine("cOSEMObisCode input: start={0},length={1}",start,length);
+                    for ( int k = start; k < (start + length + 1); k++)  Console.Write("{0:X2}.",cOSEMData[k]);
+                    Console.WriteLine();
+                    Console.Write("Obis Code: ");
+#endif
+
+                cosemTemp = obisCode.oBISCode(data, start);
+                jsonString += cosemTemp + "\',\n";
+
+#if DEBUG
+                    Console.WriteLine($"Obis found? Return = {0}",cosemTemp);
+#endif
+                return jsonString;
+            }
+
+            public void cOSEMDataBlock(List<byte> dLMScOSEMData)
+            {
+                cOSEMHeadingData.Clear(); // Prepare new COSEM data heading
+                cOSEMData.Clear(); // Prepare new COSEM data
+                for (int i = dLMSstartCosemBlock; i < dLMSstartCosemBlock + cosemHeadingDataLength; i++)  // extract COSEM heading from DLMS block
+                    cOSEMHeadingData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
+                for (int i = dLMSstartCosemBlock + cosemHeadingDataLength; i < dLMScOSEMData.Count - 3; i++)  // extract COSEM block from DLMS block
+                    cOSEMData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
+                // cosemHeadingDataLength = cOSEMHeadingData.Count;
+                cosemDataLength = cOSEMData.Count;
+                cOSEMHeading();
+                string structJson = "";
+
+                if (cOSEMData[0] == 0x01) // Array of x (cOSEMData[1]) elements (lines)
+                {
+#if COSEMSTRUCTURE
+                    Console.WriteLine("New COSEM Data block.");
+                    for (int i = 0; i < cosemDataLength; i++) // for debug purposes
+                    {
+                        Console.Write("{0:X2} ", cOSEMData[i]);
+                    }
+                    Console.WriteLine("\nKey values in block: Array type={0:X2} with {1:X2} array objects and length = {2}", cOSEMData[0], cOSEMData[1], cOSEMData.Count);
+#endif
+                    int cOSEMDataLocation = 1; // Prepare handling of COSEM data block from Meeter
+
+                    for (int i = 0; i < cOSEMData[1]; i++) // Loop trough all Array objects (normally 1 or 12 for Aidon; 01 0C)
+                    {
+
+                        cOSEMDataLocation++; // Increase counters to start on "sctructure" elements
+                        Console.WriteLine("Loop = {0}, cOSEMDataLocation={1}", i, cOSEMDataLocation);
+
+                        string currentCOSEMString = "";
+
+                        switch (cOSEMData[cOSEMDataLocation]) // switch on Structure (0x02) or .... (0x03) and prepare for length (++)
+                        {
+                            case 0x02: // Structure with 2 elements (COSEM Code + data Text about the Mettering system)
+                                cOSEMDataLocation++;
+                                if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                /* Sample structure 0x02
+                                01 0C // 01 12 = 01=Array of 12 elements
+                                      0202 // Structure of 02 elements
+                                           0906 // Octet of 0x06 elements
+                                                01 01 00 02 81 FF // OBIS list version identifyer 
+                                           0A0B // Visible string mark (0x0A) of 0x0B elements
+                                                41 49 44 4F 4E 5F 56 30 30 30 31 // "A I D O N _ V 0 0 0 1"
+                                      0202 // Struct (02) of 02 elements
+                                           0906 // Octet (0x09) of 0x06 elements
+                                                00 00 60 01 00 FF // Metering point ID
+                                           0A10 // Visible string (= 10) of 0x10 (16) elements
+                                                37 33 35 39 39 39 32 39 30 35 34 37 38 33 36 32 // "7 3 5 9 ......"
+                                      ........
+                                */
+                                int k;
+                                int innerLoopElements = cOSEMData[cOSEMDataLocation];
+                                for (int j = 0; j < innerLoopElements; j++)  // Start loop and increment to first element
+                                {
+                                    cOSEMDataLocation++;
+                                    if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+
+                                    switch (cOSEMData[cOSEMDataLocation])
+                                    {
+                                        case 0x09: // octet string, OBIS code (e.g 01.00.01.07.00.FF = Active Power Q1+Q4)
+                                            cOSEMDataLocation++;
+                                            if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                            Console.WriteLine("In 0x09 octet string in case(0x02). cOSEMDataLocation = {0}", cOSEMDataLocation);
+#if COSEMSTRUCTURE
+                                            Console.Write("\t\t{0:X2} {1:X2}", cOSEMData[cOSEMDataLocation - 1], cOSEMData[cOSEMDataLocation]);
+#endif
+                                            structJson += cOSEMObisJsonCode(cOSEMData, cOSEMDataLocation + 1, 6);
+                                            currentCOSEMString = obisCode.oBISCode(cOSEMData, cOSEMDataLocation + 1);
+                                            // currentCOSEMString += (int) (cOSEMData[cOSEMDataLocation + cOSEMData[cOSEMDataLocation]]);
+#if DEBUG || COSEMSTRUCTURE
+                                            Console.WriteLine("{0} {1}", cOSEMData[cOSEMDataLocation + cOSEMData[cOSEMDataLocation]], obisCode.UoMObisCode(cOSEMData[cOSEMDataLocation + 1], cOSEMData[cOSEMDataLocation + 2], cOSEMData[cOSEMDataLocation + 3], cOSEMData[cOSEMDataLocation + 4], cOSEMData[cOSEMDataLocation + 5], cOSEMData[cOSEMDataLocation + 6]));
+#endif
+#if DEBUG
+                                                Console.WriteLine("\ncOSEMDataLocation inn = {0}, cOSEMData[{0}]={1:X2}",cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+#endif
+                                            cOSEMDataLocation += cOSEMData[cOSEMDataLocation];
+                                            Console.WriteLine("a-cOSEMDataLocation={0}, structJson={1}", cOSEMDataLocation, structJson);
+#if DEBUG
+                                                Console.WriteLine("cOSEMDataLocation ut = {0}, cOSEMData[{0}]={1:X2}",cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+                                                Console.WriteLine("0x09 structJson=\n{0}",structJson);
+#endif
+                                            break;
+                                        case 0x0A: // Visible string
+                                            cOSEMDataLocation++;
+                                            if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                            Console.WriteLine("In 0x0A visible text. cOSEMDataLocation = {0}", cOSEMDataLocation);
+                                            string localText = "";
+#if DEBUG
+                                                Console.Write("Visible string: ");
+#endif
+#if COSEMSTRUCTURE
+                                            Console.Write("\t\t{0:X2} {1:X2}", cOSEMData[cOSEMDataLocation - 1], cOSEMData[cOSEMDataLocation]);
+#endif
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + (cOSEMData[cOSEMDataLocation]); k++)
+                                            {
+                                                localText += (char)cOSEMData[k];
+#if DEBUG || COSEMSTRUCTURE
+                                                if (k == (cOSEMDataLocation + 1)) Console.Write("\t");
+                                                Console.Write("{0}", (char)cOSEMData[k]);
+#endif
+                                            }
+#if DEBUG || COSEMSTRUCTURE
+                                            Console.WriteLine();
+#endif
+                                            // structJson += "\'\n}";
+                                            cOSEMDataLocation += cOSEMData[cOSEMDataLocation];
+                                            Console.WriteLine("COSEM Code = {0}", currentCOSEMString);
+                                            switch (currentCOSEMString)
+                                            {
+                                                case "1.1.0.2.129.255":
+                                                    structJson += ",\n\'List version identifier\' : \'" + localText + "\'";
+                                                    break;
+                                                case "0.0.96.1.0.255":
+                                                    structJson += ",\n\'Model serial number\' : \'" + localText + "\'";
+                                                    break;
+                                                case "0.0.96.1.7.255":
+                                                    structJson += ",\n\'Model type\' : \'" + localText + "\'";
+                                                    break;
+                                                default:
+                                                    Console.WriteLine("Obis code not implemented? - {0}", localText);
+                                                    break;
+                                            }
+                                            Console.WriteLine("debug: {0}", structJson);
+                                            break;
+                                        default:
+                                            Console.WriteLine("Outer 0x09,0x0A loop. Value = {0:X2} in location {1} not handled yet", cOSEMData[cOSEMDataLocation - 1], (cOSEMDataLocation - 1));
+                                            break;
+                                    }
+                                    structJson += "\n}";
+#if COSEMDEBUG
+                                        Console.WriteLine("{0}",structJson);
+#endif
+                                };
+#if DEBUG || COSEMDEBUG
+                                    Console.WriteLine("Structure 0x02 done. Result:\n{0}",structJson);
+#endif
+                                break;
+                            case 0x03: // Structure with Metering data (3 elements; 1=obis, 2=value/data, 3=UoM)
+                                cOSEMDataLocation++;
+                                if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                Console.WriteLine("In 0x03. Structure with meetering data. cOSEMDataLocation = {0}", cOSEMDataLocation);
+#if COSEMSTRUCTURE
+                                Console.WriteLine("\t{0:X2} {1:X2}", cOSEMData[cOSEMDataLocation - 1], cOSEMData[cOSEMDataLocation]);
+#endif
+#if DEBUG
+                                    Console.WriteLine("Prepare Meetering Data Loop");
+#endif
+                                innerLoopElements = cOSEMData[cOSEMDataLocation];
+                                for (int j = 0; j < innerLoopElements; j++)
+                                {
+                                    cOSEMDataLocation++;
+                                    if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+#if DEBUG
+                                        Console.WriteLine("In metering data loop. j = {0}, Location is cOSEMDataLocation={1}, Octet or Power values = {2:X2}",
+                                            j, cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+#endif
+                                    switch (cOSEMData[cOSEMDataLocation])
+                                    {
+                                        case 0x09: // octet string, OBIS code (e.g 01.00.01.07.00.FF = Active Power Q1+Q4)
+                                            cOSEMDataLocation++;
+                                            if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                            Console.WriteLine("In 0x09 octet string case(0x03). cOSEMDataLocation = {0}", cOSEMDataLocation);
+#if COSEMSTRUCTURE
+                                            Console.Write("\t\t{0:X2} {1:X2}", cOSEMData[cOSEMDataLocation - 1], cOSEMData[cOSEMDataLocation]);
+#endif
+                                            structJson += cOSEMObisJsonCode(cOSEMData, cOSEMDataLocation + 1, 6);
+                                            currentCOSEMString += (int)(cOSEMData[cOSEMDataLocation + cOSEMData[cOSEMDataLocation]]);
+#if DEBUG || COSEMSTRUCTURE
+                                            Console.WriteLine("{0} {1}", cOSEMData[cOSEMDataLocation + cOSEMData[cOSEMDataLocation]], obisCode.UoMObisCode(cOSEMData[cOSEMDataLocation + 1], cOSEMData[cOSEMDataLocation + 2], cOSEMData[cOSEMDataLocation + 3], cOSEMData[cOSEMDataLocation + 4], cOSEMData[cOSEMDataLocation + 5], cOSEMData[cOSEMDataLocation + 6]));
+#endif
+#if DEBUG
+                                                Console.WriteLine("\ncOSEMDataLocation inn = {0}, cOSEMData[{0}]={1:X2}",cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+#endif
+                                            cOSEMDataLocation += cOSEMData[cOSEMDataLocation];
+                                            Console.WriteLine("b-cOSEMDataLocation={0}, structJson={1}", cOSEMDataLocation, structJson);
+#if DEBUG
+                                                Console.WriteLine("cOSEMDataLocation ut = {0}, cOSEMData[{0}]={1:X2}",cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+                                                Console.WriteLine("0x09 structJson=\n{0}",structJson);
+#endif
+                                            break;
+                                        case 0x06: // Metering data power
+                                            cOSEMDataLocation++;
+                                            if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                            Console.WriteLine("In 0x06 - meetering data power. cOSEMDataLocation = {0}", cOSEMDataLocation);
+#if DEBUG
+                                                Console.Write("Data type unsigned32 : ");
+#endif
+                                            int unsignedLength = 10;
+#if COSEMSTRUCTURE
+                                            Console.Write("\t\t{0:X2} {1:X2}", cOSEMData[cOSEMDataLocation - 1], cOSEMData[cOSEMDataLocation]);
+#endif
+                                            structJson += ",\n\'Metering Power \' : \'";
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + unsignedLength; k++)
+                                            {
+                                                structJson += cOSEMData[k];
+#if DEBUG
+                                                Console.Write("{0:X2}", cOSEMData[k]);
+#endif
+                                            }
+#if DEBUG
+                                            Console.WriteLine();
+#endif
+                                            structJson += "\'";
+                                            cOSEMDataLocation += 6; // Last element used
+                                            Console.WriteLine("Text loop done (k={0}). Next element={1:X2} and location is {2}", k, cOSEMData[cOSEMDataLocation], cOSEMDataLocation);
+                                            break;
+                                        case 0x10: // Meetering data current L1 & L3
+                                            cOSEMDataLocation++;
+                                            if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                            Console.WriteLine("In 0x10 - meetering data current L1&L3. cOSEMDataLocation = {0}", cOSEMDataLocation);
+#if DEBUG
+                                                Console.Write("Data type Current L1 : ");
+#endif
+                                            unsignedLength = 10;
+                                            structJson += ",\n\'Metering current \' : \'";
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + unsignedLength; k++)
+                                            {
+                                                structJson += cOSEMData[k];
+#if DEBUG
+                                                Console.Write("{0:X2}", cOSEMData[k]);
+#endif
+                                            }
+#if DEBUG
+                                                Console.WriteLine();
+#endif
+                                            structJson += "\'";
+                                            cOSEMDataLocation += 6; // Last element used
+                                            break;
+                                        case 0x12: // Meetering data Phase VL1 & VL2 & VL3
+                                            cOSEMDataLocation++;
+                                            if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                            Console.WriteLine("In 0x12 - meetering data phase VL1&VL3. cOSEMDataLocation = {0}", cOSEMDataLocation);
+#if DEBUG
+                                                Console.Write("Data type Phase VL1 & VL2 & VL3 : ");
+#endif
+                                            unsignedLength = 8;
+                                            structJson += ",\n\'Metering Phase \' : \'";
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + unsignedLength; k++)
+                                            {
+                                                structJson += cOSEMData[k];
+#if DEBUG
+                                                    Console.Write("{0:X2}", cOSEMData[k]);
+#endif
+                                            }
+#if DEBUG
+                                                Console.WriteLine();
+#endif
+                                            structJson += "\'";
+                                            cOSEMDataLocation += 6; // Last element used
+                                            break;
+                                        case 0x16: // Metering KV UoM
+                                            cOSEMDataLocation++;
+                                            if (cOSEMDataLocation >= cosemDataLength) break; // increase counter to start on Structure elements
+                                            Console.WriteLine("In 0x16 - meetering data ....... cOSEMDataLocation = {0}", cOSEMDataLocation);
+#if DEBUG
+                                                Console.Write("Data type ......... : ");
+#endif
+                                            structJson += "\'";
+                                            cOSEMDataLocation += 1; // Last element used
+                                            break;
+                                        default:
+                                            if (cOSEMDataLocation < cosemDataLength) cOSEMDataLocation++;
+                                            Console.WriteLine("{0}Inner Switch. Value not handled yet. Value = {1:X2} in location {2}", tabLength, cOSEMData[cOSEMDataLocation], cOSEMDataLocation);
+                                            break;
+                                    };
+                                    // structJson += "\n}";
+                                }
+#if DEBUG || COSEMDEBUG
+                                    Console.WriteLine("Structure 0x03 done. Result:\n{0}",structJson);
+#endif
+                                break;
+                            default:
+                                Console.WriteLine("{0}Outer Switch. Value not handled yet. Value = {1:X2} in location {2}", tabLength, cOSEMData[cOSEMDataLocation], cOSEMDataLocation);
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Unknown type ({0:X2}) ***************** with ******************* {1:X2} elements", cOSEMData[9], cOSEMData[10]);
+                }
+            }
+
+            public void cOSEMDebug(string leadingText, List<byte> byteList, bool eol)
+            {
+                Console.WriteLine(leadingText);
+                foreach (byte b in byteList) Console.Write("{0:X2} ", b);
+                if (eol) Console.WriteLine();
+            }
+
+        }
+}
+

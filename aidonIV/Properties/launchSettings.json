@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "aidonIV": {
+      "commandName": "Project",
+      "remoteDebugEnabled": true,
+      "remoteDebugMachine": "rpi4-2",
+      "authenticationMode": "Windows"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+    "devices": [
+        {
+            "_id": "70:ee:50:3c:f4:20",
+            "station_name": "Ospestien 51 (Ospestien 51 inne)",
+            "date_setup": 1556983885,
+            "last_setup": 1556983885,
+            "type": "NAMain",
+            "last_status_store": 1614519095,
+            "module_name": "Ospestien 51 inne",
+            "firmware": 178,
+            "last_upgrade": 1556983886,
+            "wifi_status": 60,
+            "reachable": true,
+            "co2_calibrating": false,
+            "data_type": [
+                "Temperature",
+                "CO2",
+                "Humidity",
+                "Noise",
+                "Pressure"
+            ],
+            "place": {
+                "altitude": 90,
+                "city": "Asker",
+                "country": "NO",
+                "timezone": "Europe/Oslo",
+                "location": [
+                    10.4582596,
+                    59.8286559
+                ]
+            },
+            "home_id": "5ecff23b047437059b434584",
+            "home_name": "Ospestien 51",
+            "dashboard_data": {
+                "time_utc": 1614519093,
+                "Temperature": 26.7,
+                "CO2": 668,
+                "Humidity": 25,
+                "Noise": 47,
+                "Pressure": 1028.3,
+                "AbsolutePressure": 1017.4,
+                "min_temp": 23.9,
+                "max_temp": 26.7,
+                "date_max_temp": 1614519093,
+                "date_min_temp": 1614476983,
+                "temp_trend": "stable",
+                "pressure_trend": "stable"
+            },
+            "modules": [
+                {
+                    "_id": "02:00:00:3c:ed:4e",
+                    "type": "NAModule1",
+                    "module_name": "Ospestien 51 ute",
+                    "last_setup": 1556983916,
+                    "data_type": [
+                        "Temperature",
+                        "Humidity"
+                    ],
+                    "battery_percent": 87,
+                    "reachable": true,
+                    "firmware": 50,
+                    "last_message": 1614519092,
+                    "last_seen": 1614519066,
+                    "rf_status": 74,
+                    "battery_vp": 5764,
+                    "dashboard_data": {
+                        "time_utc": 1614519066,
+                        "Temperature": 10.8,
+                        "Humidity": 53,
+                        "min_temp": 3.2,
+                        "max_temp": 10.8,
+                        "date_max_temp": 1614518759,
+                        "date_min_temp": 1614492457,
+                        "temp_trend": "up"
+                    }
+                },
+                {
+                    "_id": "05:00:00:05:95:e0",
+                    "type": "NAModule3",
+                    "module_name": "Regnm\u00e5ler",
+                    "last_setup": 1556986681,
+                    "data_type": [
+                        "Rain"
+                    ],
+                    "battery_percent": 58,
+                    "reachable": true,
+                    "firmware": 12,
+                    "last_message": 1614519073,
+                    "last_seen": 1614519073,
+                    "rf_status": 86,
+                    "battery_vp": 5078,
+                    "dashboard_data": {
+                        "time_utc": 1614519073,
+                        "Rain": 0,
+                        "sum_rain_1": 0,
+                        "sum_rain_24": 0
+                    }
+                }
+            ]
+        }
+    ],
+    "user": {
+        "mail": "jkslettebakk@yahoo.no",
+        "administrative": {
+            "lang": "nb",
+            "reg_locale": "nb-NO",
+            "country": "NB_NO",
+            "unit": 0,
+            "windunit": 2,
+            "pressureunit": 0,
+            "feel_like_algo": 0
+        }
+    }
+}

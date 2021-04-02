@@ -1,0 +1,501 @@
+#define DEBUG
+#define DLSMDEBUG
+#define COSEMDEBUG
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO.Ports;
+using System.Text;
+using System.Text.Json;
+
+namespace Slettebakk_DLMS
+{
+    class DLMS
+    {
+        public List<byte> DLMSCOSEMlist = new List<byte>();
+        public byte frameFormatType { set; get; } // DLMS frame type 3 (iFrame) expected (0b1010/0xA)
+        public byte frameSegmentBit { set; get; }
+        public int dLMSframeLength { set; get; }  // DLMS datablock length without 0x7E start and stop flag
+        public static byte DLMSflag = 0x7E; // start flag indicator for DLMS frames (inclusive electric meeters)
+        public static byte frameFormatTypeMask = 0b11110000;
+        public static byte frameSegmentBitMask = 0b00001000;
+        public byte iFrame = 0b1010;   // value "ten" (10,0xA)
+        public byte sFrame = 0b0001;   // value "one" (1)
+        public byte uFrame = 0b0011;    // value "tre" (3)
+        public byte controlFlag;
+        public byte[] hcs = new byte[2];
+        public uint dLMSfcs;
+        public uint dLMSfcsInvert;
+        public uint dLMShcs;
+        public byte dLMScontrol;
+        public bool DLMSStartFlag = false;
+
+
+        class Crc16Class
+        {
+            private const ushort polynomial = 0x8408;
+            private static ushort[] table = new ushort[256];
+
+            static Crc16Class()
+            {
+                ushort value;
+                ushort temp;
+                for (ushort i = 0; i < table.Length; ++i)
+                {
+                    value = 0;
+                    temp = i;
+                    for (byte j = 0; j < 8; ++j)
+                    {
+                        if (((value ^ temp) & 0x0001) != 0)
+                        {
+                            value = (ushort)((value >> 1) ^ polynomial);
+                        }
+                        else
+                        {
+                            value >>= 1;
+                        }
+                        temp >>= 1;
+                    }
+                    table[i] = value;
+                }
+            }
+
+            public ushort ComputeChecksum(List<byte> data)
+            {
+                return ComputeChecksum(data, 0, data.Count);
+            }
+
+            public ushort ComputeChecksum(List<byte> data, int start, int length)
+            {
+                ushort fcs = 0xffff;
+                try
+                {
+                    for (int i = start; i < (start + length); i++)
+                    {
+                        var index = (fcs ^ data[i]) & 0xff;
+                        fcs = (ushort)((fcs >> 8) ^ table[index]);
+                    }
+                    fcs ^= 0xffff;
+                    return fcs;
+                }
+                catch
+                {
+                    Console.WriteLine("Error in ComputeChecksum");
+                    return 0;
+                }
+            }
+        }
+
+        class COSEMClass
+        {
+            List<byte> cOSEMHeadingData = new List<byte>();
+            List<byte> cOSEMData = new List<byte>();
+            int cosemHeadingDataLength = 9;
+            int cosemDataLength;
+            int dLMSstartCosemBlock = 9;
+            byte[] LLC = new byte[3]; // LLC (Logic Link Control) frame header, E6 E7 00
+            byte[] UIFrameHeade = new byte[6]; // (00 00 00 00)
+            public byte[] cOSEMtypeobject = new byte[2]; // Object or Array
+            string obisString = @"
+            {
+                ""b'\x01\x01\x00\x02\x81\xff'"" : ""test"",
+                ""b'\x00\x00\x60\x01\x00\xff'"" ; ""test2""
+            }";
+
+            public void cOSEMInitialize()
+            {
+                cOSEMtypeobject[0] = 0x02; // initialize to two
+                cOSEMtypeobject[1] = 0x00; // initiated to zero
+                Console.WriteLine("obisString={0}",obisString);
+                Console.WriteLine("cOSEMInitialize initialised");
+            }
+
+            void cOSEMHeading()
+            {
+                LLC[0] = cOSEMHeadingData[0]; // E6 (Aidon values? General meetering values?)
+                LLC[1] = cOSEMHeadingData[1]; // E7
+                LLC[2] = cOSEMHeadingData[2]; // 00
+                UIFrameHeade[0] = cOSEMHeadingData[3]; // 0F
+                UIFrameHeade[1] = cOSEMHeadingData[4]; // 40
+                UIFrameHeade[2] = cOSEMHeadingData[5]; // 00
+                UIFrameHeade[3] = cOSEMHeadingData[6]; // 00
+                UIFrameHeade[4] = cOSEMHeadingData[7]; // 00
+                UIFrameHeade[5] = cOSEMHeadingData[8]; // 00
+            }
+            void cOSEMDatataArray()
+            {
+
+            }
+            public void cOSEMDataBlock(List<byte> dLMScOSEMData)
+            {
+                cOSEMHeadingData.Clear(); // Prepare new COSEM data heading
+                cOSEMData.Clear(); // Prepare new COSEM data
+                for (int i = dLMSstartCosemBlock; i < dLMSstartCosemBlock + cosemHeadingDataLength; i++)  // extract COSEM heading from DLMS block
+                    cOSEMHeadingData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
+                for (int i = dLMSstartCosemBlock + cosemHeadingDataLength; i < dLMScOSEMData.Count - 3; i++)  // extract COSEM block from DLMS block
+                    cOSEMData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
+                // cosemHeadingDataLength = cOSEMHeadingData.Count;
+                cosemDataLength = cOSEMData.Count;
+
+                Console.WriteLine("cOSEMDataBlock called. Heading and Data list allocated.");
+
+                #if COSEMDEBUG
+                cOSEMDebug("Debug COSEM Data Heading:",cOSEMHeadingData,true);
+                #endif
+
+                cOSEMHeading();
+                Console.WriteLine("LLC=\t\t\t{0:X2} {1:X2} {2:X2}", LLC[0], LLC[1], LLC[2]);
+                Console.WriteLine("UI Frame Header=\t{0:X2} {1:X2}{2:X2}{3:X2}{4:X2} {5:X2}",
+                    UIFrameHeade[0], UIFrameHeade[1], UIFrameHeade[2], UIFrameHeade[3],UIFrameHeade[4],UIFrameHeade[5]);
+
+                #if COSEMDEBUG
+                cOSEMDebug("Debug COSEM Data:", cOSEMData, true );
+                #endif
+
+                Console.WriteLine("Analyse Cosem data block:");
+                if ( cOSEMData[0] == 0x01 ) // Array of cOSEMData[2] arrayes
+                {
+                    #if DEBUG
+                        Console.WriteLine("Debug: Array ({0:X2}) of {1:X2} array objects",cOSEMData[0],cOSEMData[1]);
+                        for (int i = 2; i < cosemDataLength; i++) // for debug purposes
+                            {
+                                Console.Write("{0:X2} ", cOSEMData[i]);
+                            }
+                            Console.WriteLine();
+                    #endif
+
+                    // cOSEMDatataArray(13);
+
+                    int cOSEMDataLocation = 1;
+                    int cOSEMDataLocationAdd = 1;
+                    Console.WriteLine("Loop count - {0}",cOSEMData[cOSEMDataLocation]);
+                    int loopElements = cOSEMData[cOSEMDataLocation];
+                    for ( int i = 0; i < loopElements; i++ ) // Loop trough all Array objects (normally 1 or 12 for Aidon; 01 0C)
+                    {
+                        Console.WriteLine("Outer loop. i = {0}, loopElements = {1}",i, loopElements);
+                        cOSEMDataLocation++; // Increase counters to start on "sctructure" elements
+                        cOSEMDataLocationAdd++;
+                        Console.WriteLine("Prepare switch. Loop counter ={0}, cOSEMDATALocation ={1} and cOSEMData[cOSEMDataLocation]={2:X2}",
+                            i,cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+                        string structJson = "{\n"; 
+                        switch (cOSEMData[cOSEMDataLocation++]) // switch on Structure (0x02) or .... (0x03) and prepare for length (++)
+                        {
+                            case 0x02: // Structure with 2 elements (COSEM Code + data Text about the Mettering system)
+                                Console.WriteLine("Inner Struct (0x02) loop. Loop from {0} to {1:X2}",0,cOSEMData[cOSEMDataLocation]);
+                                int k;
+                                int innerLoopElements = cOSEMData[cOSEMDataLocation];
+                                for ( int j = 0; j < innerLoopElements; j++)  // Start loop and increment to first element
+                                {
+                                    cOSEMDataLocation++; // increase counter to start on Structure elements
+                                    Console.WriteLine("In loop. j = {0}, Location is 4 first time. Is cOSEMDataLocation={1}, Octet or visible text = {2:X2}",
+                                        j, cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+                                    switch (cOSEMData[cOSEMDataLocation++])
+                                    {
+                                        case 0x09: // octet string, OBIS code (e.g 01.00.01.07.00.FF = Active Power Q1+Q4)
+                                            Console.Write("Obis Code: ");
+                                            structJson += "\'obis code\' : \"";
+                                            for ( k = (cOSEMDataLocation +1); k < (cOSEMDataLocation + 7); k++) 
+                                                {
+                                                    structJson += "\'" + (char) cOSEMData[k] + "\'";
+                                                    #if DEBUG
+                                                        Console.Write("{0:X2}.",cOSEMData[k]);
+                                                    #endif
+                                                }
+                                            #if DEBUG
+                                            Console.WriteLine();
+                                            #endif
+                                            structJson += ",\n"
+                                            cOSEMDataLocation = k - 1;
+                                            // Console.WriteLine("Next element 0x0A? {0:X2}",cOSEMData[cOSEMDataLocation + 6]);
+                                            break;  
+                                        case 0x0A: // Visible string
+                                            Console.Write("Visible string: ");
+                                            structJson += "\'String \' : \"";
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + (cOSEMData[cOSEMDataLocation]); k++) 
+                                                {
+                                                    structJson += "\'" + (char) cOSEMData[k] + "\'";
+                                                    #if DEBUG
+                                                    Console.Write("{0}",(char) cOSEMData[k]);
+                                                    #endif
+                                                }
+                                            #if DEBUG
+                                            Console.WriteLine();
+                                            #endif
+                                            structJson += "\n}";
+                                            cOSEMDataLocation = k - 1; // Last element used
+                                            // Console.WriteLine("Text loop done (k={0}). Current element={1:X2} and location is {2}",k,cOSEMData[cOSEMDataLocation],cOSEMDataLocation);
+                                            break;
+                                        default:
+                                            Console.WriteLine("Outer Switch. Value not handled yet. Value = {0:X2} in location {1}",cOSEMData[cOSEMDataLocation],cOSEMDataLocation);
+                                            break;
+                                    }
+                                };
+                                Console.WriteLine("Structure done. Result:\n{0}",structJson);
+
+                                break;
+                            case 0x03: // Structure with Metering data ()
+                                Console.WriteLine("Prepare Meetering Data Loop");
+                                innerLoopElements = cOSEMData[cOSEMDataLocation]; 
+                                for ( int j = 0; j < innerLoopElements; j++)
+                                {
+                                    cOSEMDataLocation++;
+                                    Console.WriteLine("In loop. j = {0}, Location is 4 first time. Is cOSEMDataLocation={1}, Octet or visible text = {2:X2}",
+                                        j, cOSEMDataLocation,cOSEMData[cOSEMDataLocation]);
+                                    switch (cOSEMData[cOSEMDataLocation++])
+                                    {
+                                        case 0x09: // octet string, OBIS code (e.g 01.00.01.07.00.FF = Active Power Q1+Q4)
+                                            Console.Write("Obis Code: ");
+                                            for ( k = (cOSEMDataLocation +1); k < (cOSEMDataLocation + 7); k++) Console.Write("{0:X2}.",cOSEMData[k]);
+                                            Console.WriteLine();
+                                            cOSEMDataLocation = k - 1;
+                                            // Console.WriteLine("Next element 0x0A? {0:X2}",cOSEMData[cOSEMDataLocation + 6]);
+                                            break;  
+                                        case 0x06: // Metering data power
+                                            Console.Write("Data type unsigned32 : ");
+                                            int unsignedLength = 10;
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + unsignedLength; k++) Console.Write("{0:X2}",cOSEMData[k]);
+                                            Console.WriteLine();
+                                            cOSEMDataLocation = k - 1; // Last element used
+                                            // Console.WriteLine("Text loop done (k={0}). Current element={1:X2} and location is {2}",k,cOSEMData[cOSEMDataLocation],cOSEMDataLocation);
+                                            break;
+                                        case 0x10: // Meetering data current L1 & L3
+                                            Console.Write("Data type Current L1 : ");
+                                            unsignedLength = 10;
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + unsignedLength; k++) Console.Write("{0:X2}",cOSEMData[k]);
+                                            Console.WriteLine();
+                                            cOSEMDataLocation = k - 1; // Last element used
+                                            // Console.WriteLine("Text loop done (k={0}). Current element={1:X2} and location is {2}",k,cOSEMData[cOSEMDataLocation],cOSEMDataLocation);
+                                            break;
+                                        case 0x12: // Meetering data Phase VL1 & VL2 & VL3
+                                            Console.Write("Data type Phase VL1 & VL2 & VL3 : ");
+                                            unsignedLength = 8;
+                                            for (k = (cOSEMDataLocation + 1); k < (cOSEMDataLocation + 1) + unsignedLength; k++) Console.Write("{0:X2}",cOSEMData[k]);
+                                            Console.WriteLine();
+                                            cOSEMDataLocation = k - 1; // Last element used
+                                            // Console.WriteLine("Text loop done (k={0}). Current element={1:X2} and location is {2}",k,cOSEMData[cOSEMDataLocation],cOSEMDataLocation);
+                                            break;
+                                        default:
+                                            Console.WriteLine("Outer Switch. Value not handled yet. Value = {0:X2} in location {1}",cOSEMData[cOSEMDataLocation],cOSEMDataLocation);
+                                            break;
+                                    }
+                                }
+                                Console.WriteLine("Structure done");
+                                break;
+                            default:
+                                Console.WriteLine("Outer Switch. Value not handled yet. Value = {0:X2} in location {1}",cOSEMData[cOSEMDataLocation],cOSEMDataLocation);
+                                break;
+                        }
+                    }
+                }
+                else if ( cOSEMData[dLMSstartCosemBlock] == 0x02 ) // Structure with cOSEMData[10] elements
+                {
+                    Console.WriteLine("Structure ({0:X2}) of {1:X2} elements",cOSEMData[dLMSstartCosemBlock],cOSEMData[dLMSstartCosemBlock+1]);
+                    for (int i = 11; i < cosemDataLength; i++) // for debug purposes
+                    {
+                        Console.Write("{0:X2} ", cOSEMData[i]);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Unknown type ({0:X2}) with {1:X2} elements",cOSEMData[9],cOSEMData[10]);
+                }
+            }
+            public void cOSEMDebug(string leadingText, List<byte> byteList, bool eol )
+            {
+                Console.WriteLine(leadingText);
+                foreach (byte b in byteList) Console.Write("{0:X2} ", b);
+                if (eol) Console.WriteLine();
+            }
+
+        }
+
+        public void readDLMSstreamFromHAN(SerialPort sp)
+        {
+            if (!sp.IsOpen) sp.Open();
+            DLMSCOSEMlist.Clear(); // Prepare and start with empthy list
+            int HANbufferLength;
+            int bytesProcessed;
+            COSEMClass cOSEM = new COSEMClass();
+            cOSEM.cOSEMInitialize();
+
+            try
+            {   // now, loop forever reading and prosessing HAN port data
+
+                while (true)
+                {
+                    HANbufferLength = sp.BytesToRead; // get number of available bytes on HAN device
+                    bytesProcessed = 0;  // validate if we have processes all bytes in HAN buffer
+                    byte[] byteBuffer = new byte[HANbufferLength]; // preapare HAN data buffer
+
+                    for (int i = 0; i < HANbufferLength; i++) byteBuffer[i] = (byte)sp.ReadByte(); // Read all data in HAN device to byteBuffer
+
+                    if (byteBuffer.Length != HANbufferLength)
+                        Console.WriteLine(" ******************   ERROR reading HAN port   ****************");
+
+                    // Console.WriteLine("\nBytes read from HAN meeter:{0}", HANbufferLength);
+                    for (int i = 0; i < HANbufferLength; i++)
+                    {
+                        if (byteBuffer[i] == DLMSflag)
+                        {
+                            if (i + 1 < HANbufferLength)
+                                if ((frameType(byteBuffer[i + 1]) == iFrame))
+                                {
+                                    // Console.Write("\nNew 0x7E & iFrame block!\n{0:X2} ", byteBuffer[i]);
+                                    // Is old block prosessed?
+                                    if (DLMSStartFlag)
+                                    {
+                                        DLMSCOSEMlist.Add(byteBuffer[i]); // add last 0x7E flag
+                                        Console.WriteLine("\n3) Complete block? Add 0x7E");
+                                        DLMSCOSEMCompleteBlock(DLMSCOSEMlist);
+                                    }
+                                    DLMSCOSEMlist.Add(byteBuffer[i]); // add first 0x7E flag 
+                                    DLMSStartFlag = true;
+                                }
+                                else
+                                {
+                                    DLMSCOSEMlist.Add(byteBuffer[i]);
+                                    // but do we have a start?
+                                    if (DLMSStartFlag) // yes, full block
+                                    {
+                                        // Console.WriteLine("{0:X2}\nComplete block. Process...", byteBuffer[i]);
+                                        Console.WriteLine("\n2) Complete block...");
+                                        DLMSCOSEMCompleteBlock(DLMSCOSEMlist);
+                                        DLMSStartFlag = false;
+                                    }
+
+                                }
+                            else
+                            {
+                                DLMSCOSEMlist.Add(byteBuffer[i]);
+                                if (DLMSStartFlag)
+                                {
+                                    Console.WriteLine("\n1) Complete block. Process...");
+                                    DLMSCOSEMCompleteBlock(DLMSCOSEMlist);
+                                    DLMSStartFlag = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            DLMSCOSEMlist.Add(byteBuffer[i]);
+                            // Console.Write("{0:X2} ", byteBuffer[i]);
+                        }
+                        bytesProcessed = i + 1;
+                    }
+                    // Console.WriteLine("");
+                    // ready to start first DLMS block
+                    // Console.WriteLine("\nBytes prosessed:{0}. All bytes={1}", bytesProcessed, bytesProcessed == HANbufferLength);
+                    System.Threading.Thread.Sleep(1510); // Sleep 1.51s
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\nAbnormal exit:\n{0}", ex);
+                sp.Close();
+                sp.Dispose();
+                return;
+            }
+        }
+
+        public bool frame(byte dlsmFrameByte1, byte dlsmFrameByte2)
+        {
+            if (dlsmFrameByte1 == 0 || dlsmFrameByte2 == 0) Console.WriteLine("Error in DLMS byte input.");
+            frameFormatType = (byte)((dlsmFrameByte1 & frameFormatTypeMask) >> 4);
+            if (frameFormatType == 0) Console.WriteLine("Error in xFrame calculation.");
+            frameSegmentBit = (byte)(((dlsmFrameByte1) & frameSegmentBitMask) >> 3);
+            dLMSframeLength = ((dlsmFrameByte1 & 0b00000111) << 8) | dlsmFrameByte2;
+            Console.WriteLine("frame. Byte1={0:x2}, byte2={1:x2} FrameFormatType={2},frameSegmentBit={3},dLMSframeLength={4}", frameFormatType, frameSegmentBit, dLMSframeLength);
+            if (frameFormatType == iFrame)
+            {
+                DLMSStartFlag = true;
+                return true;
+            }
+            else
+                return false;
+        }
+        public void dLMSframePropertyData(List<byte> dlmsDataBlock)
+        {
+            // Pull out the the DLMS header data and set the DLMS c# variable
+            frameFormatType = (byte)((dlmsDataBlock[1] & frameFormatTypeMask) >> 4);
+            frameSegmentBit = (byte)((dlmsDataBlock[1] & frameSegmentBitMask) >> 3);
+            dLMSframeLength = ((dlmsDataBlock[1] & 0b00000111) << 8) | dlmsDataBlock[2];
+            Console.WriteLine("Frame heading data:\nFrameFormatType={0}, frameSegmentBit={1:X2},dLMSframeLength={2}", frameFormatType, frameSegmentBit, dLMSframeLength);
+        }
+        public byte frameType(byte b)
+        {
+            return (byte)(((b) & frameFormatTypeMask) >> 4);
+        }
+
+        public int FrameLength(byte dlsmFrameByte1, byte dlsmFrameByte2)
+        {
+            frameSegmentBit = (byte)(((dlsmFrameByte1) & frameSegmentBitMask) >> 3);
+            dLMSframeLength = ((dlsmFrameByte1 & 0b00000111) << 8) | dlsmFrameByte2;
+            Console.WriteLine("dlsmFrameByte1&0b00000111={0},dlsmFrameByte2={1},Frame length = {2}", ((dlsmFrameByte1 & 0b00000111) << 8), dlsmFrameByte2, dLMSframeLength);
+            return dLMSframeLength;
+        }
+
+        public void dLMSControlHscFcs(byte control, byte hcs1, byte hcs2, byte fcs1, byte fcs2) // Frame Check Sequence calculation
+        {
+            dLMSfcs = (ushort)((fcs1 << 8) + fcs2);
+            dLMSfcsInvert = (ushort)((fcs2 << 8) + fcs1);
+            dLMShcs = (ushort)((hcs1 << 8) + hcs2);
+            dLMScontrol = control;
+            // Console.WriteLine("control byte={0:X2}, dLMSfcs={1:X4}({1}) and dLMShcs={2:X4}({2}) in Frame Check Sequence block.", dLMScontrol, dLMSfcs, dLMShcs);
+            // Console.WriteLine("fcs inverted ={0:X4} ({0}))", dLMSfcsInvert);
+        }
+        public bool hDLCinformation(byte[] information)
+        {
+            return true;
+        }
+        public bool hDLChCS(byte dlsmFrameByte1, byte dlsmFrameByte2) // Header Check Sequence
+        {
+            hcs[0] = dlsmFrameByte1;
+            hcs[1] = dlsmFrameByte2;
+            return true;
+        }
+        public bool HDLCcontroll(byte Controll)
+        {
+            controlFlag = Controll;
+            return true;
+        }
+        public bool HDLCcosemInformation(string cosemData)
+        {
+            byte[] cosemBytes = Encoding.ASCII.GetBytes(cosemData);
+            Console.WriteLine("Cosem bytes ({0}) to analyse:", cosemBytes.Length);
+            for (int i = 0; i < cosemBytes.Length; i++)
+                Console.Write("{0:X2} ", cosemBytes[i]);
+            Console.WriteLine(" ");
+            return true;
+        }
+        public void DLMSCOSEMCompleteBlock(List<byte> dLMSCOSEMData)
+        {
+            COSEMClass cOSEM = new COSEMClass();
+            Crc16Class crc = new Crc16Class();
+
+            dLMSframePropertyData(dLMSCOSEMData);  // Update heading data
+            dLMSControlHscFcs(dLMSCOSEMData[5], dLMSCOSEMData[6], dLMSCOSEMData[7], dLMSCOSEMData[dLMSCOSEMData.Count - 3], dLMSCOSEMData[dLMSCOSEMData.Count - 2]); // Calculate control, hcs and fcs
+
+            if (dLMSfcsInvert == crc.ComputeChecksum(dLMSCOSEMData, 1, dLMSframeLength - 2)) // typical "7E........ A36E7E", dLMSfcsInvert=6EA3
+            {
+
+                Console.WriteLine("DLSMCOSEM datablock:\nList length={0}\nDLMS block length={1},\nValidity (List length and DLMS lengt match)={2}\nFull DLMS data result:", dLMSCOSEMData.Count, dLMSframeLength, (dLMSCOSEMData.Count - 2) == dLMSframeLength && dLMSCOSEMData[0] == dLMSCOSEMData[dLMSframeLength + 1]);
+                dLMSCOSEMDebug("Frame Check ok! DLMS and COSEM block complete",dLMSCOSEMData,true);
+
+                cOSEM.cOSEMDataBlock(dLMSCOSEMData);
+
+            }
+            else
+                Console.WriteLine("Frame Check failed. DLMS and/or COSEM block error");
+            DLMSCOSEMlist.Clear();
+            DLMSStartFlag = false;            
+        }
+        public void dLMSCOSEMDebug(string leadingText, List<byte> byteList, bool eol )
+        {
+            Console.WriteLine(leadingText);
+            foreach (byte b in byteList) Console.Write("{0:X2} ", b);
+            if (eol) Console.WriteLine();
+        }
+
+    }
+}

@@ -1,0 +1,60 @@
+	"sensorVpReturTemp": "32.25",
+	"sensorGulvTurTankTemp": "31.062",
+	"sensorGulvReturTankTemp": "24.25"
+}
+HTTPSResult POST result =  201
+
+Reading number  213050
+Sensor: 0 (sensorTankTemp), Sensor ID: 28-0516938152ff Temperature: 37.1 and diff 0.0
+Sensor: 1 (sensorVpTurTemp), Sensor ID: 28-02189245921a Temperature: 51.2 and diff 0.1
+Sensor: 2 (sensorVpReturTemp), Sensor ID: 28-021892457738 Temperature: 32.2 and diff 0.1
+Sensor: 3 (sensorGulvTurTankTemp), Sensor ID: 28-0516938e3cff Temperature: 31.1 and diff 0.0
+Sensor: 4 (sensorGulvReturTankTemp), Sensor ID: 28-0209924508c6 Temperature: 24.2 and diff 0.0
+Sleeping  10.0 sec.
+Has been running for ; 35  day(s),  16.434722222222224  hr(s),  26.083333333333332  min and  5 sec.
+
+Skipped storing  24.25C at 2019-11-12 13:44:35 (1.0% compared to  36.94C (diff tank  0.00 (diff VP  0.00)). Polling every 10.0s.
+
+Reading number  213051
+Sensor: 0 (sensorTankTemp), Sensor ID: 28-0516938152ff Temperature: 37.1 and diff 0.0
+Sensor: 1 (sensorVpTurTemp), Sensor ID: 28-02189245921a Temperature: 50.8 and diff 0.4
+Sensor: 2 (sensorVpReturTemp), Sensor ID: 28-021892457738 Temperature: 32.1 and diff 0.1
+Sensor: 3 (sensorGulvTurTankTemp), Sensor ID: 28-0516938e3cff Temperature: 31.1 and diff -0.1
+Sensor: 4 (sensorGulvReturTankTemp), Sensor ID: 28-0209924508c6 Temperature: 24.2 and diff 0.0
+Sleeping  10.0 sec.
+Has been running for ; 35  day(s),  16.43888888888889  hr(s),  26.333333333333332  min and  20 sec.
+
+Skipped storing  24.25C at 2019-11-12 13:44:50 (1.0% compared to  36.94C (diff tank  0.00 (diff VP  0.01)). Polling every 10.0s.
+
+Reading number  213052
+Sensor: 0 (sensorTankTemp), Sensor ID: 28-0516938152ff Temperature: 37.1 and diff 0.0
+Sensor: 1 (sensorVpTurTemp), Sensor ID: 28-02189245921a Temperature: 50.6 and diff 0.2
+Sensor: 2 (sensorVpReturTemp), Sensor ID: 28-021892457738 Temperature: 32.1 and diff 0.0
+Sensor: 3 (sensorGulvTurTankTemp), Sensor ID: 28-0516938e3cff Temperature: 31.1 and diff 0.0
+Sensor: 4 (sensorGulvReturTankTemp), Sensor ID: 28-0209924508c6 Temperature: 24.2 and diff 0.0
+Sleeping  10.0 sec.
+Has been running for ; 35  day(s),  16.442777777777778  hr(s),  26.566666666666666  min and  34 sec.
+json:
+ {
+	"sensorTankTimeStamp": "2019-11-12 13:45:04",
+	"sensorTankTemp": "37.062",
+	"sensorVpTurTemp": "50.625",
+	"sensorVpReturTemp": "32.125",
+	"sensorGulvTurTankTemp": "31.125",
+	"sensorGulvReturTankTemp": "24.25"
+}
+HTTPSResult POST result =  201
+
+Reading number  213053
+Sensor: 0 (sensorTankTemp), Sensor ID: 28-0516938152ff Temperature: 37.1 and diff -0.1
+Traceback (most recent call last):
+  File "/home/pi/Documents/vp.py", line 178, in <module>
+    print( 'Error in prosessing sensors:\n', e)
+NameError: name 'e' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pi/Documents/vp.py", line 182, in <module>
+    print( 'Error in try: sensor data extract:\n', e)
+NameError: name 'e' is not defined

@@ -1,0 +1,41 @@
+[
+    {
+        "Adress": "Ospestien 51 (Ospestien 51 inne)",
+        "netatmoSensorTimeStamp": "Sun Feb 28 14:31:35 2021",
+        "indorTemperature": {
+            "value": 26.7,
+            "unit": "c"
+        },
+        "atmosphericPressure": {
+            "value": 1028.3,
+            "unit": "mbar"
+        },
+        "indorCO2Level": {
+            "value": 668,
+            "unit": "ppm"
+        },
+        "indorHumidity": {
+            "value": 25,
+            "unit": "%"
+        },
+        "indorDataCaptureTimeStampe": "Sun Feb 28 14:31:33 2021",
+        "outdorTemperature": {
+            "value": 10.8,
+            "unit": "c"
+        },
+        "outdorTemperatureTrend": {
+            "value": "up",
+            "unit": "trend"
+        },
+        "outdorHumidity": {
+            "value": 53,
+            "unit": "%"
+        },
+        "outdorPrecipitation": "Rain",
+        "outdorAmount": {
+            "value": 0,
+            "unit": "mm"
+        },
+        "outdorPrecipitationTimeStamp": "Sun Feb 28 14:31:06 2021"
+    }
+]
