@@ -11,7 +11,6 @@ c) Interpreate OBIS objects and treat their data
 d) send json block of data per OBIS object to the database
 
 Typical DLMS block from Kamstrup:
-
                                                       |-> COSEM block
 7E A0 E2 2B 21 13 23 9A E6 E7 00 0F 00 00 00 00 0C 07 E5 04 02 05 17 1A 1E FF 80 00 00 02
 19 0A 0E 4B 61 6D 73 74 72 75 70 5F 56 30 30 30 31 09 06 01 01 00 00 05 FF 0A 10 35 37 30
@@ -22,7 +21,6 @@ Typical DLMS block from Kamstrup:
                                                               COSEM block ->|
 
 Typical DLMS block from Aidon:
-
                                                      |-> Aidon COSEM block
 7E A1 0B 41 08 83 13 FA 7C E6 E7 00 0F 40 00 00 00 00 01 0C 02 02 09 06 01 01 00 02 81 FF
 0A 0B 41 49 44 4F 4E 5F 56 30 30 30 31 02 02 09 06 00 00 60 01 00 FF 0A 10 37 33 35 39 39
