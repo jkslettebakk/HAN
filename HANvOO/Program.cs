@@ -25,7 +25,7 @@ namespace HAN_Metering_System
             serialPort.Parity = Parity.None; // 0=None, 1=Odd, 2=Even, 3=Mark, 4=Space
 #endif
             bool portOk = false;
-
+            
         Console.Write("Available Ports");
         foreach (string s in SerialPort.GetPortNames())
         {
