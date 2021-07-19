@@ -149,6 +149,7 @@ namespace HAN_DLMS
                 return;
             }
         }
+
         public void dLMSframePropertyData(List<byte> dlmsDataBlock)
         {
             // Pull out the the DLMS header data and set the DLMS c# variable
@@ -165,6 +166,7 @@ namespace HAN_DLMS
                 Console.WriteLine();
 #endif
         }
+
         public byte frameType(byte b)
         {
             return (byte)(((b) & frameFormatTypeMask) >> 4);
