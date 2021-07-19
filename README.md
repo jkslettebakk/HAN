@@ -1,4 +1,4 @@
-# HAN (Home Automation Network)
+# HAN \#(Home Automation Network)
 
 This is a dotnet core (3.1) c# project aiming to
 
