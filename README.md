@@ -1,6 +1,6 @@
-# HAN
+# HAN (Home Automation Network)
 
-Home Area Network - a dotnet core (3.1) c# project aiming to
+This is a dotnet core (3.1) c# project aiming to
 
 a) Read DLMS data fram HAN port and compleatly decififer and pull out a DLMS data block (0x7E..............0x7E)
 
