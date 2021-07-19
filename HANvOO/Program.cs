@@ -26,7 +26,7 @@ namespace HAN_Metering_System
 #endif
             bool portOk = false;
 
-        Console.Write("Available Ports");
+        Console.Write("Available Ports on this system");
         foreach (string s in SerialPort.GetPortNames())
         {
             Console.Write("; {0}", s);
@@ -35,10 +35,11 @@ namespace HAN_Metering_System
         Console.WriteLine();
 
         if ( !portOk ) {
-            Console.WriteLine("Port name spesified \"{0}\" not found on this system.",serialPort.PortName);
+            Console.WriteLine("Port name expected/spesified=\"{0}\" not found on this system.",serialPort.PortName);
             Console.WriteLine("Program exception thrown and program stops.");
-            throw new InvalidProgramException("Could not find serial port \"" + serialPort.PortName + "\"");
-            Environment.Exit(-1);
+            // throw new InvalidProgramException("Could not find serial port \"" + serialPort.PortName + "\"");
+            Environment.ExitCode = -1;
+            Environment.Exit(Environment.ExitCode);
         }
 
             // serialPort.ReadTimeout = 1000; // 1 second
