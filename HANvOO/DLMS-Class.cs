@@ -62,12 +62,7 @@ namespace HAN_DLMS
 #endif
                     for (int i = 0; i < HANbufferLength; i++) byteBuffer[i] = (byte)sp.ReadByte(); // Read all data in HAN device to byteBuffer
 #if DLMSDEBUG
-                    for( int i=0; i < byteBuffer.Length; i++)
-                    {
-                        if ( (i % writeWidth ) == 0 ) Console.WriteLine();
-                        Console.Write("{0:X2} ",byteBuffer[i]);
-                    }
-                    Console.WriteLine();
+                    displayByteBuffer( byteBuffer );
 #endif
 
                     if (byteBuffer.Length != HANbufferLength)
@@ -159,11 +154,11 @@ namespace HAN_DLMS
 #if DLMSDEBUG
                 Console.WriteLine("Frame heading data:\nFrameFormatType={0}, frameSegmentBit={1:X2}, dLMSframeLength={2}, dlmsDataBlock.Count={3}", frameFormatType, frameSegmentBit, dLMSframeLength,dlmsDataBlock.Count);
                 for( int i = 0; i < dlmsDataBlock.Count; i++ )
-                {
-                    if ( i % writeWidth == 0 ) Console.WriteLine();
-                    Console.Write("{0:X2} ",dlmsDataBlock[i]);
-                }
-                Console.WriteLine();
+                    {
+                        if ( i % writeWidth == 0 ) Console.WriteLine();
+                        Console.Write("{0:X2} ",dlmsDataBlock[i]);
+                    }
+                    Console.WriteLine();
 #endif
         }
 
@@ -218,16 +213,22 @@ namespace HAN_DLMS
             else
             {
                 Console.WriteLine("Frame Check failed. Calculated CRC={0:X2}. DLMS data block error. Block =",crcCalculatedValue);
-                for (int i = 0; i < dLMSCOSEMData.Count; i++)
-                {
-                    if ( (i % writeWidth) == 0 ) Console.WriteLine();    
-                    Console.Write("{0:X2} ", dLMSCOSEMData[i]);                    
-                }
-                Console.WriteLine();
+                cOSEM.displayListBuffer( dLMSCOSEMData );
             }
 
             DLMSCOSEMlist.Clear();
             DLMSStartFlag = false;
+        }
+
+        public void displayByteBuffer( byte[] byteBuffer )
+        {
+            for( int i=0; i < byteBuffer.Length; i++)
+                {
+                    if ( i != 0 )
+                        if ( (i % writeWidth ) == 0 ) Console.WriteLine();
+                    Console.Write("{0:X2} ",byteBuffer[i]);
+                }
+                Console.WriteLine();
         }
     }
 }

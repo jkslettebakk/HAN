@@ -28,6 +28,7 @@ namespace HAN_COSEM
             public byte[] cOSEMtypeobject = new byte[2]; // Object or Array
             public string tabLength = "\t";
             obisCodesClass obisCode = new obisCodesClass();
+            const byte writeWidth = 30;
 
             public void cOSEMInitialize()
             {
@@ -79,8 +80,12 @@ namespace HAN_COSEM
                 cOSEMData.Clear(); // Prepare new COSEM data
                 for (int i = dLMSstartCosemBlock; i < dLMSstartCosemBlock + cosemHeadingDataLength; i++)  // extract COSEM heading from DLMS block
                     cOSEMHeadingData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
+                    Console.WriteLine("COSEM header data extracted from DLMS block:");
+                    displayListBuffer( cOSEMHeadingData );
                 for (int i = dLMSstartCosemBlock + cosemHeadingDataLength; i < dLMScOSEMData.Count - 3; i++)  // extract COSEM block from DLMS block
                     cOSEMData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
+                    Console.WriteLine("COSEM data (with OBIS codes) extracted from DLMS block:");
+                    displayListBuffer( cOSEMData );
                 // cosemHeadingDataLength = cOSEMHeadingData.Count;
                 cosemDataLength = cOSEMData.Count;
                 cOSEMHeading();
@@ -294,6 +299,17 @@ namespace HAN_COSEM
                 Console.WriteLine(leadingText);
                 foreach (byte b in byteList) Console.Write("{0:X2} ", b);
                 if (eol) Console.WriteLine();
+            }
+
+            public void displayListBuffer( List<byte> listBuffer )
+            {
+                for( int i = 0; i < listBuffer.Count; i++ )
+                {
+                    if ( i != 0 )
+                        if ( i % writeWidth == 0 ) Console.WriteLine();
+                    Console.Write("{0:X2} ",listBuffer[i]);
+                }
+                Console.WriteLine();
             }
 
         }
