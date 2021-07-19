@@ -1,13 +1,10 @@
 
 Rewrite HAN Reader to better use the OBIS object code structure
 
-Class & Object structure based upon
-
-COSEM   - COmpanion Specification for Energy Metering (code for text, numbers etc in meetering systems)
-
-DLMS    - Device Language Message Specification
-
-OBIS    - Object Identification System - Energy Meetering system (Electricity/Gas/Water etc) objects
+Class & Object structure based upon:
+*   COSEM   - COmpanion Specification for Energy Metering (code for text, numbers etc in meetering systems)
+*   DLMS    - Device Language Message Specification
+*   OBIS    - Object Identification System - Energy Meetering system (Electricity/Gas/Water etc) objects
 
 Read more here:    https://en.wikipedia.org/wiki/IEC_62056
 
