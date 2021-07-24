@@ -1,5 +1,6 @@
 #define DLMSDEBUG
 #define CRCDEBUG
+#define KAMSTRUP
 #undef CRCCHECK
 
 using System;
@@ -37,10 +38,6 @@ namespace HAN_DLMS
         int waitBetweenRead = 1510; // 1.51 second
         string KamstrupDate;
         const byte writeWidth = 30;
-#if KAMSTRUP
-        waitBetweenRead = 10000; // 10 second
-
-#endif
 
         public void readDLMSstreamFromHAN(SerialPort sp)
         {
@@ -48,6 +45,9 @@ namespace HAN_DLMS
             DLMSCOSEMlist.Clear(); // Prepare and start with empthy list
             int HANbufferLength = 0;
             int bytesProcessed = 0;
+#if KAMSTRUP
+            waitBetweenRead = 10000; // 10 second
+#endif
 
             try
             {   // now, loop forever reading and prosessing HAN port data
