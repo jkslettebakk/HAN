@@ -157,9 +157,11 @@ namespace HANOOUserConfigurationParameters
 
         }
 
-        public UserConfigurationParameters getPortParameters( )
+        public SerialPort getPortParameters()
         {
-            return parameters.HANOODeviceData;
+            SerialPort portData = new SerialPort();
+            portData.PortName = OOUserConfigurationParameters.HANOODeviceData.serialPortName;
+            return portData;
         }
 
         public void getHANOptions( string[] args )

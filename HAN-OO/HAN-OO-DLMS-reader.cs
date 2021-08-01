@@ -4,8 +4,8 @@ namespace HANDLMS
     public class OO_HAN_DLMS_Read
     {
         public SerialPort serialPort = new SerialPort();
-        public OOUserConfigurationParameters ucpPort = new OOUserConfigurationParameters();
         public OOUserConfigurationParameters.UserConfigurationParameters ucp = new OOUserConfigurationParameters.UserConfigurationParameters();
+        public OOUserConfigurationParameters ucpPortData = new OOUserConfigurationParameters();
         public byte[] HANData = new byte[100];
 
         public void OO_HAN_DLMS_Open()
@@ -21,7 +21,7 @@ namespace HANDLMS
 
         public void OO_HAN_DLMS_ReadData( )
         {
-            ucpPort.getPortParameters();
+            serialPort = ucpPortData.getPortParameters();
             Console.WriteLine("Prepare reading HAN port:{0}",ucp.HANOODeviceData.serialPortName);
             serialPort.PortName = ucp.HANOODeviceData.serialPortName;
             serialPort.BaudRate = ucp.HANOODeviceData.serialPortBaud;
