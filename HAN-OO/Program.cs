@@ -1,27 +1,22 @@
-﻿using System;
-using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using HANOOUserConfigurationParameters;
-
+﻿
 namespace HAN_OO
 {
-
     class Program
     {
 
         public static async Task Main(string[] args)
         {
             int HANPortLoops = 0;
-            OOUserConfigurationParameters uCP = new OOUserConfigurationParameters();
+            OOUserConfigurationParameters uCP = new OOUserConfigurationParameters(); // Initiate objects config data in JSON file 
+            OO_HAN_DLMS_Read dlmsRead = new OO_HAN_DLMS_Read();
             
             Console.WriteLine("Hello \"DLSM-COSEM-OBIS\" World!");
             // fetch parameters like -HAN-Device <name> (e.g. AIDON, KAMSTRUP)
             // han-oo --help to se all
             //
-            await uCP.analyseConfigFile();
-            uCP.getHANOptions( args );
+            await uCP.analyseConfigFile();  // Reading config JSON file
+            uCP.getHANOptions( args ); // Modify config data by command line parameters, if any
+            dlmsRead.OO_HAN_DLMS_ReadData(); // start reading DLMS data
             
             do
             {

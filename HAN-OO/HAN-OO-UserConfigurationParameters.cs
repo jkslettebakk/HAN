@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace HANOOUserConfigurationParameters
 {
@@ -28,6 +23,30 @@ namespace HANOOUserConfigurationParameters
 
             [JsonPropertyName("PostName")]
             public string PostName { get; set; }
+        }
+
+        public class HANOODeviceData
+        {
+            [JsonPropertyName("Comment")]
+            public string Comment { get; set; }
+
+            [JsonPropertyName("HANDeviceName")]
+            public string HANDeviceName { get; set; }
+
+            [JsonPropertyName("serialPortName")]
+            public string serialPortName { get; set; }
+
+            [JsonPropertyName("serialPortBaud")]
+            public int serialPortBaud { get; set; }
+
+            [JsonPropertyName("serialPortParity")]
+            public Parity serialPortParity { get; set; }
+
+            [JsonPropertyName("serialPortDataBits")]
+            public int serialPortDataBits { get; set; }
+
+            [JsonPropertyName("serialPortStopBits")]
+            public StopBits serialPortStopBits { get; set; }
         }
 
         public class HANOOParameters
@@ -75,12 +94,19 @@ namespace HANOOUserConfigurationParameters
             [JsonPropertyName("HANOODetails")]
             public HANOODetails HANOODetails { get; set; }
 
+            [JsonPropertyName("HANOODeviceData")]
+            public HANOODeviceData HANOODeviceData { get; set; }
+
             [JsonPropertyName("HANOODefaultParameters")]
             public HANOODefaultParameters HANOODefaultParameters { get; set; }
 
             [JsonPropertyName("HANOOParameters")]
             public HANOOParameters HANOOParameters { get; set; }
+        }
 
+        public OOUserConfigurationParameters()
+        {
+            Console.WriteLine("Initialising/preparing \"OOUserConfigurationParameters\" objects and user data.");
         }
 
         public void displayParameters( UserConfigurationParameters parameters )
@@ -92,6 +118,15 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("parameters.HANOODetails.Phone: {0}",parameters.HANOODetails.Phone);
             Console.WriteLine("parameters.HANOODetails.Street: {0}",parameters.HANOODetails.Street);
             Console.WriteLine("parameters.HANOODetails.PostNumber & details.HANOODetails.PostName: {0} {1}", parameters.HANOODetails.PostNumber, parameters.HANOODetails.PostName );
+            Console.WriteLine("**************************************************");
+            Console.WriteLine("parameters.HANOODeviceData.Comment: {0}",parameters.HANOODeviceData.Comment);
+            Console.WriteLine("parameters.HANOODeviceData.HANDeviceName: {0}",parameters.HANOODeviceData.HANDeviceName);
+            Console.WriteLine("parameters.HANOODeviceData.serialPortName: {0}",parameters.HANOODeviceData.serialPortName);
+            Console.WriteLine("parameters.HANOODeviceData.serialPortBaud: {0}",parameters.HANOODeviceData.serialPortBaud);
+            Console.WriteLine("parameters.HANOODeviceData.serialPortParity: {0}",parameters.HANOODeviceData.serialPortParity);
+            Console.WriteLine("parameters.HANOODeviceData.serialPortDataBits: {0}",parameters.HANOODeviceData.serialPortDataBits);
+            Console.WriteLine("parameters.HANOODeviceData.serialPortStopBits: {0}",parameters.HANOODeviceData.serialPortStopBits);
+
             Console.WriteLine("**************************************************");
             Console.WriteLine("parameters.HANOODefaultParameters.Comment: {0}",parameters.HANOODefaultParameters.Comment);
             Console.WriteLine("parameters.HANOODefaultParameters.Log: {0}",parameters.HANOODefaultParameters.Log);
@@ -120,6 +155,11 @@ namespace HANOOUserConfigurationParameters
 
             displayParameters( userConfigurationParameters );
 
+        }
+
+        public UserConfigurationParameters getPortParameters( )
+        {
+            return parameters.HANOODeviceData;
         }
 
         public void getHANOptions( string[] args )
