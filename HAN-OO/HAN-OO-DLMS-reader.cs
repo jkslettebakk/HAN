@@ -3,35 +3,20 @@ namespace HANDLMS
 {
     public class OO_HAN_DLMS_Read
     {
-        // public OOUserConfigurationParameters.UserConfigurationParameters ucp = new OOUserConfigurationParameters.UserConfigurationParameters();
-        public OOUserConfigurationParameters.UserConfigurationParameters ucp;
-        public OOUserConfigurationParameters ucpPortData = new OOUserConfigurationParameters();
-        public byte[] HANData = new byte[100];
+        SerialPort serialPort = new SerialPort();
+        OOUserConfigurationParameters.UserConfigurationParameters ucp = new OOUserConfigurationParameters.UserConfigurationParameters();
+        byte[] HANData = new byte[100];
 
-        public void OO_HAN_DLMS_Open( SerialPort serialPort )
+        public OO_HAN_DLMS_Open()
         {
             Console.WriteLine("Opening port:{0}",ucp.HANOODeviceData.serialPortName);
             serialPort.Open();
-            Console.WriteLine("Port open:{0}",ucp.HANOODeviceData.serialPortName);
-            serialPort.Close();
         }
 
         public OO_HAN_DLMS_Read()
-        {   // HANOODeviceData.HANDeviceName
-            Console.WriteLine("Initialising/preparing \"HANDLMS\" objects and port reading");
-        }
-
-        public void OO_HAN_DLMS_ReadData( SerialPort serialPort )
         {
-            serialPort = ucpPortData.getPortParameters( serialPort );
-            Console.WriteLine("Input port:{0}",serialPort.PortName);
-            Console.WriteLine("Prepare reading HAN port:{0}",ucp.HANOODeviceData.serialPortName);
-            serialPort.PortName = ucp.HANOODeviceData.serialPortName;
-            serialPort.BaudRate = ucp.HANOODeviceData.serialPortBaud;
-            serialPort.Parity = ucp.HANOODeviceData.serialPortParity;
-            serialPort.DataBits = ucp.HANOODeviceData.serialPortDataBits;
-            serialPort.StopBits = ucp.HANOODeviceData.serialPortStopBits;
-            OO_HAN_DLMS_Open( serialPort );
+            if ( ucp.HANOODeviceData.HANDeviceName == "KAMSTRUP" )
+                serialPort.Parity = Parity.None; // 0=None, 1=Odd, 2=Even, 3=Mark, 4=Space
         }
 
         public class DLMSdataBlock
