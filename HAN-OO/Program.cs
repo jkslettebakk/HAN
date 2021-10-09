@@ -7,7 +7,7 @@ namespace HAN_OO
         public static void Main(string[] args)
         {
             int HANPortLoops = 0;
-            Console.WriteLine("Hello \"DLSM-COSEM-OBIS\" World!");
+            Console.WriteLine("Hello,hello \"DLSM-COSEM-OBIS\" World!");
             // Initiate objects config data in JSON file 
             OOUserConfigurationParameters OOuCP = new OOUserConfigurationParameters();
             // User Configuration Parameters

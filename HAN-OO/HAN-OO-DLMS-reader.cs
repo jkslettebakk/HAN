@@ -7,7 +7,7 @@ namespace HANDLMS
         OOUserConfigurationParameters.UserConfigurationParameters ucp = new OOUserConfigurationParameters.UserConfigurationParameters();
         byte[] HANData = new byte[100];
 
-        public OO_HAN_DLMS_Open()
+        public void OO_HAN_DLMS_Open()
         {
             Console.WriteLine("Opening port:{0}",ucp.HANOODeviceData.serialPortName);
             serialPort.Open();
@@ -22,16 +22,22 @@ namespace HANDLMS
         public class DLMSdataBlock
         {
         }
+        public void OO_HAN_DLMS_ReadData( SerialPort port)
+        {
+            Console.WriteLine("Reading port {0}",port.PortName);
+
+        }
 
 /*
-        public bool OO_HAN_DLMS_Read( SerialPort port)
+        public bool OO_HAN_DLMS_ReadData( SerialPort port)
         {
 
         }
 
-        public List<byte> OO_HAN_DLMS_Read( SerialPort port )
+        public List<byte> OO_HAN_DLMS_ReadData( SerialPort port )
         {
 
-        } */
+        }
+*/
     }
 }
