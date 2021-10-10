@@ -4,6 +4,8 @@ namespace HANOOUserConfigurationParameters
     public class OOUserConfigurationParameters
     {
 
+        public string jSONfileName = "HAN-OO-Parameters.json";
+
         public class HANOODetails
         {
             [JsonPropertyName("Comment")]
@@ -107,6 +109,7 @@ namespace HANOOUserConfigurationParameters
         public OOUserConfigurationParameters()
         {
             Console.WriteLine("Initialising/preparing \"OOUserConfigurationParameters\" objects and user data.");
+            // displayParameters( uCP );
         }
 
         public void displayParameters( UserConfigurationParameters parameters )
@@ -141,35 +144,70 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("parameters.HANOOParameters.L: {0}",parameters.HANOOParameters.L);
         } 
 
-        public async Task analyseConfigFile()
+        public UserConfigurationParameters loadConfigFile()
         {
 
             // Open and analyse config (HAN-OO.config) file
-            string jSONfileName = "HAN-OO-Parameters.json";
-            using FileStream fs = File.OpenRead(jSONfileName);
+            // string jSONfileName = "HAN-OO-Parameters.json";
+            string jSONString;
 
             Console.WriteLine("****    In analyseConfigFile    ****");
 
-            // Root root = await JsonSerializer.DeserializeAsync<Root>(fs);
-            UserConfigurationParameters userConfigurationParameters = await JsonSerializer.DeserializeAsync<UserConfigurationParameters>(fs);
+            // Read JSON file data to string
+            jSONString = File.ReadAllText(jSONfileName);
+            // Console.WriteLine("file conten :\n{0}",jSONString);
 
-            displayParameters( userConfigurationParameters );
+            // UserConfigurationParameters userConfigurationParameters = await JsonSerializer.Deserialize<UserConfigurationParameters>(fs);
+            UserConfigurationParameters userConfigurationParameters = JsonSerializer.Deserialize<UserConfigurationParameters>(jSONString);
 
+            return userConfigurationParameters;
         }
 
-        public SerialPort getPortParameters()
+        public SerialPort getPortParameters(SerialPort spData )
         {
-            SerialPort portData = new SerialPort();
-            portData.PortName = OOUserConfigurationParameters.HANOODeviceData.serialPortName;
-            return portData;
+            spData.PortName = "OOUserConfigurationParameters.HANOODeviceData.serialPortName";
+            return spData;
         }
 
-        public void getHANOptions( string[] args )
+        public SerialPort setSerialPort( OOUserConfigurationParameters uCP )
+        {
+            SerialPort sp = new SerialPort();
+            return sp;
+            
+        }
+
+        public void getHANOptions( string[] args, OOUserConfigurationParameters.UserConfigurationParameters uCPcontent )
         {
             // analyse command line input
             Console.WriteLine("****    In getHANOptions    ****\nargs.Length = {0}", args.Length);
             foreach( var arg in args)
                 Console.WriteLine("{0}",arg);
+            // modifying/override JSON parameters from commandline
+            // String management
+            // -p "/dev/ttyUSB0" -> -p=Paramerer "PortName", PortName="/dev/ttyUSB0"
+            for ( int i = 0; i < args.Length; i++)
+            {
+                switch ( args[i] )
+                {
+                    case "-h":
+                        help();
+                        break;
+                    case "-pn":
+                        Console.WriteLine("-pn option and value = {0}",args[i+1]);
+                        uCPcontent.HANOODeviceData.serialPortName = args[i+1];
+                        i++;
+                        break;
+                    default:
+                        Console.WriteLine("Unknown/invalid command: {0}",args[i]);
+                        break;
+                }
+            }
+        }
+
+        public void help()
+        {
+            Console.WriteLine("Parameters is stored in JSON fille \'{0}\'",jSONfileName);
+            Console.WriteLine("For help :\n-h (display help)\nYou may change the parameters for:\n-pn \'PortName\'\n-br \'BaudRate\'");
         }
     }
 }

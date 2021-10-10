@@ -1,22 +1,37 @@
 ﻿
 namespace HAN_OO
 {
-    class Program
+    public class Program
     {
 
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             int HANPortLoops = 0;
-            OOUserConfigurationParameters uCP = new OOUserConfigurationParameters(); // Initiate objects config data in JSON file 
+            Console.WriteLine("Hello,hello \"DLSM-COSEM-OBIS\" World!");
+            // Initiate objects config data in JSON file 
+            OOUserConfigurationParameters OOuCP = new OOUserConfigurationParameters();
+            // User Configuration Parameters
+            OOUserConfigurationParameters.UserConfigurationParameters uCPcontent = new OOUserConfigurationParameters.UserConfigurationParameters();
+            // Prepare Reading DLMS data
             OO_HAN_DLMS_Read dlmsRead = new OO_HAN_DLMS_Read();
+            // Declair/Initiate HAN SerialPort object
+            SerialPort serialPort = new SerialPort();
+
+            // Get/load user configuration parameters
+            uCPcontent = OOuCP.loadConfigFile();
             
-            Console.WriteLine("Hello \"DLSM-COSEM-OBIS\" World!");
-            // fetch parameters like -HAN-Device <name> (e.g. AIDON, KAMSTRUP)
-            // han-oo --help to se all
-            //
-            await uCP.analyseConfigFile();  // Reading config JSON file
-            uCP.getHANOptions( args ); // Modify config data by command line parameters, if any
-            dlmsRead.OO_HAN_DLMS_ReadData(); // start reading DLMS data
+            OOuCP.displayParameters(uCPcontent);
+
+            // Check and modify configuration from command line
+            OOuCP.getHANOptions( args, uCPcontent ); // Modify config data by command line parameters, if any
+
+            serialPort = OOuCP.setSerialPort( OOuCP );
+
+            Console.WriteLine("PortName = {0}", uCPcontent.HANOODeviceData.serialPortName);
+
+            dlmsRead.OO_HAN_DLMS_ReadData( serialPort ); // start reading DLMS data
+
+            //Console.WriteLine("\n\tuCP object:{0}",uCP);
             
             do
             {
