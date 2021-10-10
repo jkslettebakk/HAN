@@ -1,9 +1,11 @@
 #undef DEBUG
 #undef DLSMDEBUG
 #undef COSEMDEBUG
-#define OBISDEBUG
+#undef OBISDEBUG
 #define JSONDEBUG
 #define COSEMSTRUCTURE
+#define KAMSTRUP
+
 
 using System;
 using System.Collections;
@@ -21,13 +23,17 @@ namespace HAN_COSEM
             List<byte> cOSEMHeadingData = new List<byte>();
             List<byte> cOSEMData = new List<byte>();
             int cosemHeadingDataLength = 9;
-            int cosemDataLength;
             int dLMSstartCosemBlock = 9;
+            int cosemDataLength;
+            bool displayOnlyDLMS = true;
+ 
             byte[] LLC = new byte[3]; // LLC (Logic Link Control) frame header, E6 E7 00
             byte[] UIFrameHeade = new byte[6]; // (00 00 00 00)
             public byte[] cOSEMtypeobject = new byte[2]; // Object or Array
             public string tabLength = "\t";
             obisCodesClass obisCode = new obisCodesClass();
+            const byte writeWidth = 30;
+
 
             public void cOSEMInitialize()
             {
@@ -36,6 +42,11 @@ namespace HAN_COSEM
 #if OBISDEBUG
                 obisCode.showObisValues();
 #endif
+#if KAMSTRUP
+                cosemHeadingDataLength = 13;
+                dLMSstartCosemBlock = 7;
+                Console.WriteLine("KAMSTRUP parameters set.");
+#endif            
             }
 
             void cOSEMHeading()
@@ -75,12 +86,22 @@ namespace HAN_COSEM
 
             public void cOSEMDataBlock(List<byte> dLMScOSEMData)
             {
+                if ( displayOnlyDLMS )
+                    { 
+                        Console.WriteLine("Display Only DLMS block:"); 
+                        displayListBuffer( cOSEMHeadingData ); 
+                        return; 
+                    }
                 cOSEMHeadingData.Clear(); // Prepare new COSEM data heading
                 cOSEMData.Clear(); // Prepare new COSEM data
-                for (int i = dLMSstartCosemBlock; i < dLMSstartCosemBlock + cosemHeadingDataLength; i++)  // extract COSEM heading from DLMS block
+                for (int i = dLMSstartCosemBlock; i < (dLMSstartCosemBlock + cosemHeadingDataLength); i++)  // extract COSEM heading from DLMS block
                     cOSEMHeadingData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
-                for (int i = dLMSstartCosemBlock + cosemHeadingDataLength; i < dLMScOSEMData.Count - 3; i++)  // extract COSEM block from DLMS block
+                    Console.WriteLine("COSEM header data extracted from DLMS block:");
+                    displayListBuffer( cOSEMHeadingData );
+                for (int i = (dLMSstartCosemBlock + cosemHeadingDataLength + 1); i < (dLMScOSEMData.Count - 3); i++)  // extract COSEM block from DLMS block
                     cOSEMData.Add(dLMScOSEMData[i]);  // get COSEMClass data extracted out of DLMS data block
+                    Console.WriteLine("COSEM data (with OBIS codes) extracted from DLMS block:");
+                    displayListBuffer( cOSEMData );
                 // cosemHeadingDataLength = cOSEMHeadingData.Count;
                 cosemDataLength = cOSEMData.Count;
                 cOSEMHeading();
@@ -285,7 +306,7 @@ namespace HAN_COSEM
                 }
                 else
                 {
-                    Console.WriteLine("Unknown type ({0:X2}) ***************** with ******************* {1:X2} elements", cOSEMData[9], cOSEMData[10]);
+                    Console.WriteLine("Unknown type ({0:X2}) ***************** with ******************* {1:X2} elements", cOSEMData[cosemBlockStart], cOSEMData[cosemBlockStart+1]);
                 }
             }
 
@@ -294,6 +315,17 @@ namespace HAN_COSEM
                 Console.WriteLine(leadingText);
                 foreach (byte b in byteList) Console.Write("{0:X2} ", b);
                 if (eol) Console.WriteLine();
+            }
+
+            public void displayListBuffer( List<byte> listBuffer )
+            {
+                for( int i = 0; i < listBuffer.Count; i++ )
+                {
+                    if ( i != 0 )
+                        if ( i % writeWidth == 0 ) Console.WriteLine();
+                    Console.Write("{0:X2} ",listBuffer[i]);
+                }
+                Console.WriteLine();
             }
 
         }

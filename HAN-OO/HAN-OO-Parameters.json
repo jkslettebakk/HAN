@@ -1,0 +1,34 @@
+{
+        "Comment": "This file contains parameters for the HAN-OO solution",
+        "HANOODetails" : {
+                "Comment" : " System Architects/Programmers",
+                "Programmer" : "Jann Slettebakk",
+                "Phone" : "+47 900 16 827",
+                "Street" : "Ospestien 51",
+                "PostNumber" : "1387",
+                "PostName" : "Asker"
+        },
+        "HANOODefaultParameters" : {
+                "Comment" : "Contains default parameters (often booleens) for application behaviours",
+                "Log" : false,
+                "LogUserConfig" : false,
+                "LogHAN" : false,
+                "LogDMS" : false,
+                "LogCOSEM" : false
+        },
+        "HANOOParameters" : {
+                "Comment" : "Default parameter settings. Might be owerwritten by -<name> on command line (CLI)",
+                "DefaultParameterFile": "HAN-OO-Parameters.json",
+                "-h" : "show/display help and parameter options",
+                "-l" : "Show log data to tty (Standard output). You may send this to any tty device  (file etc.)"
+        },
+        "HANOODeviceData" : {
+                "Comment" : "Default parameter settings for different HAN devices (e.g. Aido, Kamstrup etc.)",
+                "HANDeviceName" : "KAMSTRUP",
+                "serialPortName": "/dev/ttyUSB0",
+                "serialPortBaud" : 2400,
+                "serialPortParity" : 2,
+                "serialPortDataBits" : 8,
+                "serialPortStopBits" : 1
+        }
+    }
