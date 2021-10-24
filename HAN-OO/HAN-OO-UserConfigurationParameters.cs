@@ -108,8 +108,10 @@ namespace HANOOUserConfigurationParameters
 
         public OOUserConfigurationParameters()
         {
+            UserConfigurationParameters uCP = new UserConfigurationParameters();
             Console.WriteLine("Initialising/preparing \"OOUserConfigurationParameters\" objects and user data.");
-            // displayParameters( uCP );
+            displayParameters( uCP );
+            Console.WriteLine("Test from OOUserConfigurationParameters");
         }
 
         public void displayParameters( UserConfigurationParameters parameters )
