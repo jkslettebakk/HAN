@@ -11,23 +11,27 @@ namespace HAN_OO
             // Initiate objects config data in JSON file 
             OOUserConfigurationParameters OOuCP = new OOUserConfigurationParameters();
             // User Configuration Parameters
-            OOUserConfigurationParameters.UserConfigurationParameters uCPcontent = new OOUserConfigurationParameters.UserConfigurationParameters();
+            // OOUserConfigurationParameters.UserConfigurationParameters uCPcontent = new OOUserConfigurationParameters.UserConfigurationParameters();
+
+            Console.WriteLine("Args[0]={0}",args[0]);
+            if ( args[0] == "--d" ) OOuCP.displayParameters(OOuCP.uCP);
+
+            Console.WriteLine("\nPortName = {0}\n", OOuCP.uCP.HANOODeviceData.serialPortName);
+
             // Prepare Reading DLMS data
             OO_HAN_DLMS_Read dlmsRead = new OO_HAN_DLMS_Read();
             // Declair/Initiate HAN SerialPort object
             SerialPort serialPort = new SerialPort();
 
             // Get/load user configuration parameters
-            uCPcontent = OOuCP.loadConfigFile();
+            // OOuCP = OOuCP.loadConfigFile();
             
-            OOuCP.displayParameters(uCPcontent);
+            // OOuCP.displayParameters(OOuCP);
 
             // Check and modify configuration from command line
-            OOuCP.getHANOptions( args, uCPcontent ); // Modify config data by command line parameters, if any
+            // OOuCP.getHANOptions( args, uCPcontent ); // Modify config data by command line parameters, if any
 
             serialPort = OOuCP.setSerialPort( OOuCP );
-
-            Console.WriteLine("PortName = {0}", uCPcontent.HANOODeviceData.serialPortName);
 
             dlmsRead.OO_HAN_DLMS_ReadData( serialPort ); // start reading DLMS data
 

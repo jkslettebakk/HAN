@@ -4,7 +4,7 @@ namespace HANOOUserConfigurationParameters
     public class OOUserConfigurationParameters
     {
 
-        public string jSONfileName = "HAN-OO-Parameters.json";
+        private string jSONfileName = "HAN-OO-Parameters.json";
 
         public class HANOODetails
         {
@@ -106,11 +106,14 @@ namespace HANOOUserConfigurationParameters
             public HANOOParameters HANOOParameters { get; set; }
         }
 
+        public UserConfigurationParameters uCP = new UserConfigurationParameters();
+
         public OOUserConfigurationParameters()
         {
-            UserConfigurationParameters uCP = new UserConfigurationParameters();
-            Console.WriteLine("Initialising/preparing \"OOUserConfigurationParameters\" objects and user data.");
-            displayParameters( uCP );
+            // UserConfigurationParameters uCP = new UserConfigurationParameters();
+            uCP = loadConfigFile();
+            if (uCP.HANOODefaultParameters.Log) Console.WriteLine("Initialising/preparing \"OOUserConfigurationParameters\" objects and user data.");
+            if (uCP.HANOODefaultParameters.LogUserConfig) displayParameters( uCP );
             Console.WriteLine("Test from OOUserConfigurationParameters");
         }
 
@@ -153,8 +156,6 @@ namespace HANOOUserConfigurationParameters
             // string jSONfileName = "HAN-OO-Parameters.json";
             string jSONString;
 
-            Console.WriteLine("****    In analyseConfigFile    ****");
-
             // Read JSON file data to string
             jSONString = File.ReadAllText(jSONfileName);
             // Console.WriteLine("file conten :\n{0}",jSONString);
@@ -181,7 +182,7 @@ namespace HANOOUserConfigurationParameters
         public void getHANOptions( string[] args, OOUserConfigurationParameters.UserConfigurationParameters uCPcontent )
         {
             // analyse command line input
-            Console.WriteLine("****    In getHANOptions    ****\nargs.Length = {0}", args.Length);
+            if (uCP.HANOODefaultParameters.Log) Console.WriteLine("****    In getHANOptions    ****\nargs.Length = {0}", args.Length);
             foreach( var arg in args)
                 Console.WriteLine("{0}",arg);
             // modifying/override JSON parameters from commandline
@@ -191,10 +192,10 @@ namespace HANOOUserConfigurationParameters
             {
                 switch ( args[i] )
                 {
-                    case "-h":
+                    case "--h":
                         help();
                         break;
-                    case "-pn":
+                    case "--pn":
                         Console.WriteLine("-pn option and value = {0}",args[i+1]);
                         uCPcontent.HANOODeviceData.serialPortName = args[i+1];
                         i++;

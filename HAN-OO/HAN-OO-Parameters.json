@@ -10,7 +10,7 @@
         },
         "HANOODefaultParameters" : {
                 "Comment" : "Contains default parameters (often booleens) for application behaviours",
-                "Log" : false,
+                "Log" : true,
                 "LogUserConfig" : false,
                 "LogHAN" : false,
                 "LogDMS" : false,
