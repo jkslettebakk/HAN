@@ -1,0 +1,17 @@
+
+
+Sun Oct 10 21:15:12 2021
+Command line: TestDisk
+
+TestDisk 7.0, Data Recovery Utility, April 2015
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 5.10.63-v7+ (#1457 SMP Tue Sep 28 11:25:31 BST 2021) armv7l
+Compiler: GCC 8.2
+ext2fs lib: 1.44.5, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.1
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 0 sectors, sector size=512
+Hard disk list
+Disk /dev/mmcblk0 - 31 GB / 29 GiB - CHS 973968 4 16, sector size=512
+
+
+TestDisk exited normally.
