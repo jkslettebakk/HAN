@@ -11,20 +11,15 @@ namespace HAN_OO
             // Initiate objects config data in JSON file 
             OOUserConfigurationParameters OOuCP = new OOUserConfigurationParameters();
             // User Configuration Parameters
-            // OOUserConfigurationParameters.UserConfigurationParameters uCPcontent = new OOUserConfigurationParameters.UserConfigurationParameters();
 
-            Console.WriteLine("Args[0]={0}",args[0]);
-            if ( args[0] == "--d" ) OOuCP.displayParameters(OOuCP.uCP);
-
-            Console.WriteLine("\nPortName = {0}\n", OOuCP.uCP.HANOODeviceData.serialPortName);
-
+            if (args.Length > 0 ) OOuCP.getHANOptions( args, OOuCP );
             // Prepare Reading DLMS data
-            OO_HAN_DLMS_Read dlmsRead = new OO_HAN_DLMS_Read();
+            OO_HAN_Read_DLMS dlmsRead = new OO_HAN_Read_DLMS();
+
             // Declair/Initiate HAN SerialPort object
             SerialPort serialPort = new SerialPort();
 
             // Get/load user configuration parameters
-            // OOuCP = OOuCP.loadConfigFile();
             
             // OOuCP.displayParameters(OOuCP);
 
@@ -33,7 +28,7 @@ namespace HAN_OO
 
             serialPort = OOuCP.setSerialPort( OOuCP );
 
-            dlmsRead.OO_HAN_DLMS_ReadData( serialPort ); // start reading DLMS data
+            dlmsRead.OO_HAN_Read_DLMS_Data( serialPort ); // start reading DLMS data
 
             //Console.WriteLine("\n\tuCP object:{0}",uCP);
             
