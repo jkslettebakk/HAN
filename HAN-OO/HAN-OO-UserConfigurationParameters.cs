@@ -59,11 +59,17 @@ namespace HANOOUserConfigurationParameters
             [JsonPropertyName("DefaultParameterFile")]
             public string DefaultParameterFile { get; set; }
 
-            [JsonPropertyName("-h")]
+            [JsonPropertyName("--h")]
             public string H { get; set; }
 
-            [JsonPropertyName("-l")]
+            [JsonPropertyName("--l")]
             public string L { get; set; }
+
+            [JsonPropertyName("--pn <value>")]
+            public string pn { get; set; }
+
+            [JsonPropertyName("--pb <value>")]
+            public string pb { get; set; }
         }
 
         public class HANOODefaultParameters
@@ -114,19 +120,18 @@ namespace HANOOUserConfigurationParameters
             uCP = loadConfigFile();
             if (uCP.HANOODefaultParameters.Log) Console.WriteLine("Initialising/preparing \"OOUserConfigurationParameters\" objects and user data.");
             if (uCP.HANOODefaultParameters.LogUserConfig) displayParameters( uCP );
-            Console.WriteLine("Test from OOUserConfigurationParameters");
         }
 
         public void displayParameters( UserConfigurationParameters parameters )
         {
             Console.WriteLine("userConfigurationParameters.Comment: {0}",parameters.Comment);
-            Console.WriteLine("**************************************************");
+            Console.WriteLine("--------------------------------------");
             Console.WriteLine("parameters.HANOODetails.Comment: {0}",parameters.HANOODetails.Comment);
             Console.WriteLine("parameters.HANOODetails.Programmer: {0}",parameters.HANOODetails.Programmer);
             Console.WriteLine("parameters.HANOODetails.Phone: {0}",parameters.HANOODetails.Phone);
             Console.WriteLine("parameters.HANOODetails.Street: {0}",parameters.HANOODetails.Street);
             Console.WriteLine("parameters.HANOODetails.PostNumber & details.HANOODetails.PostName: {0} {1}", parameters.HANOODetails.PostNumber, parameters.HANOODetails.PostName );
-            Console.WriteLine("**************************************************");
+            Console.WriteLine("--------------------------------------");
             Console.WriteLine("parameters.HANOODeviceData.Comment: {0}",parameters.HANOODeviceData.Comment);
             Console.WriteLine("parameters.HANOODeviceData.HANDeviceName: {0}",parameters.HANOODeviceData.HANDeviceName);
             Console.WriteLine("parameters.HANOODeviceData.serialPortName: {0}",parameters.HANOODeviceData.serialPortName);
@@ -134,19 +139,21 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("parameters.HANOODeviceData.serialPortParity: {0}",parameters.HANOODeviceData.serialPortParity);
             Console.WriteLine("parameters.HANOODeviceData.serialPortDataBits: {0}",parameters.HANOODeviceData.serialPortDataBits);
             Console.WriteLine("parameters.HANOODeviceData.serialPortStopBits: {0}",parameters.HANOODeviceData.serialPortStopBits);
-
-            Console.WriteLine("**************************************************");
+            Console.WriteLine("--------------------------------------");
             Console.WriteLine("parameters.HANOODefaultParameters.Comment: {0}",parameters.HANOODefaultParameters.Comment);
             Console.WriteLine("parameters.HANOODefaultParameters.Log: {0}",parameters.HANOODefaultParameters.Log);
             Console.WriteLine("parameters.HANOODefaultParameters.LogUserConfig: {0}",parameters.HANOODefaultParameters.LogUserConfig);
             Console.WriteLine("parameters.HANOODefaultParameters.LogHAN: {0}",parameters.HANOODefaultParameters.LogHAN);
             Console.WriteLine("parameters.HANOODefaultParameters.LogDLMS: {0}",parameters.HANOODefaultParameters.LogDLMS);
             Console.WriteLine("parameters.HANOODefaultParameters.LogCOSEM: {0}",parameters.HANOODefaultParameters.LogCOSEM);
-            Console.WriteLine("**************************************************");
+            Console.WriteLine("--------------------------------------");
             Console.WriteLine("parameters.HANOOParameters.Comment: {0}",parameters.HANOOParameters.Comment);
             Console.WriteLine("parameters.HANOOParameters.DefaultParameterFile: {0}",parameters.HANOOParameters.DefaultParameterFile);
             Console.WriteLine("parameters.HANOOParameters.H: {0}",parameters.HANOOParameters.H);
             Console.WriteLine("parameters.HANOOParameters.L: {0}",parameters.HANOOParameters.L);
+            Console.WriteLine("parameters.HANOOParameters.pn: {0}",parameters.HANOOParameters.pn);
+            Console.WriteLine("parameters.HANOOParameters.pb: {0}",parameters.HANOOParameters.pb);
+            Console.WriteLine("--------------------------------------");
         } 
 
         public UserConfigurationParameters loadConfigFile()
@@ -172,22 +179,29 @@ namespace HANOOUserConfigurationParameters
             return spData;
         }
 
-        public SerialPort setSerialPort( OOUserConfigurationParameters uCP )
+        public SerialPort setSerialPort( OOUserConfigurationParameters OOuCP )
         {
             SerialPort sp = new SerialPort();
+            string[] ports = SerialPort.GetPortNames();
+            Console.WriteLine("Available Ports =");
+            foreach( string port in ports )
+                Console.WriteLine(port);
+            //sp.serialPort = uCP.HANOODeviceData.HANDeviceName;
+            sp.BaudRate = OOuCP.uCP.HANOODeviceData.serialPortBaud;
+            sp.DataBits = OOuCP.uCP.HANOODeviceData.serialPortDataBits;
+            sp.PortName = OOuCP.uCP.HANOODeviceData.serialPortName;
             return sp;
             
         }
 
-        public void getHANOptions( string[] args, OOUserConfigurationParameters.UserConfigurationParameters uCPcontent )
+        public void getHANOptions( string[] args, OOUserConfigurationParameters OOuCP )
         {
             // analyse command line input
-            if (uCP.HANOODefaultParameters.Log) Console.WriteLine("****    In getHANOptions    ****\nargs.Length = {0}", args.Length);
-            foreach( var arg in args)
-                Console.WriteLine("{0}",arg);
+            bool log = uCP.HANOODefaultParameters.Log; 
+            if (log) Console.WriteLine("****    In getHANOptions    ****\nargs.Length = {0}", args.Length);
             // modifying/override JSON parameters from commandline
-            // String management
-            // -p "/dev/ttyUSB0" -> -p=Paramerer "PortName", PortName="/dev/ttyUSB0"
+            // e.g. String management
+            // --p "/dev/ttyUSB0" -> -p=Paramerer "PortName", PortName="/dev/ttyUSB0"
             for ( int i = 0; i < args.Length; i++)
             {
                 switch ( args[i] )
@@ -195,13 +209,34 @@ namespace HANOOUserConfigurationParameters
                     case "--h":
                         help();
                         break;
-                    case "--pn":
-                        Console.WriteLine("-pn option and value = {0}",args[i+1]);
-                        uCPcontent.HANOODeviceData.serialPortName = args[i+1];
-                        i++;
+                    case "--p":
+                        displayParameters( OOuCP.uCP );
+                        break;
+                    case "--br": // Set Baud Rate
+                        if( i+1 < args.Length )
+                        {
+                            if ( args[i+1].All(char.IsDigit) )
+                            {
+                                if (log) Console.WriteLine("--br option and value = {0}",args[i+1]);
+                                if (log) Console.WriteLine("--br option changed current Baud Baud from {0} to {1}",uCP.HANOODeviceData.serialPortBaud,args[i+1]);
+                                uCP.HANOODeviceData.serialPortBaud = Int32.Parse( args[i+1] );
+                            }
+                            else
+                                if (log) Console.WriteLine("--br option and value = {0} is invalid. Skipp value",args[i+1]);
+                            i++;
+                        }
+                        break;
+                    case "--pn":   // Set Port Name
+                        if( i+1 < args.Length )
+                        {
+                            if (log) Console.WriteLine("--pn option and value = {0}",args[i+1]);
+                            if (log) Console.WriteLine("--pn option changed value uCP.HANOODeviceData.serialPortName from {0} to {1}",uCP.HANOODeviceData.serialPortName,args[i+1]);
+                            uCP.HANOODeviceData.serialPortName = args[i+1];
+                            i++;
+                        }
                         break;
                     default:
-                        Console.WriteLine("Unknown/invalid command: {0}",args[i]);
+                        Console.WriteLine("\n-----------------\nUnknown/invalid command: {0}\n-----------------",args[i]);
                         break;
                 }
             }
@@ -210,7 +245,10 @@ namespace HANOOUserConfigurationParameters
         public void help()
         {
             Console.WriteLine("Parameters is stored in JSON fille \'{0}\'",jSONfileName);
-            Console.WriteLine("For help :\n-h (display help)\nYou may change the parameters for:\n-pn \'PortName\'\n-br \'BaudRate\'");
+            Console.WriteLine("For help :\n" + 
+                              "--h => display help\n" + 
+                              "--p => display parameters" +
+                              "You may change the parameters for:\n-pn \'PortName\'\n-br \'BaudRate\'");
         }
     }
 }
