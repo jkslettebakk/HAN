@@ -49,6 +49,9 @@ namespace HANOOUserConfigurationParameters
 
             [JsonPropertyName("serialPortStopBits")]
             public StopBits serialPortStopBits { get; set; }
+
+            [JsonPropertyName("delayBetweenReads")]
+            public int delayBetweenReads { get; set; }
         }
 
         public class HANOOParameters
@@ -65,11 +68,26 @@ namespace HANOOUserConfigurationParameters
             [JsonPropertyName("--l")]
             public string L { get; set; }
 
+            [JsonPropertyName("--lDLMS")]
+            public string lDLMS { get; set; }
+
+            [JsonPropertyName("--lCOSEM")]
+            public string lCOSEM { get; set; }
+
+            [JsonPropertyName("--lOBIS")]
+            public string lOBIS { get; set; }
+
+            [JsonPropertyName("--lCRC")]
+            public string lCRC { get; set; }
+
             [JsonPropertyName("--pn <value>")]
             public string pn { get; set; }
 
             [JsonPropertyName("--pb <value>")]
             public string pb { get; set; }
+
+            [JsonPropertyName("--delay <value>")]
+            public string delay { get; set; }
         }
 
         public class HANOODefaultParameters
@@ -83,14 +101,17 @@ namespace HANOOUserConfigurationParameters
             [JsonPropertyName("LogUserConfig")]
             public bool LogUserConfig { get; set; }
 
-            [JsonPropertyName("LogHAN")]
-            public bool LogHAN { get; set; }
-
             [JsonPropertyName("LogDLMS")]
             public bool LogDLMS { get; set; }
 
             [JsonPropertyName("LogCOSEM")]
             public bool LogCOSEM { get; set; }
+
+            [JsonPropertyName("LogOBIS")]
+            public bool LogOBIS { get; set; }
+
+            [JsonPropertyName("LogCRC")]
+            public bool LogCRC { get; set; }
 
         }
 
@@ -143,14 +164,17 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("parameters.HANOODefaultParameters.Comment: {0}",parameters.HANOODefaultParameters.Comment);
             Console.WriteLine("parameters.HANOODefaultParameters.Log: {0}",parameters.HANOODefaultParameters.Log);
             Console.WriteLine("parameters.HANOODefaultParameters.LogUserConfig: {0}",parameters.HANOODefaultParameters.LogUserConfig);
-            Console.WriteLine("parameters.HANOODefaultParameters.LogHAN: {0}",parameters.HANOODefaultParameters.LogHAN);
             Console.WriteLine("parameters.HANOODefaultParameters.LogDLMS: {0}",parameters.HANOODefaultParameters.LogDLMS);
             Console.WriteLine("parameters.HANOODefaultParameters.LogCOSEM: {0}",parameters.HANOODefaultParameters.LogCOSEM);
+            Console.WriteLine("parameters.HANOODefaultParameters.LogOBIS: {0}",parameters.HANOODefaultParameters.LogOBIS);
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("parameters.HANOOParameters.Comment: {0}",parameters.HANOOParameters.Comment);
             Console.WriteLine("parameters.HANOOParameters.DefaultParameterFile: {0}",parameters.HANOOParameters.DefaultParameterFile);
             Console.WriteLine("parameters.HANOOParameters.H: {0}",parameters.HANOOParameters.H);
             Console.WriteLine("parameters.HANOOParameters.L: {0}",parameters.HANOOParameters.L);
+            Console.WriteLine("parameters.HANOOParameters.lDLMS: {0}",parameters.HANOOParameters.lDLMS);
+            Console.WriteLine("parameters.HANOOParameters.lCOSEM: {0}",parameters.HANOOParameters.lCOSEM);
+            Console.WriteLine("parameters.HANOOParameters.lOBIS: {0}",parameters.HANOOParameters.lOBIS);
             Console.WriteLine("parameters.HANOOParameters.pn: {0}",parameters.HANOOParameters.pn);
             Console.WriteLine("parameters.HANOOParameters.pb: {0}",parameters.HANOOParameters.pb);
             Console.WriteLine("--------------------------------------");
@@ -179,25 +203,37 @@ namespace HANOOUserConfigurationParameters
             return spData;
         }
 
-        public SerialPort setSerialPort( OOUserConfigurationParameters OOuCP )
+        public SerialPort setSerialPortParameters( OOUserConfigurationParameters OOuCP )
         {
             SerialPort sp = new SerialPort();
             string[] ports = SerialPort.GetPortNames();
-            Console.WriteLine("Available Ports =");
-            foreach( string port in ports )
-                Console.WriteLine(port);
-            //sp.serialPort = uCP.HANOODeviceData.HANDeviceName;
-            sp.BaudRate = OOuCP.uCP.HANOODeviceData.serialPortBaud;
-            sp.DataBits = OOuCP.uCP.HANOODeviceData.serialPortDataBits;
-            sp.PortName = OOuCP.uCP.HANOODeviceData.serialPortName;
-            return sp;
-            
+            if (OOuCP.uCP.HANOODefaultParameters.Log)
+                {
+                    Console.WriteLine("Available Ports =");
+                    foreach( string port in ports )
+                        Console.WriteLine(port);
+                }
+            if(ports.Any(OOuCP.uCP.HANOODeviceData.serialPortName.Contains))
+            {
+                if( uCP.HANOODefaultParameters.Log ) Console.WriteLine("Matching ports on system and in configuration file ({0})",OOuCP.uCP.HANOODeviceData.serialPortName);                
+                sp.BaudRate = OOuCP.uCP.HANOODeviceData.serialPortBaud;
+                sp.DataBits = OOuCP.uCP.HANOODeviceData.serialPortDataBits;
+                sp.PortName = OOuCP.uCP.HANOODeviceData.serialPortName;
+            }
+            else
+            {
+                Console.WriteLine("Error. System Parameters in JSON does not match hardware ports. Using defaults.");
+                Console.WriteLine("Port name in SerialPort data={0}",sp.PortName);
+            }
+                return sp;
         }
 
         public void getHANOptions( string[] args, OOUserConfigurationParameters OOuCP )
         {
             // analyse command line input
-            bool log = uCP.HANOODefaultParameters.Log; 
+            bool log = uCP.HANOODefaultParameters.Log;
+            bool flag = false;
+            int value = 0;
             if (log) Console.WriteLine("****    In getHANOptions    ****\nargs.Length = {0}", args.Length);
             // modifying/override JSON parameters from commandline
             // e.g. String management
@@ -212,27 +248,132 @@ namespace HANOOUserConfigurationParameters
                     case "--p":
                         displayParameters( OOuCP.uCP );
                         break;
-                    case "--br": // Set Baud Rate
+                    case "--br": // Set Baud Rate. --br 2400. Will set serialBaudRate = 2400.
                         if( i+1 < args.Length )
                         {
-                            if ( args[i+1].All(char.IsDigit) )
+                            if ( int.TryParse( args[i+1], out value) )
                             {
                                 if (log) Console.WriteLine("--br option and value = {0}",args[i+1]);
-                                if (log) Console.WriteLine("--br option changed current Baud Baud from {0} to {1}",uCP.HANOODeviceData.serialPortBaud,args[i+1]);
-                                uCP.HANOODeviceData.serialPortBaud = Int32.Parse( args[i+1] );
+                                if (log) Console.WriteLine("--br option changed current Baud Baud from {0} to {1}",uCP.HANOODeviceData.serialPortBaud,value);
+                                uCP.HANOODeviceData.serialPortBaud = value;
                             }
                             else
                                 if (log) Console.WriteLine("--br option and value = {0} is invalid. Skipp value",args[i+1]);
                             i++;
                         }
                         break;
-                    case "--pn":   // Set Port Name
+                    case "--pn":   // Set Port Name. --pn /dev/ttyUSB3; Will set the serialPortName to /dev/ttyUSB3
                         if( i+1 < args.Length )
                         {
-                            if (log) Console.WriteLine("--pn option and value = {0}",args[i+1]);
-                            if (log) Console.WriteLine("--pn option changed value uCP.HANOODeviceData.serialPortName from {0} to {1}",uCP.HANOODeviceData.serialPortName,args[i+1]);
+                            if (log)
+                                {
+                                    Console.WriteLine("--pn option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--pn option changed value uCP.HANOODeviceData.serialPortName from {0} to {1}",uCP.HANOODeviceData.serialPortName,args[i+1]);
+                                }
                             uCP.HANOODeviceData.serialPortName = args[i+1];
                             i++;
+                        }
+                        break;
+                    case "--l": // Set log level "false" or "true"
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if ( bool.Parse(args[i+1]) )
+                                    {
+                                        Console.WriteLine("--l option and value = {0}",args[i+1]);
+                                        Console.WriteLine("--l option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.Log,args[i+1]);
+                                    }
+                                uCP.HANOODefaultParameters.Log = bool.Parse( args[i+1] );
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--l option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        break;
+                    case "--lDLMS": // Set DLMS log level "false" or "true"
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lDLMS option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lDLMS option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogDLMS,args[i+1]);
+                                }
+                                uCP.HANOODefaultParameters.LogDLMS = bool.Parse( args[i+1] );
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--lDLMS option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        break;
+                    case "--lCOSEM": // Set COSEM log level "false" or "true"
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lCOSEM option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lCOSEM option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogCOSEM,args[i+1]);
+                                }
+                                uCP.HANOODefaultParameters.LogCOSEM = bool.Parse( args[i+1] );
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--lCOSEM option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        break;
+                    case "--lOBIS": // Set OBIS log level "false" or "true"
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lOBIS option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lOBIS option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogOBIS, flag);
+                                }
+                                uCP.HANOODefaultParameters.LogOBIS = flag;
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--lOBIS option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        break;
+                    case "--lCRC": // Set OBIS log level "false" or "true"
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lCRC option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lCRC option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogOBIS,flag);
+                                }
+                                uCP.HANOODefaultParameters.LogCRC = flag;
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--lOBIS option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        break;
+                    case "--delay": // Set delay between HAN reads; --delay 10000; Delay 10000 ms = 10 second
+                        if( i+1 < args.Length )
+                        {
+                            if ( int.TryParse(args[i+1], out value) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--delay option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--delay option changed current log status from {0} to {1}",uCP.HANOODeviceData.delayBetweenReads,value);
+                                }
+                                uCP.HANOODeviceData.delayBetweenReads = value;
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--delay option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
                         break;
                     default:
@@ -248,7 +389,12 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("For help :\n" + 
                               "--h => display help\n" + 
                               "--p => display parameters" +
-                              "You may change the parameters for:\n-pn \'PortName\'\n-br \'BaudRate\'");
+                              "\nYou may change the parameters for:\n--pn \'PortName\'\n--br \'BaudRate\'" +
+                              "\n--lDLMS \'<bool>\' => log DLMS data to tty" +
+                              "\n--lCOSEM \'<bool>\' => log COSEM data to tty" +
+                              "\n--lOBIS \'<bool>\' => log OBIS data block to tty" +
+                              "\n--lCRC \'<bool>\' => log CRC result to tty" +
+                              "\n--delay \'<int>\' => delay <int> milliseconds between HAN port read");
         }
     }
 }

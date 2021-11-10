@@ -41,14 +41,15 @@ namespace HAN_Crc16Class
                     }
                     table[i] = value;
                 }
-#if CRCCHECK
+            if( OOuCP.uCP.HANOODefaultParameters.LogCRC)
+            {
                 for ( int i = 0; i < 256; i++ )
                 {
                     if ( (i % (writeWidth - 10)) == 0 ) Console.WriteLine();
                     Console.Write("{0:X2} ",table[i]);
                 }
                 Console.WriteLine();
-#endif
+}
             }
 
             public ushort ComputeChecksum(List<byte> data, int start, int length)

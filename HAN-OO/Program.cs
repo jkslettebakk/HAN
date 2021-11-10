@@ -16,9 +16,6 @@ namespace HAN_OO
             // Prepare Reading DLMS data
             OO_HAN_Read_DLMS dlmsRead = new OO_HAN_Read_DLMS();
 
-            // Declair/Initiate HAN SerialPort object
-            SerialPort serialPort = new SerialPort();
-
             // Get/load user configuration parameters
             
             // OOuCP.displayParameters(OOuCP);
@@ -26,9 +23,7 @@ namespace HAN_OO
             // Check and modify configuration from command line
             // OOuCP.getHANOptions( args, uCPcontent ); // Modify config data by command line parameters, if any
 
-            serialPort = OOuCP.setSerialPort( OOuCP );
-
-            dlmsRead.OO_HAN_Read_DLMS_Data( serialPort ); // start reading DLMS data
+            dlmsRead.OO_HAN_Read_DLMS_Data( OOuCP ); // start reading DLMS data
 
             //Console.WriteLine("\n\tuCP object:{0}",uCP);
             
