@@ -24,6 +24,7 @@ namespace HAN_OBIS
             public byte F { get; set; }
             public string UoM { get; set; }
             public string obis { get; set; }
+            public int bytes {get; set; }
             public string objectName { set; get; }
             public string HAN_Vendor { get; set; }
         }
@@ -91,11 +92,24 @@ namespace HAN_OBIS
                     legalObisCodes[i].HAN_Vendor);
         }
 
+        public string showObis(int index)
+        {
+            if ( index >= 0 && index < legalObisCodes.Count)
+                return legalObisCodes[index].obis;
+            return "OBIS code " + index + " not found";
+
+        }
+
         public int isObisFound(byte a, byte b, byte c, byte d, byte e, byte f)
         {
             for (int i = 0; i < legalObisCodes.Count; i++)
             {
-                if (legalObisCodes[i].A == a && legalObisCodes[i].B == b && legalObisCodes[i].C == c && legalObisCodes[i].D == d && legalObisCodes[i].E == e && legalObisCodes[i].F == f)
+                if (legalObisCodes[i].A == a && 
+                    legalObisCodes[i].B == b && 
+                    legalObisCodes[i].C == c && 
+                    legalObisCodes[i].D == d && 
+                    legalObisCodes[i].E == e && 
+                    legalObisCodes[i].F == f)
                     return i;
             }
             return -1;
@@ -103,17 +117,7 @@ namespace HAN_OBIS
 
         public int isObisFound(byte[] data, int start )
         {
-            for (int i = 0; i < legalObisCodes.Count; i++)
-            {
-                if (legalObisCodes[i].A == data[start + 0] && 
-                    legalObisCodes[i].B == data[start + 1] && 
-                    legalObisCodes[i].C == data[start + 2] && 
-                    legalObisCodes[i].D == data[start + 3] && 
-                    legalObisCodes[i].E == data[start + 4] && 
-                    legalObisCodes[i].F == data[start + 5])
-                    return i;
-            }
-            return -1;
+                return isObisFound(data[start + 0],data[start + 1],data[start + 2],data[start + 3],data[start + 4],data[start + 5]);
         }
 
         public string oBISCode(byte[] data, int start)
@@ -163,6 +167,37 @@ namespace HAN_OBIS
             // establish a loop trough all OBIS values
             // 01 <- 
             //    01 <- 01 element
+            int numberOfObjects = data[1];
+            int switchValue = data[3]; // first switch value
+            int cOSEMIndex = 6; // Obis code index
+
+            for ( int i = 0; i < numberOfObjects; i++ )
+            {
+                switch (data[switchValue])
+                {
+                    case(0x02):
+                        // Struct av 2 elementer
+                        Console.WriteLine("Struct value {0} ok.", 0x02);
+                        oBISIndex = isObisFound( data, cOSEMIndex );
+                        Console.WriteLine("COSEM Object = {0}", showObis(oBISIndex) );
+                        switchValue += 11;
+                        Console.WriteLine("switchValue= {0} og antall karakterer= {1}",switchValue,data[switchValue]);
+                        for (int j=0; j<=data[switchValue]; j++) Console.Write("{0}",(char)data[switchValue+j]);                        
+                        switchValue += data[switchValue] + 2;
+                        Console.WriteLine("\nswitchValue= {0}",switchValue);                        
+                        break;
+                    case(0x03):
+                        // Struct av 3 elementer
+                        Console.WriteLine("Struct value {0} ok.", 0x03);
+                        oBISIndex = isObisFound( data, cOSEMIndex );
+                        Console.WriteLine("COSEM Object = {0}", showObis(oBISIndex) );                        
+                        break;
+                    default:
+                        Console.WriteLine("Struct value {0} not known.", data[switchValue]);
+                        break;
+                }
+            }
+
             oBISString = oBISCode( data , 6 );
 
             oBISIndex = isObisFound( data, 6 );
