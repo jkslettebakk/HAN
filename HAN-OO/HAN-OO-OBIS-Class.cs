@@ -19,8 +19,8 @@ namespace HAN_OBIS
         public const byte TYPE_INT16 = 0x10;
         public const byte TYPE_OCTETS = 0x09;
         public const byte TYPE_UINT16 = 0x12;
-        public const byte TYPE_TEXT   = 0x02;
-        public const byte TYPE_DATA   = 0x03;
+        public const byte STRUCT_TEXT   = 0x02;
+        public const byte STRUCT_DATA   = 0x03;
         public const int oBISLength = 6;
 
 
@@ -152,7 +152,7 @@ namespace HAN_OBIS
             return "Error in UoM";
         }
 
-        public void oBISBlock( byte[] data, bool logOBIS ) // COSEM block
+        public void oBISBlock( byte[] oBISdata, bool logOBIS ) // COSEM block
         {
             // expected full OBIS block from DLMS/COSEM data block
             // Sample expected input:
@@ -169,9 +169,18 @@ namespace HAN_OBIS
 
             if (logOBIS)
             {
-                Console.WriteLine("Obis block length=:{0}",data.Length);
-                foreach(byte b in data) Console.Write("{0:X2} ",b);
-                Console.WriteLine();
+                Console.WriteLine("-------------------------------------------------------------\n" +
+                                "Complete COSEM block");
+                for (int i = 0; i < oBISdata.Length; i++)
+                {
+                    if ( i != 0 )
+                    {
+                        if ( (i % 10) == 0 ) Console.Write(" ");
+                        if ( (i % 40) == 0 ) Console.WriteLine();
+                    }
+                    Console.Write("{0:X2} ",oBISdata[i]);
+                }
+                Console.WriteLine("\n-------------------------------------------------------------");                
             }
 
             // establish a loop trough all OBIS values
@@ -183,9 +192,9 @@ namespace HAN_OBIS
             // cOSEMIndex -     02                                           17
             // 01 <- 
             //    01 <- 01 element
-            int numberOfObjects = data[1];
+            int numberOfObjects = oBISdata[1];
             int cOSEMIndex = 02;   // keep track of KEY position in OBIS buffer, start in position 2 (first Struct)
-            int structType = data[cOSEMIndex + 1]; // first Struct location for the switch() function 
+            int structType = oBISdata[cOSEMIndex + 1]; // first Struct location for the switch() function 
             int legalObisCodesIndex;
 
             for ( int i = 0; i < numberOfObjects; i++ ) // Array of objects (number of objects)
@@ -193,48 +202,86 @@ namespace HAN_OBIS
                 legalObisCodesIndex = -1;
                 switch (structType)  // switch on type of struct element (text (0x02) or data (0x03))
                 {
-                    case(TYPE_TEXT): // Struct of 0x02 elements (text fields), text; = 10 bytes + 1 + text.length = 11 + text.length
-                        cOSEMIndex += 3;  //
-                        if(logOBIS) Console.WriteLine("Struct value {0:x2} ok. with structType = {1:x2}. cOSEMIndex = {2}.",TYPE_TEXT,structType,cOSEMIndex);
-                        legalObisCodesIndex = isObisFound( data, cOSEMIndex ); // Obis code start at cOSEMIndex
-                        if(logOBIS && legalObisCodesIndex > -1 ) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
+                    case(STRUCT_TEXT): // Struct of 0x02 elements (text fields), text; = 10 bytes + 1 + text.length = 11 + text.length
+                        if(logOBIS) Console.WriteLine("STRUCT_TEXT {0:x2} ok with structType = {1:x2} and cOSEMIndex = {2}.",STRUCT_TEXT,structType,cOSEMIndex);
+                        legalObisCodesIndex = isObisFound( oBISdata, cOSEMIndex + 4); // Obis code start at cOSEMIndex + 4
+                        if(logOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
                         // text block to be prosessed
-                        for (int j=0; j<=data[cOSEMIndex]; j++) Console.Write("{0}",Convert.ToChar(data[cOSEMIndex+j]));
+                        cOSEMIndex = cOSEMIndex + 4 + oBISLength; // cOSEMIndex on Obis code; Move to start text....
+                        if(logOBIS) Console.WriteLine("Start text at cOSEMIndex = {0}, value={1:X2}", cOSEMIndex, oBISdata[cOSEMIndex]);
+                        if ( oBISdata[cOSEMIndex] == TYPE_STRING ) Console.WriteLine("Yes, text found");
+                        cOSEMIndex += 1; // Index for length of text
+                        if(logOBIS) Console.WriteLine("Cosem index = {0}, tekst lengde = {1:X2} ({2})", cOSEMIndex, oBISdata[cOSEMIndex],oBISdata[cOSEMIndex]);
+                        for (int j=0; j<oBISdata[cOSEMIndex]; j++) Console.Write("{0}",Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]));
+                        Console.WriteLine();
                         // Prepare for next Struc block
-                        cOSEMIndex += TYPE_OCTETS + 1;
-                        cOSEMIndex += data[cOSEMIndex] +1; // Position for next OBIS block
-                        structType = data[cOSEMIndex];
-                        if(logOBIS) Console.WriteLine("\nNext structType= {0}",structType);                        
+                        cOSEMIndex += oBISdata[cOSEMIndex] + 1; // Position end of text, ready for next OBIS block
+                        structType = oBISdata[cOSEMIndex + 1];
+                        if(logOBIS) Console.WriteLine("\nNext structType= {0} in position {1}",structType,cOSEMIndex + 1);                        
                         break;
-                    case(TYPE_DATA): // Struct av 3 elementer (data fields), data; = 10 bytes + 11 bytes data (21)
-                        cOSEMIndex += 4;  //
-                        if(logOBIS) Console.WriteLine("Struct value {0:x2} ok. with structType = {1:x2}. cOSEMIndex = {2}.",TYPE_TEXT,structType,cOSEMIndex);
-                        legalObisCodesIndex = isObisFound( data, cOSEMIndex );  // Obis code starts at cOSEMIndex
-                        if(logOBIS && legalObisCodesIndex > -1 ) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
+                    case(STRUCT_DATA): // Struct av 3 elementer (data fields), data; = 10 bytes + 11/9 bytes data (21)
+                        if(logOBIS) Console.WriteLine("Struct value {0:x2} ok. with structType = {1:x2}. cOSEMIndex = {2}.",STRUCT_DATA,structType,cOSEMIndex);
+                        legalObisCodesIndex = isObisFound( oBISdata, cOSEMIndex + 4);  // Obis code starts at cOSEMIndex
+                        if(logOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
                         // Data block to be prosessed
-                        cOSEMIndex += TYPE_OCTETS - 2;
-                        structType = cOSEMIndex;
-                        Console.WriteLine("Start = {0}, lengde = {1}",structType,structType + 9);
-                        for ( int j=0; j< structType + 9; j++) Console.Write("{0:x2} ",data[structType+j]);
-                        structType += 2;                        
+                        cOSEMIndex = cOSEMIndex + 4 + oBISLength;
+
+                        if(logOBIS) Console.WriteLine("Start Data at cOSEMIndex = {0}, value = {1:X2} ",cOSEMIndex, oBISdata[cOSEMIndex]);
+
+                        if ( oBISdata[cOSEMIndex] == TYPE_UINT32)
+                        {
+                            if(logOBIS) Console.WriteLine("Found TYPE_UINT32 (1 byte) + 4 byte data + 02 02 + UoM?? (4 byte) == 11 bytes");
+                            if ( oBISdata.Length > cOSEMIndex + 11 + 2) structType = oBISdata[cOSEMIndex + 11 + 1]; // next data type
+                            for ( int j=0; j< 11; j++) Console.Write("{0:x2} ",oBISdata[cOSEMIndex+j]);
+                            cOSEMIndex += 11; // Next COSEM block position
+                        } 
+                        else if ( oBISdata[cOSEMIndex] == TYPE_INT16)
+                        {
+                            if(logOBIS) Console.WriteLine("Found TYPE_INT16 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
+                            if ( oBISdata.Length > cOSEMIndex + 9 + 2) structType = oBISdata[cOSEMIndex + 9 + 1];
+                            for ( int j=0; j< 9; j++) Console.Write("{0:x2} ",oBISdata[cOSEMIndex+j]);
+                            cOSEMIndex += 9; // Next COSEM block position
+                        }
+                        else if ( oBISdata[cOSEMIndex] == TYPE_UINT16)
+                        {
+                            if(logOBIS) Console.WriteLine("Found TYPE_UINT16 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
+                            if ( oBISdata.Length > cOSEMIndex + 9 +2) structType = oBISdata[cOSEMIndex + 9 + 1];
+                            for ( int j=0; j< 9; j++) Console.Write("{0:x2} ",oBISdata[cOSEMIndex+j]);
+                            cOSEMIndex += 9; // Next COSEM block position
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nNo oBISdata value found on cOSEMIndec = {0}. Value is {1:X2}",cOSEMIndex,oBISdata[cOSEMIndex]);
+                            Console.WriteLine("oBISdata[{0}] to end",cOSEMIndex);
+                            for ( int j=cOSEMIndex; j<oBISdata.Length; j++)
+                            {
+                                if ( j != 0 )
+                                {
+                                    if ( (j % 10) == 0 ) Console.Write(" ");
+                                    if ( (j % 40) == 0 ) Console.WriteLine();
+                                }
+                                Console.Write("{0:X2} ",oBISdata[j]);
+                            }
+                        }
+                        Console.WriteLine();
                         break;
                     default:
-                        Console.WriteLine("Struct value {0} not known.", data[structType]);
+                        Console.WriteLine("Struct value {0} not known in position cOSEMIndex = {1}.", structType,cOSEMIndex);
                         break;
                 }
             }
 
-            oBISString = oBISCode( data , 6 );
+            oBISString = oBISCode( oBISdata , 6 );
 
-            oBISIndex = isObisFound( data, 6 );
+            oBISIndex = isObisFound( oBISdata, 6 );
 
             if( oBISIndex == 0 )
             {
                 Console.WriteLine("Data for {0}:",legalObisCodes[oBISIndex].obis);
-                for( int i = 12; i < data.Length; i++ ) Console.Write("{0:x2} ", data[i]);
+                for( int i = 12; i < oBISdata.Length; i++ ) Console.Write("{0:x2} ", oBISdata[i]);
                 Console.WriteLine();
-                ulong power = (ulong) (data[15]<<8) + data[16];
-                Console.WriteLine("Power consumption bytes: {0:X2} {1:X2}, value = {2} {3}",data[15],data[16],power,legalObisCodes[oBISIndex].UoM);
+                ulong power = (ulong) (oBISdata[15]<<8) + oBISdata[16];
+                Console.WriteLine("Power consumption bytes: {0:X2} {1:X2}, value = {2} {3}",oBISdata[15],oBISdata[16],power,legalObisCodes[oBISIndex].UoM);
             }
 
             Console.WriteLine("Obis code found is {0} with index {1} (with value={2})",oBISString,oBISIndex,legalObisCodes[oBISIndex].obis);

@@ -19,7 +19,15 @@ namespace COSEM
             {
             Console.WriteLine("-------------------------------------------------------------\n" +
                              "Complete DLMS block. Checking CRC and extracting COSEM data");
-            for (int i = 0; i < DLMSBlock.Length; i++) Console.Write("{0:x2} ",DLMSBlock[i]);
+            for (int i = 0; i < DLMSBlock.Length; i++)
+            {
+                if ( i != 0 )
+                {
+                    if ( (i % 10) == 0 ) Console.Write(" ");
+                    if ( (i % 40) == 0 ) Console.WriteLine();
+                }
+                Console.Write("{0:X2} ",DLMSBlock[i]);
+            }
             Console.WriteLine("\n-------------------------------------------------------------");                
             }
 
