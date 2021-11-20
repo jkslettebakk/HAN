@@ -37,6 +37,6 @@
                 "serialPortParity" : 2,
                 "serialPortDataBits" : 8,
                 "serialPortStopBits" : 1,
-                "delayBetweenReads" : 10000
+                "delayBetweenReads" : 1000
         }
     }

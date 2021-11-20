@@ -25,17 +25,9 @@ namespace HAN_OO
 
             dlmsRead.OO_HAN_Read_DLMS_Data( OOuCP ); // start reading DLMS data
 
-            //Console.WriteLine("\n\tuCP object:{0}",uCP);
-            
-            do
-            {
-                // Read HAN port and analyse for OBIS codes on Power/ProweCosumption/Ampere etc.
-                if ( (++HANPortLoops % 100000000) == 0 )
-                {
-                    Console.WriteLine("Loops done: {0}",HANPortLoops);
-                }
+            // Stopping this app will probably be by "Ctrl-c" or in a memory crash
+            // and will probably never "execute" this line
 
-            } while (true);
         }
     }
 }
