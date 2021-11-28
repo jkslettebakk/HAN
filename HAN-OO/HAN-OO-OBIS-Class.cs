@@ -6,14 +6,25 @@ namespace HAN_OBIS
     {
         // OBIS types
         private protected const byte TYPE_STRING = 0x0a;
-        private protected const byte TYPE_UINT32 = 0x06;
-        private protected const byte TYPE_INT16  = 0x10;
-        private protected const byte TYPE_OCTETS = 0x09;
-        private protected const byte TYPE_UINT16 = 0x12;
-        private protected const byte STRUCT_TEXT = 0x02;
-        private protected const byte STRUCT_DATA = 0x03;
+        private protected const byte TYPE_UINT32_0x06 = 0x06;
+        private protected const byte TYPE_INT16_0x10  = 0x10;
+        private protected const byte TYPE_OCTETS_0x09 = 0x09;
+        private protected const byte TYPE_UINT16_0x12 = 0x12;
+        private protected const byte STRUCT_TEXT_0x02 = 0x02;
+        private protected const byte STRUCT_DATA_0x03 = 0x03;
         private protected const int  oBISLength  = 6;
 
+        struct obisValuesStruct
+        {
+            public double currentEnergy { get; set; }
+            public double sumEnergy { get; set; }
+            public double currentVolte { get; set; }
+            public double currentAmpere { get; set; }
+        }
+
+        obisValuesStruct obisValues;
+
+        DateTime dateTime = new DateTime();
 
         private protected struct obisCodesStruct
         {
@@ -24,6 +35,7 @@ namespace HAN_OBIS
             public byte E { get; set; }
             public byte F { get; set; }
             public string UoM { get; set; }
+            public double scale { get; set; }
             public string obis { get; set; }
             public string obisType { get; set; }
             public string objectName { set; get; }
@@ -39,41 +51,41 @@ namespace HAN_OBIS
         //a obis struct list
         List<obisCodesStruct> legalObisCodes = new List<obisCodesStruct>
         {
-            new obisCodesStruct{A=1,B=0,C=1, D=7,E=0,  F=255,obis="1.0.1.7.0.255",  UoM= "W",    objectName="Q1+Q4",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=1,C= 0,D=2,E=129,F=255,obis="1.1.0.2.129.255",UoM= "' '",  objectName="Version identifier",HAN_Vendor ="Aidon & Kamstrup"},
-            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  0,F=255,obis="0.0.96.1.0.255", UoM= "' '",  objectName="Model ID",          HAN_Vendor ="Aidon"}, 
-            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  7,F=255,obis="0.0.96.1.7.255", UoM= "' '",  objectName="Model type",        HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 2,D=7,E=  0,F=255,obis="1.0.2.7.0.255",  UoM= "W",    objectName="Q2+Q3",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 3,D=7,E=  0,F=255,obis="1.0.3.7.0.255",  UoM= "kVAr", objectName="Q1+Q2",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 4,D=7,E=  0,F=255,obis="1.0.4.7.0.255",  UoM= "kVAr", objectName="Q3+Q4",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=31,D=7,E=  0,F=255,obis="1.0.31.7.0.255", UoM= "A",    objectName="IL1",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=51,D=7,E=  0,F=255,obis="1.0.51.7.0.255", UoM= "A",    objectName="IL2",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=71,D=7,E=  0,F=255,obis="1.0.71.7.0.255", UoM= "A",    objectName="IL3",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=32,D=7,E=  0,F=255,obis="1.0.32.7.0.255", UoM= "V",    objectName="UL1",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=52,D=7,E=  0,F=255,obis="1.0.52.7.0.255", UoM= "V",    objectName="UL2",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=72,D=7,E=  0,F=255,obis="1.0.72.7.0.255", UoM= "V",    objectName="UL3",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=0,B=0,C= 1,D=0,E=  0,F=255,obis="0.0.1.0.0.255",  UoM= "' '",  objectName="Clock and Date",    HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 1,D=8,E=  0,F=255,obis="1.0.1.8.0.255",  UoM= "Wh",   objectName="Q1+Q4",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 2,D=8,E=  0,F=255,obis="1.0.2.8.0.255",  UoM= "Wh",   objectName="Q2+Q3",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 3,D=8,E=  0,F=255,obis="1.0.3.8.0.255",  UoM= "kVArh",objectName="Q1+Q2",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 4,D=8,E=  0,F=255,obis="1.0.4.8.0.255",  UoM= "kVArh",objectName="Q3+Q4",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=1,C= 0,D=0,E=  5,F=255,obis="1.1.0.0.5.255",  UoM= "' '",  objectName="GS1 number",        HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 1,D=7,E=  0,F=255,obis="1.1.1.7.0.255",  UoM= "W",    objectName="P14",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 2,D=7,E=  0,F=255,obis="1.1.2.7.0.255",  UoM= "W",    objectName="P23",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=31,D=7,E=  0,F=255,obis="1.1.31.7.0.255", UoM= "A",    objectName="IL1",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=51,D=7,E=  0,F=255,obis="1.1.51.7.0.255", UoM= "A",    objectName="IL2",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=71,D=7,E=  0,F=255,obis="1.1.71.7.0.255", UoM= "A",    objectName="IL3",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=32,D=7,E=  0,F=255,obis="1.1.32.7.0.255", UoM= "V",    objectName="UL1",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=52,D=7,E=  0,F=255,obis="1.1.52.7.0.255", UoM= "V",    objectName="UL2",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=72,D=7,E=  0,F=255,obis="1.1.72.7.0.255", UoM= "V",    objectName="UL3",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=0,B=1,C= 1,D=0,E=  0,F=255,obis="0.1.1.0.0.255",  UoM= "' '",  objectName="RTC",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 1,D=8,E=  0,F=255,obis="1.1.1.8.0.255",  UoM= "Wh",   objectName="A14",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 2,D=8,E=  0,F=255,obis="1.1.2.8.0.255",  UoM= "Wh",   objectName="A23",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=96,D=1,E=  1,F=255,obis="1.1.96.1.1.255", UoM= "' '",  objectName="Meter type",        HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 3,D=7,E=  0,F=255,obis="1.1.3.7.0.255",  UoM= "var",  objectName="Q12",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 4,D=7,E=  0,F=255,obis="1.1.4.7.0.255",  UoM= "var",  objectName="Q34",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 3,D=8,E=  0,F=255,obis="1.1.3.8.0.255",  UoM= "varh", objectName="R12",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 4,D=8,E=  0,F=255,obis="1.1.4.8.0.255",  UoM= "varh", objectName="R34",               HAN_Vendor ="Kamstrup"}
+            new obisCodesStruct{A=1,B=0,C=1, D=7,E=0,  F=255,obis="1.0.1.7.0.255",  UoM= "W",    scale = 0.1000, objectName="Q1+Q4",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=1,C= 0,D=2,E=129,F=255,obis="1.1.0.2.129.255",UoM= "\" \"",scale = 1.0000,objectName="Version identifier",HAN_Vendor ="Aidon & Kamstrup"},
+            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  0,F=255,obis="0.0.96.1.0.255", UoM= "\" \"",scale = 1.0000,objectName="Model ID",          HAN_Vendor ="Aidon"}, 
+            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  7,F=255,obis="0.0.96.1.7.255", UoM= "\" \"",scale = 1.0000,objectName="Model type",        HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 2,D=7,E=  0,F=255,obis="1.0.2.7.0.255",  UoM= "W",    scale = 1.0000,objectName="Q2+Q3",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 3,D=7,E=  0,F=255,obis="1.0.3.7.0.255",  UoM= "kVAr", scale = 1.0000,objectName="Q1+Q2",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 4,D=7,E=  0,F=255,obis="1.0.4.7.0.255",  UoM= "kVAr", scale = 1.0000,objectName="Q3+Q4",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=31,D=7,E=  0,F=255,obis="1.0.31.7.0.255", UoM= "A",    scale = 1.0000,objectName="IL1",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=51,D=7,E=  0,F=255,obis="1.0.51.7.0.255", UoM= "A",    scale = 1.0000,objectName="IL2",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=71,D=7,E=  0,F=255,obis="1.0.71.7.0.255", UoM= "A",    scale = 1.0000,objectName="IL3",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=32,D=7,E=  0,F=255,obis="1.0.32.7.0.255", UoM= "V",    scale = 1.0000,objectName="UL1",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=52,D=7,E=  0,F=255,obis="1.0.52.7.0.255", UoM= "V",    scale = 1.0000,objectName="UL2",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=72,D=7,E=  0,F=255,obis="1.0.72.7.0.255", UoM= "V",    scale = 1.0000,objectName="UL3",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=0,B=0,C= 1,D=0,E=  0,F=255,obis="0.0.1.0.0.255",  UoM= "\" \"",scale = 1.0000,objectName="Clock and Date",    HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 1,D=8,E=  0,F=255,obis="1.0.1.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="Q1+Q4",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 2,D=8,E=  0,F=255,obis="1.0.2.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="Q2+Q3",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 3,D=8,E=  0,F=255,obis="1.0.3.8.0.255",  UoM= "kVArh",scale = 1.0000,objectName="Q1+Q2",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 4,D=8,E=  0,F=255,obis="1.0.4.8.0.255",  UoM= "kVArh",scale = 1.0000,objectName="Q3+Q4",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=1,C= 0,D=0,E=  5,F=255,obis="1.1.0.0.5.255",  UoM= "\" \"",scale = 1.0000,objectName="GS1 number",        HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 1,D=7,E=  0,F=255,obis="1.1.1.7.0.255",  UoM= "W",    scale = 0.1000,objectName="P14",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 2,D=7,E=  0,F=255,obis="1.1.2.7.0.255",  UoM= "W",    scale = 0.1000,objectName="P23",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=31,D=7,E=  0,F=255,obis="1.1.31.7.0.255", UoM= "A",    scale = 1.0000,objectName="IL1",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=51,D=7,E=  0,F=255,obis="1.1.51.7.0.255", UoM= "A",    scale = 1.0000,objectName="IL2",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=71,D=7,E=  0,F=255,obis="1.1.71.7.0.255", UoM= "A",    scale = 1.0000,objectName="IL3",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=32,D=7,E=  0,F=255,obis="1.1.32.7.0.255", UoM= "V",    scale = 1.0000,objectName="UL1",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=52,D=7,E=  0,F=255,obis="1.1.52.7.0.255", UoM= "V",    scale = 1.0000,objectName="UL2",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=72,D=7,E=  0,F=255,obis="1.1.72.7.0.255", UoM= "V",    scale = 1.0000,objectName="UL3",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=0,B=1,C= 1,D=0,E=  0,F=255,obis="0.1.1.0.0.255",  UoM= "\" \"",scale = 1.0000,objectName="RTC",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 1,D=8,E=  0,F=255,obis="1.1.1.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="A14",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 2,D=8,E=  0,F=255,obis="1.1.2.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="A23",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=96,D=1,E=  1,F=255,obis="1.1.96.1.1.255", UoM= "\" \"",scale = 1.0000,objectName="Meter type",        HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 3,D=7,E=  0,F=255,obis="1.1.3.7.0.255",  UoM= "Var",  scale = 1.0000,objectName="Q12",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 4,D=7,E=  0,F=255,obis="1.1.4.7.0.255",  UoM= "Var",  scale = 1.0000,objectName="Q34",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 3,D=8,E=  0,F=255,obis="1.1.3.8.0.255",  UoM= "Varh", scale = 1.0000,objectName="R12",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 4,D=8,E=  0,F=255,obis="1.1.4.8.0.255",  UoM= "Varh", scale = 1.0000,objectName="R34",               HAN_Vendor ="Kamstrup"}
         };
 
 
@@ -184,7 +196,9 @@ namespace HAN_OBIS
             int cOSEMIndex = 02;   // keep track of KEY position in OBIS buffer, start in position 2 (first Struct)
             int structType = oBISdata[cOSEMIndex + 1]; // first Struct location for the switch() function 
             int legalObisCodesIndex;
-            string jSONstring = "[\n\t{\n";
+            string jSONstring = "[\n";
+            dateTime = DateTime.Now;
+            jSONstring += "\t{\n\t{\t\"DateTimeRecorded\" : " + dateTime.ToString("O") + "\"\t},\n";
 
             Console.WriteLine("\n---------------------------- New COSEM block containing OBIS objects ----------------------\n");
 
@@ -193,9 +207,9 @@ namespace HAN_OBIS
                 legalObisCodesIndex = -1;
                 switch (structType)  // switch on type of struct element (text (0x02) or data (0x03))
                 {
-                    case(STRUCT_TEXT):
+                    case(STRUCT_TEXT_0x02):
                         // Struct of 0x02 elements (text fields), text; = 10 bytes + 1 + text.length = 11 + text.length
-                        if(logOBIS) Console.WriteLine("STRUCT_TEXT ({0:x2}) found. cOSEMIndex = {1}.",structType,cOSEMIndex);
+                        if(logOBIS) Console.WriteLine("STRUCT_TEXT_0x02 ({0:x2}) found. cOSEMIndex = {1}.",structType,cOSEMIndex);
                         legalObisCodesIndex = isObisFound( oBISdata, cOSEMIndex + 4); // Obis code start at cOSEMIndex + 4
                         if(logOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
                         
@@ -207,13 +221,13 @@ namespace HAN_OBIS
                         Console.Write("{0}=",legalObisCodes[legalObisCodesIndex].objectName);
 
                         // Build JSON string
-                        if ( jSONstring.Contains(":") ) jSONstring += "',\n";
-                        jSONstring += "\t\t'" + legalObisCodes[legalObisCodesIndex].objectName + "' : '";
+                        jSONstring += "\t{\t\"" + legalObisCodes[legalObisCodesIndex].objectName + "\" : \"";
                         for (int j=0; j<oBISdata[cOSEMIndex]; j++)
                         {
-                            Console.Write("{0}",Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]));
+                            if(logOBIS) Console.Write("{0}",Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]));
                             jSONstring += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
                         }
+                        jSONstring += "\",\n\t\t\"UoM\" : " + legalObisCodes[legalObisCodesIndex].UoM + " }";
                         Console.WriteLine();
 
                         // Prepare for next Struc block
@@ -222,9 +236,9 @@ namespace HAN_OBIS
                         if(logOBIS) Console.WriteLine("\nNext structType= {0} in position {1}",structType,cOSEMIndex + 1);                        
                         break;
                         
-                    case(STRUCT_DATA):
+                    case(STRUCT_DATA_0x03):
                         // Struct av 3 elementer (data fields), data; = 10 bytes + 11/9 bytes data (21)
-                        if(logOBIS) Console.WriteLine("Struct value {0:x2} ok. with structType = {1:x2}. cOSEMIndex = {2}.",STRUCT_DATA,structType,cOSEMIndex);
+                        if(logOBIS) Console.WriteLine("Struct value {0:x2} ok. with structType = {1:x2}. cOSEMIndex = {2}.",STRUCT_DATA_0x03,structType,cOSEMIndex);
                         legalObisCodesIndex = isObisFound( oBISdata, cOSEMIndex + 4);  // Obis code starts at cOSEMIndex
                         if(logOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
                         // Data block to be prosessed
@@ -232,23 +246,26 @@ namespace HAN_OBIS
 
                         if(logOBIS) Console.WriteLine("Start Data at cOSEMIndex = {0}, value = {1:X2} ",cOSEMIndex, oBISdata[cOSEMIndex]);
 
-                        if ( oBISdata[cOSEMIndex] == TYPE_UINT32)
+                        if ( oBISdata[cOSEMIndex] == TYPE_UINT32_0x06)
                         {
-                            // 
-                            if(logOBIS) Console.WriteLine("Found TYPE_UINT32 (1 byte) + 4 byte data + 02 02 + UoM?? (4 byte) == 11 bytes");
+                            // Power/Energy values
+                            if(logOBIS) Console.WriteLine("Found TYPE_UINT32_0x06 (1 byte) + 4 byte data + 02 02 + UoM?? (4 byte) == 11 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 11 + 2) structType = oBISdata[cOSEMIndex + 11 + 1]; // next data type
                             Console.Write("{0}=",legalObisCodes[legalObisCodesIndex].objectName);
                             if(logOBIS)
                             {
                                 for ( int j=0; j< 11; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("{0}",legalObisCodes[legalObisCodesIndex].UoM);
-                            }                           
-                            Console.WriteLine("{0} {1}", (ulong)(((((ulong)(oBISdata[cOSEMIndex+1]<<32)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4])/0x0A), legalObisCodes[legalObisCodesIndex].UoM);
+                            }
+                            obisValues.currentEnergy = ((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale;
+                            obisValues.sumEnergy += obisValues.currentEnergy;
+                            Console.WriteLine("{0:0.00} {1}", obisValues.currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
+                            Console.WriteLine("Using function ToUInt32 gives {0:0.00}", BitConverter.ToUInt32( oBISdata, (cOSEMIndex+1)) );
                             cOSEMIndex += 11; // Next COSEM block position
                         } 
-                        else if ( oBISdata[cOSEMIndex] == TYPE_INT16)
+                        else if ( oBISdata[cOSEMIndex] == TYPE_INT16_0x10)
                         {
-                            if(logOBIS) Console.WriteLine("Found TYPE_INT16 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
+                            if(logOBIS) Console.WriteLine("Found TYPE_INT16_0x10 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 9 + 2) structType = oBISdata[cOSEMIndex + 9 + 1];
                             Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
                             if(logOBIS)
@@ -256,12 +273,13 @@ namespace HAN_OBIS
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("{0}",legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            Console.WriteLine("{0} {1}", (int)(((int)(oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2])/0x0A), legalObisCodes[legalObisCodesIndex].UoM);
+                            obisValues.currentAmpere =  ((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale;
+                            Console.WriteLine("{0:0.00} {1}", obisValues.currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
                         }
-                        else if ( oBISdata[cOSEMIndex] == TYPE_UINT16)
+                        else if ( oBISdata[cOSEMIndex] == TYPE_UINT16_0x12)
                         {
-                            if(logOBIS) Console.WriteLine("Found TYPE_UINT16 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
+                            if(logOBIS) Console.WriteLine("Found TYPE_UINT16_0x12 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 9 +2) structType = oBISdata[cOSEMIndex + 9 + 1];
                             Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
                             if(logOBIS)
@@ -269,7 +287,8 @@ namespace HAN_OBIS
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("{0}",legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            Console.WriteLine("{0} {1}", (uint)(((uint)(oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2])/0x0A), legalObisCodes[legalObisCodesIndex].UoM);
+                            obisValues.currentVolte = ((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale;
+                            Console.WriteLine("{0:0.00} {1}", obisValues.currentVolte, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
                         }
                         else
