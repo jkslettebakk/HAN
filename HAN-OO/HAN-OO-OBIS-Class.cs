@@ -130,12 +130,14 @@ namespace HAN_OBIS
 
         private int isObisFound(byte[] data, int start )
         {
-                return isObisFound(data[start + 0],data[start + 1],data[start + 2],data[start + 3],data[start + 4],data[start + 5]);
+            if ( data.Length < 6 ) return -1;
+            return isObisFound(data[start + 0],data[start + 1],data[start + 2],data[start + 3],data[start + 4],data[start + 5]);
         }
 
         private string oBISCode(byte[] data, int start)
         {
             string cosem = "";
+            if ( data.Length < 6 ) return "";
             cosem = data[start + 0].ToString("X2") + "." + 
                     data[start + 1].ToString("X2") + "." +
                     data[start + 2].ToString("X2") + "." +
@@ -344,6 +346,8 @@ namespace HAN_OBIS
                 Console.WriteLine(jSONstring);
                 if ( logOBIS ) Console.WriteLine(jSONstringCompressed);
 
+                // next, call the API to CRUD the data to the DB
+                // 
         }
     }
 }
