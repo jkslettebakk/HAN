@@ -80,6 +80,12 @@ namespace HANOOUserConfigurationParameters
             [JsonPropertyName("--lCRC")]
             public string lCRC { get; set; }
 
+            [JsonPropertyName("--lJson")]
+            public string lJson { get; set; }
+
+            [JsonPropertyName("--lJsonCompressed")]
+            public string lJsonCompressed { get; set; }
+
             [JsonPropertyName("--pn <value>")]
             public string pn { get; set; }
 
@@ -113,6 +119,11 @@ namespace HANOOUserConfigurationParameters
             [JsonPropertyName("LogCRC")]
             public bool LogCRC { get; set; }
 
+            [JsonPropertyName("LogJson")]
+            public bool LogJson { get; set; }
+
+            [JsonPropertyName("LogJsonCompressed")]
+            public bool LogJsonCompressed { get; set; }
         }
 
         public class UserConfigurationParameters // Setting it all together in an object grouping
@@ -167,16 +178,20 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("parameters.HANOODefaultParameters.LogDLMS: {0}",parameters.HANOODefaultParameters.LogDLMS);
             Console.WriteLine("parameters.HANOODefaultParameters.LogCOSEM: {0}",parameters.HANOODefaultParameters.LogCOSEM);
             Console.WriteLine("parameters.HANOODefaultParameters.LogOBIS: {0}",parameters.HANOODefaultParameters.LogOBIS);
+            Console.WriteLine("parameters.HANOODefaultParameters.LogJson: {0}",parameters.HANOODefaultParameters.LogJson);
+            Console.WriteLine("parameters.HANOODefaultParameters.LogJsonCompressed: {0}",parameters.HANOODefaultParameters.LogJsonCompressed);
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("parameters.HANOOParameters.Comment: {0}",parameters.HANOOParameters.Comment);
             Console.WriteLine("parameters.HANOOParameters.DefaultParameterFile: {0}",parameters.HANOOParameters.DefaultParameterFile);
             Console.WriteLine("parameters.HANOOParameters.H: {0}",parameters.HANOOParameters.H);
             Console.WriteLine("parameters.HANOOParameters.L: {0}",parameters.HANOOParameters.L);
+            Console.WriteLine("parameters.HANOOParameters.pn: {0}",parameters.HANOOParameters.pn);
+            Console.WriteLine("parameters.HANOOParameters.pb: {0}",parameters.HANOOParameters.pb);
             Console.WriteLine("parameters.HANOOParameters.lDLMS: {0}",parameters.HANOOParameters.lDLMS);
             Console.WriteLine("parameters.HANOOParameters.lCOSEM: {0}",parameters.HANOOParameters.lCOSEM);
             Console.WriteLine("parameters.HANOOParameters.lOBIS: {0}",parameters.HANOOParameters.lOBIS);
-            Console.WriteLine("parameters.HANOOParameters.pn: {0}",parameters.HANOOParameters.pn);
-            Console.WriteLine("parameters.HANOOParameters.pb: {0}",parameters.HANOOParameters.pb);
+            Console.WriteLine("parameters.HANOOParameters.lJson: {0}",parameters.HANOOParameters.lJson);
+            Console.WriteLine("parameters.HANOOParameters.lJsonCompressed: {0}",parameters.HANOOParameters.lJsonCompressed);
             Console.WriteLine("--------------------------------------");
         } 
 
@@ -350,13 +365,47 @@ namespace HANOOUserConfigurationParameters
                                 if (uCP.HANOODefaultParameters.Log)
                                 {
                                     Console.WriteLine("--lCRC option and value = {0}",args[i+1]);
-                                    Console.WriteLine("--lCRC option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogOBIS,flag);
+                                    Console.WriteLine("--lCRC option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogCRC,flag);
                                 }
                                 uCP.HANOODefaultParameters.LogCRC = flag;
                                 i++;
                             }
                             else
                                 if (log) Console.WriteLine("--lOBIS option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        break;
+                    case "--lJson": // Set OBIS log level "false" or "true"
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lJson option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lJson option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                }
+                                uCP.HANOODefaultParameters.LogJson = flag;
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--lJson option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        break;
+                    case "--lJsonCompressed": // Set OBIS log level "false" or "true"
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lJsonCompressed option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lJsonCompressed option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJsonCompressed,flag);
+                                }
+                                uCP.HANOODefaultParameters.LogJsonCompressed = flag;
+                                i++;
+                            }
+                            else
+                                if (log) Console.WriteLine("--lJsonCompressed option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
                         break;
                     case "--delay": // Set delay between HAN reads; --delay 10000; Delay 10000 ms = 10 second
@@ -394,6 +443,7 @@ namespace HANOOUserConfigurationParameters
                               "\n--lCOSEM \'<bool>\' => log COSEM data to tty" +
                               "\n--lOBIS \'<bool>\' => log OBIS data block to tty" +
                               "\n--lCRC \'<bool>\' => log CRC result to tty" +
+                              "\n--lJson \'<bool>\' => log Json data to tty" +
                               "\n--delay \'<int>\' => delay <int> milliseconds between HAN port read");
         }
     }

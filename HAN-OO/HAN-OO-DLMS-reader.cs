@@ -17,7 +17,7 @@ namespace HANDLMS
 
         
         public void OO_HAN_Read_DLMS_Data( OOUserConfigurationParameters OOuCP )
-        {
+         {
             // Declair/Initiate HAN SerialPort object
             SerialPort serialPort = new SerialPort();
 

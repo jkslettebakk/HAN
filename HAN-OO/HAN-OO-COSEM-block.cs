@@ -50,7 +50,7 @@ namespace COSEM
             for( int i=0; i < oBISBytes.Length; i++ ) oBISBytes[i] = CRCBlock[i+17];
 
             // obis.showObisValues();
-            obis.oBISBlock( oBISBytes, OOuCP.uCP.HANOODefaultParameters.LogOBIS );
+            obis.oBISBlock( oBISBytes, OOuCP );
 
         }
 

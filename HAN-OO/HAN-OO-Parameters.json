@@ -15,7 +15,9 @@
                 "LogDLMS" : false,
                 "LogCOSEM" : false,
                 "LogOBIS" : false,
-                "LogCRC" : false
+                "LogCRC" : false,
+                "LogJson" : false,
+                "LogJsonCompressed" : false
         },
         "HANOOParameters" : {
                 "Comment" : "Default parameter settings. Might be owerwritten by --<parameter> <value> on command line (CLI)",
@@ -26,6 +28,8 @@
                 "--lCOSEM" : "Show COSEM log data to tty (Standard output). You may send this to any tty device  (file etc.)",
                 "--lOBIS" : "Show OBIS log data to tty (Standard output). You may send this to any tty device  (file etc.)",
                 "--lCRC" : "Show CRC tables and calculation to tty (Standard output). You may send this to any tty device  (file etc.)",
+                "--lJson" : "Display (pretty) Json result to tty (standard output). You may send this to ant tty device (file etc.)",
+                "--lJsonCompressed" :  "Display (ugly) Json result to tty (standard output). You may send this to ant tty device (file etc.)",
                 "--pn <value>" : "Override default port name with <value>. e.g. --pn /dev/ttyUSB4 set portname to /dev/ttyUSB4",
                 "--pb <value>" : "Override default baud-rate with <value>. e.g. --pb 19200 sett baurate to 19200 bits-per-second (bps)"
         },

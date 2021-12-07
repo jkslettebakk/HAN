@@ -156,7 +156,7 @@ namespace HAN_OBIS
             return "Error in UoM";
         }
 
-        protected internal void oBISBlock( byte[] oBISdata, bool logOBIS ) // COSEM block
+        protected internal void oBISBlock( byte[] oBISdata, OOUserConfigurationParameters OOuCP ) // COSEM block
         {
             // expected full OBIS block from DLMS/COSEM data block
             // Sample expected input:
@@ -168,9 +168,9 @@ namespace HAN_OBIS
             //                                                                         09 06 
             //                                                                               01 00 01 07 00 FF 
             //                                                                                                 06 00000451 0202 0F00 161B
+            bool LLogOBIS = OOuCP.uCP.HANOODefaultParameters.LogOBIS;
 
-
-            if (logOBIS)
+            if (LLogOBIS)
             {
                 Console.WriteLine("-------------------------------------------------------------\n" +
                                 "Complete COSEM block");
@@ -200,10 +200,10 @@ namespace HAN_OBIS
             int structType = oBISdata[cOSEMIndex + 1]; // first Struct location for the switch() function 
             int legalObisCodesIndex;
             dateTime = DateTime.Now;
-            string jSONstring = "[\n\t{\t\n\t\t\"DateTimeRecorded\":\"" + dateTime.ToString("O") + "\"\n\t}";
-            string jSONstringCompressed = "[{\"DateTimeRecorded\":\"" + dateTime.ToString("O") + "\"}";
+            string jSONstring = "[\n\t{\t\n\t\t\"DateTimeRecorded\":\"" + dateTime.ToString("yyyy-MM-ddTHH:MM:ss.ff") + "\"\n\t}";
+            string jSONstringCompressed = "[{\"DateTimeRecorded\":\"" + dateTime.ToString("yyyy-MM-ddTHH:MM:ss.ff") + "\"}";
 
-            if(logOBIS) Console.WriteLine("\n---------------------------- New COSEM block containing OBIS objects ----------------------\n");
+            if(LLogOBIS) Console.WriteLine("\n---------------------------- New COSEM block containing OBIS objects ----------------------\n");
 
             for ( int i = 0; i < numberOfObjects; i++ ) // Array of objects (number of objects)
             { 
@@ -212,53 +212,53 @@ namespace HAN_OBIS
                 {
                     case(STRUCT_TEXT_0x02):
                         // Struct of 0x02 elements (text fields), text; = 10 bytes + 1 + text.length = 11 + text.length
-                        if(logOBIS) Console.WriteLine("STRUCT_TEXT_0x02 ({0:x2}) found. cOSEMIndex = {1}.",structType,cOSEMIndex);
+                        if(LLogOBIS) Console.WriteLine("STRUCT_TEXT_0x02 ({0:x2}) found. cOSEMIndex = {1}.",structType,cOSEMIndex);
                         legalObisCodesIndex = isObisFound( oBISdata, cOSEMIndex + 4); // Obis code start at cOSEMIndex + 4
-                        if(logOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
+                        if(LLogOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
                         
                         // text block to be prosessed
                         cOSEMIndex = cOSEMIndex + 4 + oBISLength; // cOSEMIndex on Obis code; Move to start text....
-                        if(logOBIS) Console.WriteLine("Start text at cOSEMIndex = {0}, value={1:X2}", cOSEMIndex, oBISdata[cOSEMIndex]);
+                        if(LLogOBIS) Console.WriteLine("Start text at cOSEMIndex = {0}, value={1:X2}", cOSEMIndex, oBISdata[cOSEMIndex]);
                         cOSEMIndex += 1; // Index for length of text
-                        if(logOBIS) Console.WriteLine("Cosem index = {0}, tekst lengde = {1:X2} ({2})", cOSEMIndex, oBISdata[cOSEMIndex], oBISdata[cOSEMIndex]);
+                        if(LLogOBIS) Console.WriteLine("Cosem index = {0}, tekst lengde = {1:X2} ({2})", cOSEMIndex, oBISdata[cOSEMIndex], oBISdata[cOSEMIndex]);
 
                         // Add text to JSON string
                         jSONstring += ",\n\t{\t\"" + legalObisCodes[legalObisCodesIndex].objectName + "\":\"";
                         jSONstringCompressed += ",{\"" + legalObisCodes[legalObisCodesIndex].objectName + "\":\"";
                         for (int j=0; j<oBISdata[cOSEMIndex]; j++)
                         {
-                            if(logOBIS) Console.Write("{0}",Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]));
+                            if(LLogOBIS) Console.Write("{0}",Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]));
                             jSONstring += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
                             jSONstringCompressed += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
                         }
                         jSONstring += "\",\n\t\t\"UoM\":" + legalObisCodes[legalObisCodesIndex].UoM + "\n\t}";
                         jSONstringCompressed += "\",\"UoM\":" + legalObisCodes[legalObisCodesIndex].UoM + "}";
-                        if(logOBIS) Console.WriteLine();
+                        if(LLogOBIS) Console.WriteLine();
 
                         // Prepare for next Struc block
                         cOSEMIndex += oBISdata[cOSEMIndex] + 1; // Position end of text, ready for next OBIS block
                         structType = oBISdata[cOSEMIndex + 1];
-                        if(logOBIS) Console.WriteLine("\nNext structType= {0} in position {1}",structType,cOSEMIndex + 1);                        
+                        if(LLogOBIS) Console.WriteLine("\nNext structType= {0} in position {1}",structType,cOSEMIndex + 1);                        
                         break;
                         
                     case(STRUCT_DATA_0x03):
                         // Struct av 3 elementer (data fields), data; = 10 bytes + 11/9 bytes data (21)
-                        if(logOBIS) Console.WriteLine("Struct value {0:x2} ok. with structType = {1:x2}. cOSEMIndex = {2}.",STRUCT_DATA_0x03,structType,cOSEMIndex);
+                        if(LLogOBIS) Console.WriteLine("Struct value {0:x2} ok. with structType = {1:x2}. cOSEMIndex = {2}.",STRUCT_DATA_0x03,structType,cOSEMIndex);
                         legalObisCodesIndex = isObisFound( oBISdata, cOSEMIndex + 4);  // Obis code starts at cOSEMIndex
-                        if(logOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
+                        if(LLogOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
                         // Data block to be prosessed
                         cOSEMIndex = cOSEMIndex + 4 + oBISLength;
 
-                        if(logOBIS) Console.WriteLine("Start Data at cOSEMIndex = {0}, value = {1:X2} ",cOSEMIndex, oBISdata[cOSEMIndex]);
+                        if(LLogOBIS) Console.WriteLine("Start Data at cOSEMIndex = {0}, value = {1:X2} ",cOSEMIndex, oBISdata[cOSEMIndex]);
 
                         if ( oBISdata[cOSEMIndex] == TYPE_UINT32_0x06)
                         {
                             // Power/Energy values
-                            if(logOBIS) Console.WriteLine("Found TYPE_UINT32_0x06 (1 byte) + 4 byte data + 02 02 + UoM?? (4 byte) == 11 bytes");
+                            if(LLogOBIS) Console.WriteLine("Found TYPE_UINT32_0x06 (1 byte) + 4 byte data + 02 02 + UoM?? (4 byte) == 11 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 11 + 2) structType = oBISdata[cOSEMIndex + 11 + 1]; // next data type
-                            if(logOBIS) Console.Write("{0}=",legalObisCodes[legalObisCodesIndex].objectName);
+                            if(LLogOBIS) Console.Write("{0}=",legalObisCodes[legalObisCodesIndex].objectName);
 
-                            if(logOBIS)
+                            if(LLogOBIS)
                             {
                                 for ( int j=0; j< 11; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
@@ -274,17 +274,17 @@ namespace HAN_OBIS
                             jSONstring += ",\n\t\t\"UoM\":\"" + legalObisCodes[legalObisCodesIndex].UoM + "\"\n\t}";
                             jSONstringCompressed += ",\"UoM\":\"" + legalObisCodes[legalObisCodesIndex].UoM + "\"}";
 
-                            if(logOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
+                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 11; // Next COSEM block position
                         } 
                         else if ( oBISdata[cOSEMIndex] == TYPE_INT16_0x10)
                         {
                             // Volte/Currency
-                            if(logOBIS) Console.WriteLine("Found TYPE_INT16_0x10 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
+                            if(LLogOBIS) Console.WriteLine("Found TYPE_INT16_0x10 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 9 + 2) structType = oBISdata[cOSEMIndex + 9 + 1];
-                            if(logOBIS) Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
+                            if(LLogOBIS) Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
 
-                            if(logOBIS)
+                            if(LLogOBIS)
                             {
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
@@ -297,15 +297,15 @@ namespace HAN_OBIS
                             jSONstringCompressed += obisValues.currentAmpere.ToString("F",CultureInfo.InvariantCulture);
                             jSONstring += ",\n\t\t\"UoM\":\"" + legalObisCodes[legalObisCodesIndex].UoM + "\"\n\t}";
                             jSONstringCompressed += ",\"UoM\":\"" + legalObisCodes[legalObisCodesIndex].UoM + "\"}";
-                            if(logOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
+                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
                         }
                         else if ( oBISdata[cOSEMIndex] == TYPE_UINT16_0x12)
                         {
-                            if(logOBIS) Console.WriteLine("Found TYPE_UINT16_0x12 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
+                            if(LLogOBIS) Console.WriteLine("Found TYPE_UINT16_0x12 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 9 +2) structType = oBISdata[cOSEMIndex + 9 + 1];
-                            if(logOBIS) Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
-                            if(logOBIS)
+                            if(LLogOBIS) Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
+                            if(LLogOBIS)
                             {
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
@@ -318,7 +318,7 @@ namespace HAN_OBIS
                             jSONstringCompressed += obisValues.currentVolte.ToString("F",CultureInfo.InvariantCulture);
                             jSONstring += ",\n\t\t\"UoM\":\"" + legalObisCodes[legalObisCodesIndex].UoM + "\"\n\t}";
                             jSONstringCompressed += ",\"UoM\":\"" + legalObisCodes[legalObisCodesIndex].UoM + "\"}";
-                            if(logOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentVolte, legalObisCodes[legalObisCodesIndex].UoM);
+                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentVolte, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
                         }
                         else
@@ -343,8 +343,8 @@ namespace HAN_OBIS
             }
                 jSONstring += "\n]";
                 jSONstringCompressed += "]";
-                Console.WriteLine(jSONstring);
-                if ( logOBIS ) Console.WriteLine(jSONstringCompressed);
+                if ( OOuCP.uCP.HANOODefaultParameters.LogJson ) Console.WriteLine(jSONstring);
+                if ( OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed ) Console.WriteLine(jSONstringCompressed);
 
                 // next, call the API to CRUD the data to the DB
                 // 
