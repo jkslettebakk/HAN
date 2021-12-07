@@ -45,7 +45,7 @@ ff 10 00 c0 02 02 0f ff 16 21  02 03 09 06 01 00 20 07 00 ff  12 08 fe 02 02 0f 
 09 06 02 02 0f ff 16 23 02 03  09 06 01 00 48 07 00 ff 12 08  fa 02 02 0f ff 16 23
 b5 14 7e <- CRC and end of block
 
-For Aidon the OBIS block look like this (data inside the DLMS block above):
+For Aidon the COSEM block with OBIS objects look like this (data inside the DLMS block above):
 
 01 0C 02 02 09 06 01 01 00 02  81 FF 0A 0B 41 49 44 4F 4E 5F  56 30 30 30 31 02 02 09 06 00  00 60 01 00 FF 0A 10 37 33 35
 39 39 39 32 39 30 35 34 37 38  33 36 32 02 02 09 06 00 00 60  01 07 FF 0A 04 36 35 32 35 02  03 09 06 01 00 01 07 00 FF 06
