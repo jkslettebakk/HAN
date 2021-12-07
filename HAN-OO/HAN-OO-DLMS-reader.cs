@@ -31,12 +31,17 @@ namespace HANDLMS
             {
                 HANBufferLength = serialPort.BytesToRead;
                 byte[] HANData = new byte[HANBufferLength];
-                if( OOuCP.uCP.HANOODefaultParameters.LogDLMS) Console.Write("Bytes to read = {0}",HANBufferLength);
+                if( OOuCP.uCP.HANOODefaultParameters.LogDLMS) Console.Write("DLMS - bytes to read = {0}",HANBufferLength);
                 serialPort.Read(HANData, 0, HANBufferLength);
                 if( OOuCP.uCP.HANOODefaultParameters.LogDLMS) Console.WriteLine(", bytes read {0}",HANData.Length);
                 if( OOuCP.uCP.HANOODefaultParameters.LogDLMS) 
                 {
-                    for (int i = 0; i < HANBufferLength; i++) Console.Write("{0:x2} ",HANData[i]);
+                    for (int i = 0; i < HANBufferLength; i++)
+                    {
+                        if ( (i != 0) && ((i % 10) == 0) ) Console.Write(" ");
+                        if ( (i != 0) && ((i % 40) == 0) ) Console.WriteLine();
+                        Console.Write("{0:x2} ",HANData[i]);
+                    }
                     Console.WriteLine();
                 }
                 if ( HANBufferLength > 0 )

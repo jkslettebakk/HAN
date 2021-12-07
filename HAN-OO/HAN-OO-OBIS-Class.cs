@@ -173,7 +173,7 @@ namespace HAN_OBIS
             if (LLogOBIS)
             {
                 Console.WriteLine("-------------------------------------------------------------\n" +
-                                "Complete COSEM block");
+                                "Complete OBIS block");
                 for (int i = 0; i < oBISdata.Length; i++)
                 {
                     if ( i != 0 )
@@ -203,7 +203,7 @@ namespace HAN_OBIS
             string jSONstring = "[\n\t{\t\n\t\t\"DateTimeRecorded\":\"" + dateTime.ToString("yyyy-MM-ddTHH:MM:ss.ff") + "\"\n\t}";
             string jSONstringCompressed = "[{\"DateTimeRecorded\":\"" + dateTime.ToString("yyyy-MM-ddTHH:MM:ss.ff") + "\"}";
 
-            if(LLogOBIS) Console.WriteLine("\n---------------------------- New COSEM block containing OBIS objects ----------------------\n");
+            if(LLogOBIS) Console.WriteLine("\n-------------- New COSEM block containing OBIS objects --------------\n");
 
             for ( int i = 0; i < numberOfObjects; i++ ) // Array of objects (number of objects)
             { 
