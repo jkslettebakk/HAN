@@ -276,6 +276,8 @@ namespace HANOOUserConfigurationParameters
                                 if (log) Console.WriteLine("--br option and value = {0} is invalid. Skipp value",args[i+1]);
                             i++;
                         }
+                        else
+                            Console.WriteLine("--br option is invalid. Are you missing a parameter?");
                         break;
                     case "--pn":   // Set Port Name. --pn /dev/ttyUSB3; Will set the serialPortName to /dev/ttyUSB3
                         if( i+1 < args.Length )
@@ -288,6 +290,8 @@ namespace HANOOUserConfigurationParameters
                             uCP.HANOODeviceData.serialPortName = args[i+1];
                             i++;
                         }
+                        else
+                            Console.WriteLine("--pn option is invalid. Are you missing a parameter?");
                         break;
                     case "--l": // Set log level "false" or "true"
                         if( i+1 < args.Length )
@@ -305,6 +309,8 @@ namespace HANOOUserConfigurationParameters
                             else
                                 if (log) Console.WriteLine("--l option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--l option is invalid. Are you missing a parameter?");
                         break;
                     case "--lDLMS": // Set DLMS log level "false" or "true"
                         if( i+1 < args.Length )
@@ -322,6 +328,8 @@ namespace HANOOUserConfigurationParameters
                             else
                                 if (log) Console.WriteLine("--lDLMS option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--lDLMS option is invalid. Are you missing a parameter?");
                         break;
                     case "--lCOSEM": // Set COSEM log level "false" or "true"
                         if( i+1 < args.Length )
@@ -339,6 +347,8 @@ namespace HANOOUserConfigurationParameters
                             else
                                 if (log) Console.WriteLine("--lCOSEM option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--lCOSEM option is invalid. Are you missing a parameter?");
                         break;
                     case "--lOBIS": // Set OBIS log level "false" or "true"
                         if( i+1 < args.Length )
@@ -356,6 +366,8 @@ namespace HANOOUserConfigurationParameters
                             else
                                 if (log) Console.WriteLine("--lOBIS option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--lOBIS option is invalid. Are you missing a parameter?");
                         break;
                     case "--lCRC": // Set OBIS log level "false" or "true"
                         if( i+1 < args.Length )
@@ -373,6 +385,8 @@ namespace HANOOUserConfigurationParameters
                             else
                                 if (log) Console.WriteLine("--lOBIS option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--lCRC option is invalid. Are you missing a parameter?");
                         break;
                     case "--lJson": // Set OBIS log level "false" or "true"
                         if( i+1 < args.Length )
@@ -388,8 +402,10 @@ namespace HANOOUserConfigurationParameters
                                 i++;
                             }
                             else
-                                if (log) Console.WriteLine("--lJson option and value = {0} is invalid. Skipp value",args[i+1]);
+                                Console.WriteLine("--lJson option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--lJson option is invalid. Are you missing a parameter?");
                         break;
                     case "--lJsonCompressed": // Set OBIS log level "false" or "true"
                         if( i+1 < args.Length )
@@ -405,8 +421,10 @@ namespace HANOOUserConfigurationParameters
                                 i++;
                             }
                             else
-                                if (log) Console.WriteLine("--lJsonCompressed option and value = {0} is invalid. Skipp value",args[i+1]);
+                                Console.WriteLine("--lJsonCompressed option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--lJsonCompressed option is invalid. Are you missing a parameter?");
                         break;
                     case "--delay": // Set delay between HAN reads; --delay 10000; Delay 10000 ms = 10 second
                         if( i+1 < args.Length )
@@ -424,6 +442,8 @@ namespace HANOOUserConfigurationParameters
                             else
                                 if (log) Console.WriteLine("--delay option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
+                        else
+                            Console.WriteLine("--delay option is invalid. Are you missing a parameter?");
                         break;
                     default:
                         Console.WriteLine("\n-----------------\nUnknown/invalid command: {0}\n-----------------",args[i]);
@@ -434,17 +454,23 @@ namespace HANOOUserConfigurationParameters
 
         public void help()
         {
-            Console.WriteLine("Parameters is stored in JSON fille \'{0}\'",jSONfileName);
+            Console.WriteLine("\n--------   " +
+                               "Parameters is stored in JSON fille \'" + jSONfileName + "\'" +
+                               "  --------");
             Console.WriteLine("For help :\n" + 
-                              "--h => display help\n" + 
-                              "--p => display parameters" +
-                              "\nYou may change the parameters for:\n--pn \'PortName\'\n--br \'BaudRate\'" +
+                              "--h => display help (this overview)\n" +
+                              "--l => Log various values. More for debugging" +
+                              "--p => display standard parameters from \'" + jSONfileName + "\'" +
+                              "\nYou may override some parameters from command line:" +
+                              "\n--pn \'PortName\'\n--br \'BaudRate\'" +
                               "\n--lDLMS \'<bool>\' => log DLMS data to tty" +
                               "\n--lCOSEM \'<bool>\' => log COSEM data to tty" +
                               "\n--lOBIS \'<bool>\' => log OBIS data block to tty" +
                               "\n--lCRC \'<bool>\' => log CRC result to tty" +
                               "\n--lJson \'<bool>\' => log Json data to tty" +
-                              "\n--delay \'<int>\' => delay <int> milliseconds between HAN port read");
+                              "\n--lJsonCompressed \'<bool>\' => log Json data to tty" +
+                              "\n--delay \'<int>\' => delay <int> milliseconds between HAN port read" +
+                              "\n\t-------------------\n");
         }
     }
 }
