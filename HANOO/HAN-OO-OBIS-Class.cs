@@ -4,6 +4,49 @@ namespace HAN_OBIS
 {
     class obisCodesClass
     {
+        /*
+        [
+            {
+                    "DateTimeRecorded":"2021-12-09T20:12:31.30"
+            },
+            {       "Version identifier":"AIDON_V0001",
+                    "UoM":" "
+            },
+            {       "Model ID":"7359992905478362",
+                    "UoM":" "
+            },
+            {       "Model type":"6525",
+                    "UoM":" "
+            },
+            {       "Q1+Q4":1703.00,
+                    "UoM":"W"
+            },
+            {       "Q2+Q3":0.00,
+                    "UoM":"W"
+            },
+            {       "Q1+Q2":0.00,
+                    "UoM":"kVAr"
+            },
+            {       "Q3+Q4":305.00,
+                    "UoM":"kVAr"
+            },
+            {       "IL1":4.20,
+                    "UoM":"A"
+            },
+            {       "IL3":3.90,
+                    "UoM":"A"
+            },
+            {       "UL1":232.80,
+                    "UoM":"V"
+            },
+            {       "UL2":232.90,
+                    "UoM":"V"
+            },
+            {       "UL3":233.10,
+                    "UoM":"V"
+            }
+        ]        
+        */
         // OBIS types
         private protected const byte TYPE_STRING = 0x0a;
         private protected const byte TYPE_UINT32_0x06 = 0x06;
@@ -26,6 +69,31 @@ namespace HAN_OBIS
 
         DateTime dateTime = new DateTime();
 
+        public class dateTimeObject
+        {
+            public DateTime dateTime = new DateTime();
+        }
+
+        public class versionIdentifierObject
+        {
+            public string versionIdentifier;
+        }
+
+        public class modelIDObject
+        {
+            public string versionIdentifier;
+        }
+
+        public class modelTypeObject
+        {
+            public string versionIdentifier;
+        }
+
+        public class powerQ1Q4Object
+        {
+            public string versionIdentifier;
+        }
+
         private protected struct obisCodesStruct
         {
             public byte A { get; set; }
@@ -40,12 +108,6 @@ namespace HAN_OBIS
             public string obisType { get; set; }
             public string objectName { set; get; }
             public string HAN_Vendor { get; set; }
-        }
-
-        public struct oBIS_1_0_1_7_0_255
-        {
-            public int activePower { get; set; }
-
         }
 
         //a obis struct list
