@@ -203,7 +203,21 @@ namespace HANOOUserConfigurationParameters
             string jSONString;
 
             // Read JSON file data to string
-            jSONString = File.ReadAllText(jSONfileName);
+            try
+            {
+                jSONString = File.ReadAllText(jSONfileName);                 
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine("Error reading parameter file {0}",jSONfileName);
+                Console.WriteLine("Exception, file not found:\n{0}",ex.FileName);
+                Environment.Exit(-1);
+                throw;
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
             // Console.WriteLine("file conten :\n{0}",jSONString);
 
             // UserConfigurationParameters userConfigurationParameters = await JsonSerializer.Deserialize<UserConfigurationParameters>(fs);
