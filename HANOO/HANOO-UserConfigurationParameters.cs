@@ -4,7 +4,7 @@ namespace HANOOUserConfigurationParameters
     public class OOUserConfigurationParameters
     {
 
-        private string jSONfileName = "HAN-OO-Parameters.json";
+        private string jSONfileName = "HANOO-Parameters.json";
 
         public class HANOODetails
         {
