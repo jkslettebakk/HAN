@@ -28,20 +28,20 @@ namespace HAN_OBIS
 
         obisValuesStruct obisValues;
 
-        DateTime dateTime = new DateTime();
-
         public class longHAN
         {
-            [JsonPropertyName("DateTimeDataPull")]
+            [JsonPropertyName("DateTime")]
             public DateTime dateTime { get; set; }
-            [JsonPropertyName("Version Identifier")]
+            [JsonPropertyName("VersionIdentifier")]
             public string versionIdentifier { get; set; }
+            [JsonPropertyName("ModelID")]
             public string modelID { get; set; }
+            [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
             public powerQ1Q4Object powerQ1Q4 { get; set; }
             public powerQ2Q3Object powerQ2Q3 { get; set; }
-            public voltReactiveQ1Q2Object powerReactiveQ1Q2 { get; set; }
-            public voltReactiveQ1Q4Object powerReactiveQ3Q4 { get; set; }
+            public powerReactiveQ1Q2Object powerReactiveQ1Q2 { get; set; }
+            public powerReactiveQ1Q4Object powerReactiveQ3Q4 { get; set; }
             public ampereIL1Object ampereIL1 { get; set; }
             public ampereIL3Object ampereIL3 { get; set; }
             public voltUL1Object voltUL1 { get; set; }
@@ -51,71 +51,75 @@ namespace HAN_OBIS
 
         public class shortHAN
         {
+            [JsonPropertyName("DateTime")]
             public DateTime dateTime { get; set; }
+            [JsonPropertyName("VersionIdentifier")]
             public string versionIdentifier { get; set; }
+            [JsonPropertyName("ModelID")]
             public string modelID { get; set; }
+            [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
             public powerQ1Q4Object powerQ1Q4 { get; set; }
         }
 
         public class powerQ1Q4Object
         {
-            [JsonPropertyName("Active power (Q1 Q4)")]
+            [JsonPropertyName("ActivePower(Q1Q4)")]
             public double powerQ1Q4 { get; set; }
             public string UoM { get; set; }
         }
 
         public class powerQ2Q3Object
         {
-            [JsonPropertyName(@"Active power- (Q2 Q3)")]
+            [JsonPropertyName("ActivePower-(Q2Q3)")]
             public double powerQ2Q3 { get; set; }
             public string UoM { get; set; }
         }
         
-        public class voltReactiveQ1Q2Object
+        public class powerReactiveQ1Q2Object
         {
-            [JsonPropertyName("VoltReactive")]
+            [JsonPropertyName("PowerReactive(Q1Q2)")]
             public double powerReactiveQ1Q2 { get; set; }
             public string UoM { get; set; }
         }
 
-        public class voltReactiveQ1Q4Object
+        public class powerReactiveQ1Q4Object
         {
-            [JsonPropertyName("VoltReactive")]
+            [JsonPropertyName("PowerReactive(Q3Q4)")]
             public double powerReactiveQ3Q4 { get; set; }
             public string UoM { get; set; }
         }
 
         public class ampereIL1Object
         {
-            [JsonPropertyName("Ampere")]
+            [JsonPropertyName("AmperePhase1")]
             public double ampereIL1 { get; set; }
             public string UoM { get; set; }
         }
 
         public class ampereIL3Object
         {
-            [JsonPropertyName("Ampere")]
+            [JsonPropertyName("AmperePhase3")]
             public double ampereIL3 { get; set; }
             public string UoM { get; set; }
         }
 
         public class voltUL1Object
         {
-            [JsonPropertyName("Volt")]
+            [JsonPropertyName("VoltPhase1")]
             public int voltUL1 { get; set; }
             public string UoM { get; set; }
         }
 
         public class voltUL2Object
         {
-            [JsonPropertyName("Volt")]
+            [JsonPropertyName("VoltPhase2")]
             public int voltUL2 { get; set; }
             public string UoM { get; set; }
         }
         public class voltUL3Object
         {
-            [JsonPropertyName("Volt")]
+            [JsonPropertyName("VoltPhase3")]
             public int voltUL3 { get; set; }
             public string UoM { get; set; }
         }
@@ -286,10 +290,10 @@ namespace HAN_OBIS
             int cOSEMIndex = 02;   // keep track of KEY position in OBIS buffer, start in position 2 (first Struct)
             int structType = oBISdata[cOSEMIndex + 1]; // first Struct location for the switch() function 
             int legalObisCodesIndex;
-            dateTime = DateTime.Now;
+
             // List2 & List3 (> 240 bytes) object. List1 is a small block (Power inly) med mindre en 25 bytes
             var HANList2and3 = new longHAN {
-                dateTime = DateTime.Now,
+                dateTime = DateTime.UtcNow,
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
@@ -301,11 +305,11 @@ namespace HAN_OBIS
                     powerQ2Q3 = 0.0,
                     UoM = ""
                 },
-                powerReactiveQ1Q2 = new voltReactiveQ1Q2Object {
+                powerReactiveQ1Q2 = new powerReactiveQ1Q2Object {
                     powerReactiveQ1Q2 = 0.0,
                     UoM = ""
                 },
-                powerReactiveQ3Q4 = new voltReactiveQ1Q4Object {
+                powerReactiveQ3Q4 = new powerReactiveQ1Q4Object {
                     powerReactiveQ3Q4 = 0.0,
                     UoM = ""
                 },
@@ -332,7 +336,7 @@ namespace HAN_OBIS
                 }
             };
             var HANList1 = new shortHAN {
-                dateTime = DateTime.Now,
+                dateTime = DateTime.UtcNow,
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
@@ -425,6 +429,7 @@ namespace HAN_OBIS
                         if ( oBISdata[cOSEMIndex] == TYPE_UINT32_0x06)
                         {
                             // Power/Energy values (W og kW)
+                            uint value;
                             if(LLogOBIS) Console.WriteLine("Found TYPE_UINT32_0x06 (1 byte) + 4 byte data + 02 02 + UoM?? (4 byte) == 11 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 11 + 2) structType = oBISdata[cOSEMIndex + 11 + 1]; // next data type
                             if(LLogOBIS) Console.Write("{0}=",legalObisCodes[legalObisCodesIndex].objectName);
@@ -433,22 +438,37 @@ namespace HAN_OBIS
                             {
                                 for ( int j=0; j< 11; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
+                                Console.WriteLine();
                             }
                             obisValues.currentEnergy = ((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale;
-                            obisValues.sumEnergy += obisValues.currentEnergy;
+                            value = (uint) (((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale);
 
                             if ( legalObisCodesIndex == 00 )
                             {
                                 // Powercollection list 1, 2 and 3
-                                HANList1.powerQ1Q4.powerQ1Q4 = obisValues.currentEnergy;
+                                HANList1.powerQ1Q4.powerQ1Q4 = value;
                                 HANList1.powerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList2and3.powerQ1Q4.powerQ1Q4 = obisValues.currentEnergy;
+                                HANList2and3.powerQ1Q4.powerQ1Q4 = value;
                                 HANList2and3.powerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 04 ) 
                             {
-                                HANList2and3.powerQ2Q3.powerQ2Q3 = obisValues.currentEnergy;
+                                HANList2and3.powerQ2Q3.powerQ2Q3 = value;
                                 HANList2and3.powerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                            }
+                            else if ( legalObisCodesIndex == 05 )
+                            {
+                                HANList2and3.powerReactiveQ1Q2.powerReactiveQ1Q2 = value;
+                                HANList2and3.powerReactiveQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                            }
+                            else if ( legalObisCodesIndex == 06 )
+                            {
+                                HANList2and3.powerReactiveQ3Q4.powerReactiveQ3Q4 = value;
+                                HANList2and3.powerReactiveQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                            }
+                             else
+                            {
+                                Console.WriteLine("Error? legalObisCodesIndex = {0}",legalObisCodesIndex);
                             }
 
                             if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
@@ -457,6 +477,7 @@ namespace HAN_OBIS
                         else if ( oBISdata[cOSEMIndex] == TYPE_INT16_0x10)
                         {
                             // Current (A)
+                            ushort value;
                             if(LLogOBIS) Console.WriteLine("Found TYPE_INT16_0x10 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 9 + 2) structType = oBISdata[cOSEMIndex + 9 + 1];
                             if(LLogOBIS) Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
@@ -466,17 +487,22 @@ namespace HAN_OBIS
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            obisValues.currentAmpere =  ((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale;
+                            obisValues.currentAmpere =  Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale, 2);
+                            value =  (ushort) Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale, 2);
 
                             if ( legalObisCodesIndex == 07 )
                             {
-                                HANList2and3.ampereIL1.ampereIL1 = obisValues.currentAmpere;
+                                HANList2and3.ampereIL1.ampereIL1 = value;
                                 HANList2and3.ampereIL1.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 09 ) 
                             {
-                                HANList2and3.ampereIL3.ampereIL3 = obisValues.currentEnergy;
+                                HANList2and3.ampereIL3.ampereIL3 = value;
                                 HANList2and3.ampereIL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                            }
+                             else
+                            {
+                                Console.WriteLine("Error? legalObisCodesIndex = {0}",legalObisCodesIndex);
                             }
 
                             if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
@@ -485,6 +511,7 @@ namespace HAN_OBIS
                         else if ( oBISdata[cOSEMIndex] == TYPE_UINT16_0x12)
                         {
                             // Volte (V,kVAr)
+                            ushort value;
                             if(LLogOBIS) Console.WriteLine("Found TYPE_UINT16_0x12 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 9 +2) structType = oBISdata[cOSEMIndex + 9 + 1];
                             if(LLogOBIS) Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
@@ -494,31 +521,36 @@ namespace HAN_OBIS
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                             }
                             obisValues.currentVolte = (int) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale);
+                            value = (ushort) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale);
 
                             if ( legalObisCodesIndex == 05 )
                             {
-                                HANList2and3.powerReactiveQ1Q2.powerReactiveQ1Q2 = obisValues.currentVolte;
+                                HANList2and3.powerReactiveQ1Q2.powerReactiveQ1Q2 = value;
                                 HANList2and3.powerReactiveQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 06 )
                             {
-                                HANList2and3.powerReactiveQ3Q4.powerReactiveQ3Q4 = obisValues.currentVolte;
+                                HANList2and3.powerReactiveQ3Q4.powerReactiveQ3Q4 = value;
                                 HANList2and3.powerReactiveQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 10 )
                             {
-                                HANList2and3.voltUL1.voltUL1 = obisValues.currentVolte;
+                                HANList2and3.voltUL1.voltUL1 = value;
                                 HANList2and3.voltUL1.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 11 ) 
                             {
-                                HANList2and3.voltUL2.voltUL2 = obisValues.currentVolte;
+                                HANList2and3.voltUL2.voltUL2 = value;
                                 HANList2and3.voltUL2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 12 ) 
                             {
-                                HANList2and3.voltUL3.voltUL3 = obisValues.currentVolte;
+                                HANList2and3.voltUL3.voltUL3 = value;
                                 HANList2and3.voltUL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Error? legalObisCodesIndex = {0}",legalObisCodesIndex);
                             }
                             if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentVolte, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
@@ -543,31 +575,36 @@ namespace HAN_OBIS
                         break;
                 }
             }
-
+                // Output result in desiered format
+                //
                 string jSONstring = "";
                 string jSONstringCompressed = "";
+
+                // I need the Compressed Jason in all cases for database storage
+                if ( oBISdata.Length < 30 )
+                {
+                    jSONstringCompressed = JsonSerializer.Serialize(HANList1);
+                } else
+                {
+                    jSONstringCompressed = JsonSerializer.Serialize(HANList2and3);
+                }
 
                 if ( OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed )
                 {
                     Console.WriteLine(jSONstringCompressed);
-                    if ( oBISdata.Length < 30 )
-                    {
-                        jSONstringCompressed = JsonSerializer.Serialize(HANList1);
-                    } else
-                    {
-                        jSONstringCompressed = JsonSerializer.Serialize(HANList2and3);
-                    }
-                    Console.WriteLine(jSONstringCompressed);
+                } else
+                {
+                     // Send CRUD to database. Temporary print to screen
+                    Console.WriteLine("Json data to CRUD:\n{0}",jSONstringCompressed);
+
                 }
+
 
                 if ( OOuCP.uCP.HANOODefaultParameters.LogJson )
                 {
-                    Console.WriteLine(jSONstring);
                     var options = new JsonSerializerOptions
                     {
-                        WriteIndented = true,
-                        AllowTrailingCommas = true,
-                        NumberHandling = JsonNumberHandling.Strict
+                        WriteIndented = true
                     };
                     if ( oBISdata.Length < 30 )
                     {
@@ -580,6 +617,7 @@ namespace HAN_OBIS
                 }
 
                 // next, call the API to CRUD the data to the DB
+
                 // 
         }
     }
