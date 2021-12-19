@@ -4,11 +4,12 @@ namespace HAN_OBIS
 {
     class obisCodesClass
     {
+        // These values must survive the objects initiate/close.....
         private static string catchVersionidentifier = "";
         private static string catchModelID = "";
         private static string catchModelType = "";
 
-        // OBIS types
+        // OBIS types - Standard accoring to NVE
         private protected const byte TYPE_STRING = 0x0a;
         private protected const byte TYPE_UINT32_0x06 = 0x06;
         private protected const byte TYPE_INT16_0x10  = 0x10;
@@ -31,7 +32,7 @@ namespace HAN_OBIS
         public class longHAN
         {
             [JsonPropertyName("DateTime")]
-            public DateTime dateTime { get; set; }
+            public string dateTimePoll { get; set; }
             [JsonPropertyName("VersionIdentifier")]
             public string versionIdentifier { get; set; }
             [JsonPropertyName("ModelID")]
@@ -52,7 +53,7 @@ namespace HAN_OBIS
         public class shortHAN
         {
             [JsonPropertyName("DateTime")]
-            public DateTime dateTime { get; set; }
+            public string dateTimePoll { get; set; }
             [JsonPropertyName("VersionIdentifier")]
             public string versionIdentifier { get; set; }
             [JsonPropertyName("ModelID")]
@@ -66,6 +67,7 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("ActivePower(Q1Q4)")]
             public double powerQ1Q4 { get; set; }
+            [JsonPropertyName("ActivePowerQ1Q4UoM")]
             public string UoM { get; set; }
         }
 
@@ -73,6 +75,7 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("ActivePower-(Q2Q3)")]
             public double powerQ2Q3 { get; set; }
+            [JsonPropertyName("ActivePowerQ2Q3UoM")]
             public string UoM { get; set; }
         }
         
@@ -80,6 +83,7 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("PowerReactive(Q1Q2)")]
             public double powerReactiveQ1Q2 { get; set; }
+            [JsonPropertyName("PowerReactiveQ1Q2UoM")]
             public string UoM { get; set; }
         }
 
@@ -87,6 +91,7 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("PowerReactive(Q3Q4)")]
             public double powerReactiveQ3Q4 { get; set; }
+            [JsonPropertyName("PowerReactiveQ3Q4UoM")]
             public string UoM { get; set; }
         }
 
@@ -94,6 +99,7 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("AmperePhase1")]
             public double ampereIL1 { get; set; }
+            [JsonPropertyName("AmperePhase1UoM")]
             public string UoM { get; set; }
         }
 
@@ -101,6 +107,7 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("AmperePhase3")]
             public double ampereIL3 { get; set; }
+            [JsonPropertyName("AmperePhase3UoM")]
             public string UoM { get; set; }
         }
 
@@ -108,6 +115,7 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("VoltPhase1")]
             public int voltUL1 { get; set; }
+            [JsonPropertyName("VoltPhase1UoM")]
             public string UoM { get; set; }
         }
 
@@ -115,12 +123,14 @@ namespace HAN_OBIS
         {
             [JsonPropertyName("VoltPhase2")]
             public int voltUL2 { get; set; }
+            [JsonPropertyName("VoltPhase2UoM")]
             public string UoM { get; set; }
         }
         public class voltUL3Object
         {
             [JsonPropertyName("VoltPhase3")]
             public int voltUL3 { get; set; }
+            [JsonPropertyName("VoltPhase3UoM")]
             public string UoM { get; set; }
         }
 
@@ -290,10 +300,15 @@ namespace HAN_OBIS
             int cOSEMIndex = 02;   // keep track of KEY position in OBIS buffer, start in position 2 (first Struct)
             int structType = oBISdata[cOSEMIndex + 1]; // first Struct location for the switch() function 
             int legalObisCodesIndex;
+            // Find local time
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            DateTime dateTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(localZone.Id));
+            // Loacl time in database friendly "ISO 8601" format (i.e. "2021-12-18T20:31:11.6880753")
+            string dateTimeString = dateTime.ToString("O");
 
             // List2 & List3 (> 240 bytes) object. List1 is a small block (Power inly) med mindre en 25 bytes
             var HANList2and3 = new longHAN {
-                dateTime = DateTime.UtcNow,
+                dateTimePoll = dateTimeString,
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
@@ -336,7 +351,7 @@ namespace HAN_OBIS
                 }
             };
             var HANList1 = new shortHAN {
-                dateTime = DateTime.UtcNow,
+                dateTimePoll = dateTimeString,
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
@@ -592,15 +607,8 @@ namespace HAN_OBIS
                 if ( OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed )
                 {
                     Console.WriteLine(jSONstringCompressed);
-                } else
-                {
-                     // Send CRUD to database. Temporary print to screen
-                    Console.WriteLine("Json data to CRUD:\n{0}",jSONstringCompressed);
-
                 }
-
-
-                if ( OOuCP.uCP.HANOODefaultParameters.LogJson )
+                else if ( OOuCP.uCP.HANOODefaultParameters.LogJson )
                 {
                     var options = new JsonSerializerOptions
                     {
@@ -616,8 +624,12 @@ namespace HAN_OBIS
                     Console.WriteLine(jSONstring);
                 }
 
-                // next, call the API to CRUD the data to the DB
-
+                // next, call the API and send CRUD to database. Temporary print to screen. Send only every 10 seconds
+                if ( HANList2and3.voltUL1.voltUL1 > 0 )
+                {
+                    if ( !OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed && !OOuCP.uCP.HANOODefaultParameters.LogJson)
+                    Console.WriteLine("Json data to CRUD:\n{0}",jSONstringCompressed);
+                }
                 // 
         }
     }
