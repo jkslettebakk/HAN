@@ -5,9 +5,9 @@ namespace HAN_OBIS
     class obisCodesClass
     {
         // These values must survive the objects initiate/close.....
-        private static string catchVersionidentifier = "";
-        private static string catchModelID = "";
-        private static string catchModelType = "";
+        private static string catchVersionidentifier = string.Empty;
+        private static string catchModelID = string.Empty;
+        private static string catchModelType = string.Empty;
 
         // OBIS types - Standard accoring to NVE
         private protected const byte TYPE_STRING = 0x0a;
@@ -39,10 +39,10 @@ namespace HAN_OBIS
             public string modelID { get; set; }
             [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
-            public powerQ1Q4Object powerQ1Q4 { get; set; }
-            public powerQ2Q3Object powerQ2Q3 { get; set; }
-            public powerReactiveQ1Q2Object powerReactiveQ1Q2 { get; set; }
-            public powerReactiveQ1Q4Object powerReactiveQ3Q4 { get; set; }
+            public powerQ1Q4Object activePowerQ1Q4 { get; set; }
+            public powerQ2Q3Object reactivePowerQ2Q3 { get; set; }
+            public powerReactiveQ1Q2Object reactivePowerQ1Q2 { get; set; }
+            public powerReactiveQ1Q4Object reactivePowerQ3Q4 { get; set; }
             public ampereIL1Object ampereIL1 { get; set; }
             public ampereIL3Object ampereIL3 { get; set; }
             public voltUL1Object voltUL1 { get; set; }
@@ -60,38 +60,38 @@ namespace HAN_OBIS
             public string modelID { get; set; }
             [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
-            public powerQ1Q4Object powerQ1Q4 { get; set; }
+            public powerQ1Q4Object activePowerQ1Q4 { get; set; }
         }
 
         public class powerQ1Q4Object
         {
-            [JsonPropertyName("ActivePower(Q1Q4)")]
-            public double powerQ1Q4 { get; set; }
+            [JsonPropertyName("ActivePowerQ1Q4")]
+            public double activePowerQ1Q4 { get; set; }
             [JsonPropertyName("ActivePowerQ1Q4UoM")]
             public string UoM { get; set; }
         }
 
         public class powerQ2Q3Object
         {
-            [JsonPropertyName("ActivePower-(Q2Q3)")]
-            public double powerQ2Q3 { get; set; }
-            [JsonPropertyName("ActivePowerQ2Q3UoM")]
+            [JsonPropertyName("ReactivePowerQ2Q3")]
+            public doubae reactivePowerQ2Q3 { get; set; }
+            [JsonPropertyName("ReactivePowerQ2Q3UoM")]
             public string UoM { get; set; }
         }
         
         public class powerReactiveQ1Q2Object
         {
-            [JsonPropertyName("PowerReactive(Q1Q2)")]
-            public double powerReactiveQ1Q2 { get; set; }
-            [JsonPropertyName("PowerReactiveQ1Q2UoM")]
+            [JsonPropertyName("ReactivePowerQ1Q2")]
+            public double reactivePowerQ1Q2 { get; set; }
+            [JsonPropertyName("ReactivePowerQ1Q2UoM")]
             public string UoM { get; set; }
         }
 
         public class powerReactiveQ1Q4Object
         {
-            [JsonPropertyName("PowerReactive(Q3Q4)")]
-            public double powerReactiveQ3Q4 { get; set; }
-            [JsonPropertyName("PowerReactiveQ3Q4UoM")]
+            [JsonPropertyName("ReactivePowerQ3Q4")]
+            public double reactivePowerQ3Q4 { get; set; }
+            [JsonPropertyName("ReactivePowerQ3Q4UoM")]
             public string UoM { get; set; }
         }
 
@@ -237,7 +237,7 @@ namespace HAN_OBIS
 
         private string oBISCode(byte[] data, int start)
         {
-            string cosem = "";
+            string cosem = string.Empty;
             if ( data.Length < 6 ) return "";
             cosem = data[start + 0].ToString("X2") + "." + 
                     data[start + 1].ToString("X2") + "." +
@@ -312,42 +312,41 @@ namespace HAN_OBIS
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
-                powerQ1Q4 = new powerQ1Q4Object {
-                    powerQ1Q4 = 0.0,
-                    UoM = ""
+                activePowerQ1Q4 = new powerQ1Q4Object {
+                    activePowerQ1Q4 = 0.0,
+                    UoM = string.Empty
                 },
-                powerQ2Q3 = new powerQ2Q3Object {
-                    powerQ2Q3 = 0.0,
-                    UoM = ""
+            a  reactivePowerQ2Q3 = new powerQ2Q3Object {
+                a  reactivePowerQ2Q3 = 0.0,
+                    UoM = string.Empty
                 },
-                powerReactiveQ1Q2 = new powerReactiveQ1Q2Object {
-                    powerReactiveQ1Q2 = 0.0,
-                    UoM = ""
+                reactivePowerQ1Q2 = new powerReactiveQ1Q2Object {
+                    reactivePowerQ1Q2 = 0.0,
+                    UoM = string.Empty
                 },
-                powerReactiveQ3Q4 = new powerReactiveQ1Q4Object {
-                    powerReactiveQ3Q4 = 0.0,
-                    UoM = ""
+                powerReactiveQ3Q4 reactiveP newactiveQ1Q4Object {
+                    powerReactiveQ3Q4 reactiveP 0.0              UoM = string.Empty
                 },
                 ampereIL1 = new ampereIL1Object {
                     ampereIL1 = 0.0,
-                    UoM = ""
+                    UoM = string.Empty
                 },
                 ampereIL3 = new ampereIL3Object {
                     ampereIL3 = 0.0,
-                    UoM = ""
+                    UoM = string.Empty
 
                 },
                 voltUL1 = new voltUL1Object {
                     voltUL1 = 0,
-                    UoM = ""
+                    UoM = string.Empty
                 },
                 voltUL2 = new voltUL2Object {
                     voltUL2 = 0,
-                    UoM = ""
+                    UoM = string.Empty
                 },
                 voltUL3 = new voltUL3Object {
                     voltUL3 = 0,
-                    UoM = ""
+                    UoM = string.Empty
                 }
             };
             var HANList1 = new shortHAN {
@@ -355,9 +354,9 @@ namespace HAN_OBIS
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
-                powerQ1Q4 = new powerQ1Q4Object {
-                    powerQ1Q4 = 0.0,
-                    UoM = ""
+                activePowerQ1Q4 = new powerQ1Q4Object {
+                    activePowerQ1Q4 = 0.0,
+                    UoM = string.Empty
                 }
             };
 
@@ -379,7 +378,7 @@ namespace HAN_OBIS
                         cOSEMIndex += 1; // Index for length of text
                         if(LLogOBIS) Console.WriteLine("Cosem index = {0}, tekst lengde = {1:X2} ({2})", cOSEMIndex, oBISdata[cOSEMIndex], oBISdata[cOSEMIndex]);
 
-                        string text = "";
+                        string text = string.Empty;
                         for (int j=0; j<oBISdata[cOSEMIndex]; j++)  // prosess string from OBIS byte array
                         {
                             if(LLogOBIS) Console.Write("{0}",Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]));
@@ -461,25 +460,25 @@ namespace HAN_OBIS
                             if ( legalObisCodesIndex == 00 )
                             {
                                 // Powercollection list 1, 2 and 3
-                                HANList1.powerQ1Q4.powerQ1Q4 = value;
-                                HANList1.powerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList2and3.powerQ1Q4.powerQ1Q4 = value;
-                                HANList2and3.powerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList1.activePowerQ1Q4.activePowerQ1Q4 = value;
+                                HANList1.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2and3.activePowerQ1Q4.activePowerQ1Q4 = value;
+                                HANList2and3.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 04 ) 
                             {
-                                HANList2and3.powerQ2Q3.powerQ2Q3 = value;
-                                HANList2and3.powerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2ana3.reactivePowerQ2Q3.reactivePowerQ2Q3 = value;
+                                HANList2ana3.reactivePowerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 05 )
                             {
-                                HANList2and3.powerReactiveQ1Q2.powerReactiveQ1Q2 = value;
-                                HANList2and3.powerReactiveQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2and3.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
+                                HANList2and3.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 06 )
                             {
-                                HANList2and3.powerReactiveQ3Q4.powerReactiveQ3Q4 = value;
-                                HANList2and3.powerReactiveQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2and3.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
+                                HANList2and3.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                              else
                             {
@@ -540,13 +539,13 @@ namespace HAN_OBIS
 
                             if ( legalObisCodesIndex == 05 )
                             {
-                                HANList2and3.powerReactiveQ1Q2.powerReactiveQ1Q2 = value;
-                                HANList2and3.powerReactiveQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2and3.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
+                                HANList2and3.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 06 )
                             {
-                                HANList2and3.powerReactiveQ3Q4.powerReactiveQ3Q4 = value;
-                                HANList2and3.powerReactiveQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2and3.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
+                                HANList2and3.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 10 )
                             {
@@ -592,8 +591,8 @@ namespace HAN_OBIS
             }
                 // Output result in desiered format
                 //
-                string jSONstring = "";
-                string jSONstringCompressed = "";
+                string jSONstring = string.Empty;
+                string jSONstringCompressed = string.Empty;
 
                 // I need the Compressed Jason in all cases for database storage
                 if ( oBISdata.Length < 30 )
@@ -628,7 +627,13 @@ namespace HAN_OBIS
                 if ( HANList2and3.voltUL1.voltUL1 > 0 )
                 {
                     if ( !OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed && !OOuCP.uCP.HANOODefaultParameters.LogJson)
-                    Console.WriteLine("Json data to CRUD:\n{0}",jSONstringCompressed);
+                    {
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.WriteLine("Json data to CRUD API https://HAN.slettebakk.com:");
+                        Console.ResetColor();
+                        Console.WriteLine(jSONstringCompressed);
+                    }
                 }
                 // 
         }
