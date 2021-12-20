@@ -39,10 +39,10 @@ namespace HAN_OBIS
             public string modelID { get; set; }
             [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
-            public powerQ1Q4Object activePowerQ1Q4 { get; set; }
-            public powerQ2Q3Object reactivePowerQ2Q3 { get; set; }
-            public powerReactiveQ1Q2Object reactivePowerQ1Q2 { get; set; }
-            public powerReactiveQ1Q4Object reactivePowerQ3Q4 { get; set; }
+            public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
+            public activePowerQ2Q3Object activePowerQ2Q3 { get; set; }
+            public reactivePowerQ1Q2Object reactivePowerQ1Q2 { get; set; }
+            public reactivePowerQ3Q4Object reactivePowerQ3Q4 { get; set; }
             public ampereIL1Object ampereIL1 { get; set; }
             public ampereIL3Object ampereIL3 { get; set; }
             public voltUL1Object voltUL1 { get; set; }
@@ -60,10 +60,10 @@ namespace HAN_OBIS
             public string modelID { get; set; }
             [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
-            public powerQ1Q4Object activePowerQ1Q4 { get; set; }
+            public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
         }
 
-        public class powerQ1Q4Object
+        public class activePowerQ1Q4Object
         {
             [JsonPropertyName("ActivePowerQ1Q4")]
             public double activePowerQ1Q4 { get; set; }
@@ -71,15 +71,15 @@ namespace HAN_OBIS
             public string UoM { get; set; }
         }
 
-        public class powerQ2Q3Object
+        public class activePowerQ2Q3Object
         {
             [JsonPropertyName("ReactivePowerQ2Q3")]
-            public doubae reactivePowerQ2Q3 { get; set; }
+            public double activePowerQ2Q3 { get; set; }
             [JsonPropertyName("ReactivePowerQ2Q3UoM")]
             public string UoM { get; set; }
         }
         
-        public class powerReactiveQ1Q2Object
+        public class reactivePowerQ1Q2Object
         {
             [JsonPropertyName("ReactivePowerQ1Q2")]
             public double reactivePowerQ1Q2 { get; set; }
@@ -87,7 +87,7 @@ namespace HAN_OBIS
             public string UoM { get; set; }
         }
 
-        public class powerReactiveQ1Q4Object
+        public class reactivePowerQ3Q4Object
         {
             [JsonPropertyName("ReactivePowerQ3Q4")]
             public double reactivePowerQ3Q4 { get; set; }
@@ -312,20 +312,21 @@ namespace HAN_OBIS
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
-                activePowerQ1Q4 = new powerQ1Q4Object {
+                activePowerQ1Q4 = new activePowerQ1Q4Object {
                     activePowerQ1Q4 = 0.0,
                     UoM = string.Empty
                 },
-            a  reactivePowerQ2Q3 = new powerQ2Q3Object {
-                a  reactivePowerQ2Q3 = 0.0,
+                activePowerQ2Q3 = new activePowerQ2Q3Object {
+                    activePowerQ2Q3 = 0.0,
                     UoM = string.Empty
                 },
-                reactivePowerQ1Q2 = new powerReactiveQ1Q2Object {
+                reactivePowerQ1Q2 = new reactivePowerQ1Q2Object {
                     reactivePowerQ1Q2 = 0.0,
                     UoM = string.Empty
                 },
-                powerReactiveQ3Q4 reactiveP newactiveQ1Q4Object {
-                    powerReactiveQ3Q4 reactiveP 0.0              UoM = string.Empty
+                reactivePowerQ3Q4 = new reactivePowerQ3Q4Object {
+                    reactivePowerQ3Q4 = 0.0,
+                    UoM = string.Empty
                 },
                 ampereIL1 = new ampereIL1Object {
                     ampereIL1 = 0.0,
@@ -354,7 +355,7 @@ namespace HAN_OBIS
                 versionIdentifier = catchVersionidentifier,
                 modelID = catchModelID,
                 modelType = catchModelType,
-                activePowerQ1Q4 = new powerQ1Q4Object {
+                activePowerQ1Q4 = new activePowerQ1Q4Object {
                     activePowerQ1Q4 = 0.0,
                     UoM = string.Empty
                 }
@@ -465,10 +466,10 @@ namespace HAN_OBIS
                                 HANList2and3.activePowerQ1Q4.activePowerQ1Q4 = value;
                                 HANList2and3.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 04 ) 
+                            else if ( legalObisCodesIndex == 04 ) // Watt
                             {
-                                HANList2ana3.reactivePowerQ2Q3.reactivePowerQ2Q3 = value;
-                                HANList2ana3.reactivePowerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2and3.activePowerQ2Q3.activePowerQ2Q3 = value;
+                                HANList2and3.activePowerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 05 )
                             {
