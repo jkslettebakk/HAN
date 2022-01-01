@@ -31,13 +31,9 @@ namespace HAN_OBIS
 
         public class longHAN
         {
-            [JsonPropertyName("DateTime")]
             public string dateTimePoll { get; set; }
-            [JsonPropertyName("VersionIdentifier")]
             public string versionIdentifier { get; set; }
-            [JsonPropertyName("ModelID")]
             public string modelID { get; set; }
-            [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
             public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
             public activePowerQ2Q3Object activePowerQ2Q3 { get; set; }
@@ -52,85 +48,63 @@ namespace HAN_OBIS
 
         public class shortHAN
         {
-            [JsonPropertyName("DateTime")]
             public string dateTimePoll { get; set; }
-            [JsonPropertyName("VersionIdentifier")]
             public string versionIdentifier { get; set; }
-            [JsonPropertyName("ModelID")]
             public string modelID { get; set; }
-            [JsonPropertyName("ModelType")]
             public string modelType { get; set; }
             public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
         }
 
         public class activePowerQ1Q4Object
         {
-            [JsonPropertyName("ActivePowerQ1Q4")]
             public double activePowerQ1Q4 { get; set; }
-            [JsonPropertyName("ActivePowerQ1Q4UoM")]
             public string UoM { get; set; }
         }
 
         public class activePowerQ2Q3Object
         {
-            [JsonPropertyName("ReactivePowerQ2Q3")]
             public double activePowerQ2Q3 { get; set; }
-            [JsonPropertyName("ReactivePowerQ2Q3UoM")]
             public string UoM { get; set; }
         }
         
         public class reactivePowerQ1Q2Object
         {
-            [JsonPropertyName("ReactivePowerQ1Q2")]
             public double reactivePowerQ1Q2 { get; set; }
-            [JsonPropertyName("ReactivePowerQ1Q2UoM")]
             public string UoM { get; set; }
         }
 
         public class reactivePowerQ3Q4Object
         {
-            [JsonPropertyName("ReactivePowerQ3Q4")]
             public double reactivePowerQ3Q4 { get; set; }
-            [JsonPropertyName("ReactivePowerQ3Q4UoM")]
             public string UoM { get; set; }
         }
 
         public class ampereIL1Object
         {
-            [JsonPropertyName("AmperePhase1")]
             public double ampereIL1 { get; set; }
-            [JsonPropertyName("AmperePhase1UoM")]
             public string UoM { get; set; }
         }
 
         public class ampereIL3Object
         {
-            [JsonPropertyName("AmperePhase3")]
             public double ampereIL3 { get; set; }
-            [JsonPropertyName("AmperePhase3UoM")]
             public string UoM { get; set; }
         }
 
         public class voltUL1Object
         {
-            [JsonPropertyName("VoltPhase1")]
             public int voltUL1 { get; set; }
-            [JsonPropertyName("VoltPhase1UoM")]
             public string UoM { get; set; }
         }
 
         public class voltUL2Object
         {
-            [JsonPropertyName("VoltPhase2")]
             public int voltUL2 { get; set; }
-            [JsonPropertyName("VoltPhase2UoM")]
             public string UoM { get; set; }
         }
         public class voltUL3Object
         {
-            [JsonPropertyName("VoltPhase3")]
             public int voltUL3 { get; set; }
-            [JsonPropertyName("VoltPhase3UoM")]
             public string UoM { get; set; }
         }
 
@@ -631,7 +605,7 @@ namespace HAN_OBIS
                     {
                         Console.BackgroundColor = ConsoleColor.Yellow;
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine("Json data to CRUD API https://HAN.slettebakk.com:");
+                        Console.WriteLine("Json data to CRUD API https://han.slettebakk.com/api/HANData/");
                         Console.ResetColor();
                         Console.WriteLine(jSONstringCompressed);
                     }
