@@ -12,6 +12,7 @@ namespace HAN_OO
 
             // User Configuration Parameters
             if (args.Length > 0 ) OOuCP.getHANOptions( args, OOuCP );
+            if ( OOuCP.uCP.HANOODefaultParameters.help ) OOuCP.help();
 
             // Prepare Reading DLMS data
             OO_HAN_Read_DLMS dlmsRead = new OO_HAN_Read_DLMS();

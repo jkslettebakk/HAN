@@ -8,6 +8,8 @@ namespace HAN_OBIS
         private static string catchVersionidentifier = string.Empty;
         private static string catchModelID = string.Empty;
         private static string catchModelType = string.Empty;
+        private static int loops = 1;
+        private static bool redirectStandardError = false;
 
         // OBIS types - Standard accoring to NVE
         private protected const byte TYPE_STRING = 0x0a;
@@ -456,8 +458,9 @@ namespace HAN_OBIS
                                 HANList2and3.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                              else
-                            {
-                                Console.WriteLine("Error? legalObisCodesIndex = {0}",legalObisCodesIndex);
+                            {   // Some HAN data not treated correctly
+                                Console.WriteLine("\nError or one houre OBIS? legalObisCodesIndex = {0} at {1}",legalObisCodesIndex,dateTimeString);
+                                Console.WriteLine("Energi consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
                             }
 
                             if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
@@ -490,8 +493,9 @@ namespace HAN_OBIS
                                 HANList2and3.ampereIL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                              else
-                            {
-                                Console.WriteLine("Error? legalObisCodesIndex = {0}",legalObisCodesIndex);
+                            {   // Some HAN data not treated correctly
+                                Console.WriteLine("\nError or one houre OBIS code? legalObisCodesIndex = {0} at {1}",legalObisCodesIndex,dateTimeString);
+                                Console.WriteLine("Currency consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
                             }
 
                             if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
@@ -538,8 +542,9 @@ namespace HAN_OBIS
                                 HANList2and3.voltUL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else
-                            {
-                                Console.WriteLine("Error? legalObisCodesIndex = {0}",legalObisCodesIndex);
+                            {   // Some HAN data not treated correctly
+                                Console.WriteLine("\nError or one houre OBIS code? legalObisCodesIndex = {0} at {1}",legalObisCodesIndex,dateTimeString);
+                                Console.WriteLine("Volte consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
                             }
                             if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentVolte, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
@@ -599,18 +604,69 @@ namespace HAN_OBIS
                 }
 
                 // next, call the API and send CRUD to database. Temporary print to screen. Send only every 10 seconds
-                if ( HANList2and3.voltUL1.voltUL1 > 0 )
+                if ( HANList2and3.voltUL1.voltUL1 > 0  )
                 {
-                    if ( !OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed && !OOuCP.uCP.HANOODefaultParameters.LogJson)
+                    if ( !OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed && OOuCP.uCP.HANOODefaultParameters.LogJson)
                     {
                         Console.BackgroundColor = ConsoleColor.Yellow;
                         Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine("Json data to CRUD API https://han.slettebakk.com/api/HANData/");
+                        Console.WriteLine("Json data to CRUD API " + OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint);
                         Console.ResetColor();
                         Console.WriteLine(jSONstringCompressed);
+                        // span of curl to send data to API endpoint
+                    }
+
+                    if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi )
+                    {
+                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        if ( OOuCP.uCP.HANOODefaultParameters.LogJson) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
                 // 
         }
+
+        public bool sendJsonToEndpoint(string jsonString, string endPoint, bool LogJson )
+        {
+            bool result = false;
+            try
+            {
+                using (Process myProcess = new Process()) // preparing to spawn off a 'curl' OS process
+                {
+                    // Process parameters
+                    myProcess.StartInfo.UseShellExecute = false; // Should be false on dotnet core
+                    myProcess.StartInfo.RedirectStandardOutput = true; // false=display result from app, else redirect to /dev/null
+                    myProcess.StartInfo.RedirectStandardError = redirectStandardError; // Default false, else redirect to /dev/null...
+                    myProcess.StartInfo.FileName = "curl"; // Using curl (temporary) til reprogrammed .NET core API is finished
+                    myProcess.StartInfo.CreateNoWindow = false; // true or false gives no change
+                    myProcess.StartInfo.ErrorDialog = true; 
+                    // Preparing the curl string
+                    jsonString = jsonString.Replace("\"","\\\""); // Need to change from ' tp " since spaning the process to Linux makse string treatment strange
+                    string arguments = "-X POST \"" + endPoint + "\" -H \"Content-Type: application/json\" -d \"" + jsonString + "\"";
+                    myProcess.StartInfo.Arguments = arguments;
+                    if ( LogJson ) Console.WriteLine("curl {0}",myProcess.StartInfo.Arguments);
+                    result = myProcess.Start();
+                    myProcess.WaitForExit();
+                    if ( myProcess.StartInfo.RedirectStandardOutput)
+                    {
+                        redirectStandardError = true;
+                        Console.Write("."); // just to indicate alive
+                        if ( (loops++ % 100) == 0 )
+                        {
+                        Console.WriteLine();
+                        redirectStandardError = false;
+                        }
+                    }
+                    else
+                        Console.WriteLine(); // Console service makes schreen look messy
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return result;
+            }
+        }
+
     }
 }

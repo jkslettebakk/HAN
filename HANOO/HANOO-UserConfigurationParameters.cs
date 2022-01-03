@@ -94,12 +94,30 @@ namespace HANOOUserConfigurationParameters
 
             [JsonPropertyName("--delay <value>")]
             public string delay { get; set; }
+
+            [JsonPropertyName("--HANApiEndPoint <value>")]
+            public string HANApiEndPoint { get; set; }
+
+            [JsonPropertyName("--JsonToApi <value>")]
+            public string lJsonToApi { get; set; }
+
+            [JsonPropertyName("--lList1 <value>")]
+            public string lList1 { get; set; }
+
+            [JsonPropertyName("--lList2 <value>")]
+            public string lList2 { get; set; }
+
+            [JsonPropertyName("--lList3 <value>")]
+            public string lList3 { get; set; }
         }
 
         public class HANOODefaultParameters
         {
             [JsonPropertyName("Comment")]
             public string Comment { get; set; }
+
+            [JsonPropertyName("help")]
+            public bool help { get; set; }
 
             [JsonPropertyName("Log")]
             public bool Log { get; set; }
@@ -124,6 +142,21 @@ namespace HANOOUserConfigurationParameters
 
             [JsonPropertyName("LogJsonCompressed")]
             public bool LogJsonCompressed { get; set; }
+
+            [JsonPropertyName("HANApiEndPoint")]
+            public string HANApiEndPoint { get; set; }
+
+            [JsonPropertyName("lJsonToApi")]
+            public bool lJsonToApi { get; set; }
+
+            [JsonPropertyName("lList1")]
+            public bool lList1 { get; set; }
+
+            [JsonPropertyName("lList2")]
+            public bool lList2 { get; set; }
+
+            [JsonPropertyName("lList3")]
+            public bool lList3 { get; set; }            
         }
 
         public class UserConfigurationParameters // Setting it all together in an object grouping
@@ -180,6 +213,10 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("parameters.HANOODefaultParameters.LogOBIS: {0}",parameters.HANOODefaultParameters.LogOBIS);
             Console.WriteLine("parameters.HANOODefaultParameters.LogJson: {0}",parameters.HANOODefaultParameters.LogJson);
             Console.WriteLine("parameters.HANOODefaultParameters.LogJsonCompressed: {0}",parameters.HANOODefaultParameters.LogJsonCompressed);
+            Console.WriteLine("parameters.HANOODefaultParameters.HANApiEndPoint: {0}",parameters.HANOODefaultParameters.HANApiEndPoint);
+            Console.WriteLine("parameters.HANOODefaultParameters.lList1: {0}",parameters.HANOODefaultParameters.lList1);
+            Console.WriteLine("parameters.HANOODefaultParameters.lList2: {0}",parameters.HANOODefaultParameters.lList2);
+            Console.WriteLine("parameters.HANOODefaultParameters.lList3: {0}",parameters.HANOODefaultParameters.lList3);
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("parameters.HANOOParameters.Comment: {0}",parameters.HANOOParameters.Comment);
             Console.WriteLine("parameters.HANOOParameters.DefaultParameterFile: {0}",parameters.HANOOParameters.DefaultParameterFile);
@@ -192,6 +229,7 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("parameters.HANOOParameters.lOBIS: {0}",parameters.HANOOParameters.lOBIS);
             Console.WriteLine("parameters.HANOOParameters.lJson: {0}",parameters.HANOOParameters.lJson);
             Console.WriteLine("parameters.HANOOParameters.lJsonCompressed: {0}",parameters.HANOOParameters.lJsonCompressed);
+            Console.WriteLine("parameters.HANOOParameters.lJsonToApi: {0}",parameters.HANOOParameters.lJsonToApi);            
             Console.WriteLine("--------------------------------------");
         } 
 
@@ -272,7 +310,8 @@ namespace HANOOUserConfigurationParameters
                 switch ( args[i] )
                 {
                     case "--h":
-                        help();
+                        // help();
+                        uCP.HANOODefaultParameters.help = true;
                         break;
                     case "--p":
                         displayParameters( OOuCP.uCP );
@@ -302,6 +341,20 @@ namespace HANOOUserConfigurationParameters
                                     Console.WriteLine("--pn option changed value uCP.HANOODeviceData.serialPortName from {0} to {1}",uCP.HANOODeviceData.serialPortName,args[i+1]);
                                 }
                             uCP.HANOODeviceData.serialPortName = args[i+1];
+                            i++;
+                        }
+                        else
+                            Console.WriteLine("--pn option is invalid. Are you missing a parameter?");
+                        break;
+                    case "--HANApiEndPoint":   // Set Port Name. --pn /dev/ttyUSB3; Will set the serialPortName to /dev/ttyUSB3
+                        if( i+1 < args.Length )
+                        {
+                            if (log)
+                                {
+                                    Console.WriteLine("--pn option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--pn option changed value uCP.HANOODeviceData.serialPortName from {0} to {1}",uCP.HANOODeviceData.serialPortName,args[i+1]);
+                                }
+                            uCP.HANOODefaultParameters.HANApiEndPoint = args[i+1];
                             i++;
                         }
                         else
@@ -397,7 +450,7 @@ namespace HANOOUserConfigurationParameters
                                 i++;
                             }
                             else
-                                if (log) Console.WriteLine("--lOBIS option and value = {0} is invalid. Skipp value",args[i+1]);
+                                if (log) Console.WriteLine("--lCRC option and value = {0} is invalid. Skipp value",args[i+1]);
                         }
                         else
                             Console.WriteLine("--lCRC option is invalid. Are you missing a parameter?");
@@ -420,6 +473,82 @@ namespace HANOOUserConfigurationParameters
                         }
                         else
                             Console.WriteLine("--lJson option is invalid. Are you missing a parameter?");
+                        break;
+                    case "--lJsonToApi": // Set jsonToApi "false" or "true"; True will send data to HANDate endpoint
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lJsonToApi option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lJsonToApi option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                }
+                                uCP.HANOODefaultParameters.lJsonToApi = flag;
+                                i++;
+                            }
+                            else
+                                Console.WriteLine("--lJsonToApi option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        else
+                            Console.WriteLine("--lJsonToApi option is invalid. Are you missing a parameter?");
+                        break;
+                    case "--lList1": // Set List1 logging "false" or "true"; True will send data to HANDate endpoint
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lList1 option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lList1 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                }
+                                uCP.HANOODefaultParameters.lList1 = flag;
+                                i++;
+                            }
+                            else
+                                Console.WriteLine("--lList1 option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        else
+                            Console.WriteLine("--lList1 option is invalid. Are you missing a parameter?");
+                        break;
+                    case "--lList2": // Set List1 logging "false" or "true"; True will send data to HANDate endpoint
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lList2 option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lList2 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                }
+                                uCP.HANOODefaultParameters.lList2 = flag;
+                                i++;
+                            }
+                            else
+                                Console.WriteLine("--lList2 option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        else
+                            Console.WriteLine("--lList2 option is invalid. Are you missing a parameter?");
+                        break;
+                    case "--lList3": // Set List1 logging "false" or "true"; True will send data to HANDate endpoint
+                        if( i+1 < args.Length )
+                        {
+                            if ( Boolean.TryParse(args[i+1], out flag) )
+                            {
+                                if (uCP.HANOODefaultParameters.Log)
+                                {
+                                    Console.WriteLine("--lList3 option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--lList3 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                }
+                                uCP.HANOODefaultParameters.lList3 = flag;
+                                i++;
+                            }
+                            else
+                                Console.WriteLine("--lList3 option and value = {0} is invalid. Skipp value",args[i+1]);
+                        }
+                        else
+                            Console.WriteLine("--lList3 option is invalid. Are you missing a parameter?");
                         break;
                     case "--lJsonCompressed": // Set OBIS log level "false" or "true"
                         if( i+1 < args.Length )
@@ -471,10 +600,11 @@ namespace HANOOUserConfigurationParameters
             Console.WriteLine("\n--------   " +
                                "Parameters is stored in JSON fille \'" + jSONfileName + "\'" +
                                "  --------");
-            Console.WriteLine("For help :\n" + 
-                              "--h => display help (this overview)\n" +
-                              "--l => Log various values. More for debugging" +
-                              "--p => display standard parameters from \'" + jSONfileName + "\'" +
+            Console.WriteLine("For help :" + 
+                              "\n--h => display help (this overview)" +
+                              "\n--l => Log various values. More for debugging" +
+                              "\n--p => display standard parameters from \'" + jSONfileName + "\'" +
+                              "\n--delay \'<int>\' => delay <int> milliseconds between HAN port read" +
                               "\nYou may override some parameters from command line:" +
                               "\n--pn \'PortName\'\n--br \'BaudRate\'" +
                               "\n--lDLMS \'<bool>\' => log DLMS data to tty" +
@@ -483,7 +613,11 @@ namespace HANOOUserConfigurationParameters
                               "\n--lCRC \'<bool>\' => log CRC result to tty" +
                               "\n--lJson \'<bool>\' => log Json data to tty" +
                               "\n--lJsonCompressed \'<bool>\' => log Json data to tty" +
-                              "\n--delay \'<int>\' => delay <int> milliseconds between HAN port read" +
+                              "\n--HANApiEndPoint \'<string>\' => text <string> to HAN API endpoint" +
+                              "\n--lJsonToApi \'<bool>\' => send json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
+                              "\n--lList1 \'<bool>\' => send List1 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
+                              "\n--lList2 \'<bool>\' => send List1 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
+                              "\n--lList3 \'<bool>\' => send List1 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
                               "\n\t-------------------\n");
         }
     }
