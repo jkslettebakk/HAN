@@ -346,19 +346,19 @@ namespace HANOOUserConfigurationParameters
                         else
                             Console.WriteLine("--pn option is invalid. Are you missing a parameter?");
                         break;
-                    case "--HANApiEndPoint":   // Set Port Name. --pn /dev/ttyUSB3; Will set the serialPortName to /dev/ttyUSB3
+                    case "--HANApiEndPoint":   // Set API Endpoint Name. --HANApiEndPoint https://han.slettebakk.com/api/<list>
                         if( i+1 < args.Length )
                         {
                             if (log)
                                 {
-                                    Console.WriteLine("--pn option and value = {0}",args[i+1]);
-                                    Console.WriteLine("--pn option changed value uCP.HANOODeviceData.serialPortName from {0} to {1}",uCP.HANOODeviceData.serialPortName,args[i+1]);
+                                    Console.WriteLine("--HANApiEndPoint option and value = {0}",args[i+1]);
+                                    Console.WriteLine("--HANApiEndPoint option changed value uCP.HANOODeviceData.HANApiEndPoint from {0} to {1}",uCP.HANOODefaultParameters.HANApiEndPoint,args[i+1]);
                                 }
                             uCP.HANOODefaultParameters.HANApiEndPoint = args[i+1];
                             i++;
                         }
                         else
-                            Console.WriteLine("--pn option is invalid. Are you missing a parameter?");
+                            Console.WriteLine("--HANApiEndPoint option is invalid. Are you missing a parameter?");
                         break;
                     case "--l": // Set log level "false" or "true"
                         if( i+1 < args.Length )
@@ -493,7 +493,7 @@ namespace HANOOUserConfigurationParameters
                         else
                             Console.WriteLine("--lJsonToApi option is invalid. Are you missing a parameter?");
                         break;
-                    case "--lList1": // Set List1 logging "false" or "true"; True will send data to HANDate endpoint
+                    case "--lList1": // Set List1 logging "false" or "true"; True will also send data to HANDate endpoint
                         if( i+1 < args.Length )
                         {
                             if ( Boolean.TryParse(args[i+1], out flag) )
@@ -501,7 +501,7 @@ namespace HANOOUserConfigurationParameters
                                 if (uCP.HANOODefaultParameters.Log)
                                 {
                                     Console.WriteLine("--lList1 option and value = {0}",args[i+1]);
-                                    Console.WriteLine("--lList1 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                    Console.WriteLine("--lList1 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.lList1,flag);
                                 }
                                 uCP.HANOODefaultParameters.lList1 = flag;
                                 i++;
@@ -512,7 +512,7 @@ namespace HANOOUserConfigurationParameters
                         else
                             Console.WriteLine("--lList1 option is invalid. Are you missing a parameter?");
                         break;
-                    case "--lList2": // Set List1 logging "false" or "true"; True will send data to HANDate endpoint
+                    case "--lList2": // Set List2 logging "false" or "true"; True will send data to HANDate endpoint
                         if( i+1 < args.Length )
                         {
                             if ( Boolean.TryParse(args[i+1], out flag) )
@@ -520,7 +520,7 @@ namespace HANOOUserConfigurationParameters
                                 if (uCP.HANOODefaultParameters.Log)
                                 {
                                     Console.WriteLine("--lList2 option and value = {0}",args[i+1]);
-                                    Console.WriteLine("--lList2 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                    Console.WriteLine("--lList2 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.lList2,flag);
                                 }
                                 uCP.HANOODefaultParameters.lList2 = flag;
                                 i++;
@@ -539,7 +539,7 @@ namespace HANOOUserConfigurationParameters
                                 if (uCP.HANOODefaultParameters.Log)
                                 {
                                     Console.WriteLine("--lList3 option and value = {0}",args[i+1]);
-                                    Console.WriteLine("--lList3 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.LogJson,flag);
+                                    Console.WriteLine("--lList3 option changed current log status from {0} to {1}",uCP.HANOODefaultParameters.lList3,flag);
                                 }
                                 uCP.HANOODefaultParameters.lList3 = flag;
                                 i++;
