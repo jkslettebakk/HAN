@@ -739,7 +739,7 @@ namespace HAN_OBIS
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List1";
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList1 )
                     {
-                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List1", OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
@@ -760,7 +760,7 @@ namespace HAN_OBIS
                     Console.WriteLine("\nHouerly log:\n{0}",jSONstringCompressed); // Make sure I have a log of this :-)
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList3 )
                     {
-                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List3", OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
@@ -805,7 +805,6 @@ namespace HAN_OBIS
 
         public bool sendJsonToEndpoint(string jsonString, string endPoint, bool LogJson )
         {
-            bool result = false;
             try
             {
                 using (Process myProcess = new Process()) // preparing to spawn off a 'curl' OS process
@@ -824,30 +823,32 @@ namespace HAN_OBIS
                     // Log to screen if needed
                     if ( LogJson ) Console.WriteLine("curl {0}",myProcess.StartInfo.Arguments);
                     // then send data to REST endpoint and further for CRUD processing in database
-                    result = myProcess.Start();
+                    myProcess.Start();
                     myProcess.WaitForExit();
+                    if ( !myProcess.StartInfo.RedirectStandardOutput ||  !myProcess.StartInfo.RedirectStandardError )
+                        Console.WriteLine(); // Console service makes schreen look messy
+                }
                     redirectStandardError = true; // Make sure we do not fill the logfiles. Turn of logging
                     if ( loops == 1 ) 
                     {
                     Console.WriteLine("\nData will be sendt to: {0}",endPoint);
                     Console.WriteLine("Just to indicate we have started. Jsonstring={0}\n",jsonString);
                     Console.Write("."); // just to indicate alive
-                    }
+                    } else
+                    Console.Write("."); // just to indicate alive
+
                     if ( (loops++ % 100) == 0 )
                     {
                         Console.WriteLine("\nData will be sendt to: {0}",endPoint);
                         Console.WriteLine("Just to indicate we are alive (every 100 REST calles (this is number {0})). Jsonstring={1}",loops,jsonString);
                         redirectStandardError = false;
                     }
-                    if ( !myProcess.StartInfo.RedirectStandardOutput ||  !myProcess.StartInfo.RedirectStandardError )
-                        Console.WriteLine(); // Console service makes schreen look messy
-                    return result;
-                }
+                    return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return result;
+                return false;
             }
         }
 
