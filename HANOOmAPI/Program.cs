@@ -40,6 +40,7 @@ namespace HAN_OO
             // Prepare Reading DLMS data
             OO_HAN_Read_DLMS dlmsRead = new OO_HAN_Read_DLMS();
 
+            // Introduces async methods for API to endpoint..... Next time think trough this from start..... :-) Big rewrite....
             await OO_HAN_Read_DLMS.OO_HAN_Read_DLMS_Data( OOuCP ); // start reading DLMS data
 
             // Stopping this app will probably be by "Ctrl-c" or in a memory crash
