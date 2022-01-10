@@ -1,0 +1,199 @@
+4 HANOO jobs running on 01/09/22 at 15:35:01. This is:
+	./HANOO
+	/bin/sh
+	/bin/sh
+	grep
+Test result var : 'pi        6526  4611  4 15:23 pts/1    00:00:41 ./HANOO --lJsonToApi true --lList1 true --lList2 true --lList3 true
+pi        7533     1  0 15:40 ?        00:00:00 /bin/sh -e /home/pi/Documents/HAN/HANOO/check_jobs.sh
+pi        7534  7533  0 15:40 ?        00:00:00 /bin/sh -e /home/pi/Documents/HAN/HANOO/check_jobs.sh
+pi        7536  7534  0 15:40 ?        00:00:00 grep ./HANOO'
+Test result num : '4'
+4 HANOO jobs running on 01/09/22 at 15:40:01. This is:
+	./HANOO
+	/bin/sh
+	/bin/sh
+	grep
+Test result var : 'pi        6526  4611  4 15:23 pts/1    00:00:53 ./HANOO --lJsonToApi true --lList1 true --lList2 true --lList3 true'
+Test result num : '1'
+error, HANOO not found
+Few (1) (expected >= 1) .py scrips is running at on 01/09/22 at 15:45:01 . Will reeboot
+	--lJsonToApi
+1 HANOO job(s) running on 01/09/22 at 15:50:01. This is:
+	./HANOO
+Logging status at: on 01/09/22 at 15:55:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: on 01/09/22 at 16:00:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: on 01/09/22 at 16:05:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: on 01/09/22 at 16:10:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 01/09/22 at 16:15:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:20:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:25:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:30:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:35:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:40:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:45:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:50:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 16:55:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:00:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:05:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:10:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:15:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:20:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:25:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:30:02
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:35:02
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:40:02
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:45:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:50:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 17:55:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:00:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:05:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:10:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:15:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:20:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:25:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:30:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:35:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:40:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:45:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:50:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 18:55:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:00:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:05:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:10:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:30:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:35:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:40:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:45:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:50:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 19:55:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 20:00:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 20:05:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 20:10:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 20:15:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:10:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:15:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:20:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:25:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:30:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:35:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:40:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:45:01
+1 HANOO job(s) running. This is:
+	./HANOO
+Logging status at: 2022/01/09 at 21:50:01
+1 HANOO job(s) running. This is:
+	./HANOO

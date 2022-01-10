@@ -4,10 +4,8 @@ namespace HAN_OO
 {
     public class Program
     {
-
         public static void Main(string[] args)
         {
-
             // Initiate objects config data in JSON file 
             OOUserConfigurationParameters OOuCP = new OOUserConfigurationParameters();
 

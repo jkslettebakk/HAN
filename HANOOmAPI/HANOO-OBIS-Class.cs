@@ -11,6 +11,10 @@ namespace HAN_OBIS
         private static int loops = 1;
         private static bool redirectStandardError = true;
         private static string apiAdressToEndpoint = string.Empty;
+        private static double currentEnergy { get; set; } = 0.0;
+        private static double sumEnergy { get; set; } = 0.0;
+        private static int currentVolte { get; set; } = 0;
+        private static double currentAmpere { get; set; }  = 0.0;
 
         // OBIS types - Standard accoring to NVE
         private protected const byte TYPE_STRING = 0x0a;
@@ -21,16 +25,6 @@ namespace HAN_OBIS
         private protected const byte STRUCT_TEXT_0x02 = 0x02;
         private protected const byte STRUCT_DATA_0x03 = 0x03;
         private protected const int  oBISLength  = 6;
-
-        struct obisValuesStruct
-        {
-            public double currentEnergy { get; set; } = 0.0;
-            public double sumEnergy { get; set; } = 0.0;
-            public int currentVolte { get; set; } = 0;
-            public double currentAmpere { get; set; }  = 0.0;
-        }
-
-        obisValuesStruct obisValues;
 
         public class List1
         { // HAN List 1 data
@@ -174,7 +168,7 @@ namespace HAN_OBIS
         }
 
         //a obis struct list
-        List<obisCodesStruct> legalObisCodes = new List<obisCodesStruct>
+        private protected static List<obisCodesStruct> legalObisCodes = new List<obisCodesStruct>
         {
             new obisCodesStruct{A=1,B=0,C=1, D=7,E=0,  F=255,obis="1.0.1.7.0.255",  UoM= "W",    scale = 1.0000,objectName="Q1Q4",              vendorObject="Q1+Q4",             HAN_Vendor ="Aidon"},
             new obisCodesStruct{A=1,B=1,C= 0,D=2,E=129,F=255,obis="1.1.0.2.129.255",UoM= " ",    scale = 1.0000,objectName="Version identifier",vendorObject="Version identifier",HAN_Vendor ="Aidon & Kamstrup"},
@@ -213,7 +207,7 @@ namespace HAN_OBIS
             new obisCodesStruct{A=1,B=1,C= 4,D=8,E=  0,F=255,obis="1.1.4.8.0.255",  UoM= "Varh", scale = 1.0000,objectName="R34",               vendorObject="R34",               HAN_Vendor ="Kamstrup"}
         };
 
-        private void showObisValues()
+        private static void showObisValues()
         {
             for (int i = 0; i < legalObisCodes.Count; i++)
                 Console.WriteLine("Struct obis={0:x2}.{1:x2}.{2:x2}.{3:x2}.{4:x2}.{5:x2} ({6,-15}), UoM={7,-5}, objectName={8,-18}, vendor={9}", 
@@ -229,7 +223,7 @@ namespace HAN_OBIS
                 legalObisCodes[i].HAN_Vendor);
         }
 
-        private string showObis(int index)
+        private static string showObis(int index)
         {
             if ( index >= 0 && index < legalObisCodes.Count)
                 return legalObisCodes[index].obis;
@@ -237,7 +231,7 @@ namespace HAN_OBIS
 
         }
 
-        private int areObisFound(byte a, byte b, byte c, byte d, byte e, byte f)
+        private static int areObisFound(byte a, byte b, byte c, byte d, byte e, byte f)
         {
             for (int i = 0; i < legalObisCodes.Count; i++)
             {
@@ -252,13 +246,13 @@ namespace HAN_OBIS
             return -1;
         }
 
-        private int areObisFound(byte[] data, int start )
+        private static int areObisFound(byte[] data, int start )
         {
             if ( data.Length < 6 ) return -1;
             return areObisFound(data[start + 0],data[start + 1],data[start + 2],data[start + 3],data[start + 4],data[start + 5]);
         }
 
-        private string oBISCode(byte[] data, int start)
+        private static string oBISCode(byte[] data, int start)
         {
             string cosem = string.Empty;
             if ( data.Length < 6 ) return "";
@@ -272,7 +266,7 @@ namespace HAN_OBIS
             return cosem;
         }
 
-        private string UoMObisCode(byte a, byte b, byte c, byte d, byte e, byte f)
+        private static string UoMObisCode(byte a, byte b, byte c, byte d, byte e, byte f)
         {
             int location = areObisFound(a, b, c, d, e, f);
             if (location > -1)
@@ -280,7 +274,27 @@ namespace HAN_OBIS
             return "Error in UoM";
         }
 
-        protected internal void oBISBlock( byte[] oBISdata, OOUserConfigurationParameters OOuCP ) // COSEM block
+        static async Task sendJsonToEndpointNew( string jsonString, string endPoint, bool LogJson)
+        {
+            await ProcessRepositories();
+        }
+
+        private static readonly HttpClient client = new HttpClient();
+
+        private static async Task ProcessRepositories()
+        {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+            client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+
+            // var stringTask = client.GetStringAsync("https://api.github.com/orgs/dotnet/repos");
+            var stringTask = client.GetStringAsync("https://han.slettebakk.com/api/List3/number");
+
+            var msg = await stringTask;
+            Console.WriteLine(msg);
+        }
+
+        public static async Task  oBISBlock( byte[] oBISdata, OOUserConfigurationParameters OOuCP ) // COSEM block
         {
             // expected full OBIS block from DLMS/COSEM data block
             // Sample expected input:
@@ -548,7 +562,7 @@ namespace HAN_OBIS
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                                 Console.WriteLine();
                             }
-                            obisValues.currentEnergy = ((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale;
+                            currentEnergy = ((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale;
                             value = (uint) (((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale);
 
                             if ( legalObisCodesIndex == 00 )
@@ -607,7 +621,7 @@ namespace HAN_OBIS
                                 Console.WriteLine("Energi consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
                             }
 
-                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
+                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 11; // Next COSEM block position
                         } 
                         else if ( oBISdata[cOSEMIndex] == TYPE_INT16_0x10)
@@ -623,7 +637,7 @@ namespace HAN_OBIS
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            obisValues.currentAmpere =  Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale, 2);
+                            currentAmpere =  Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale, 2);
                             value =  (ushort) Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale, 2);
 
                             if ( legalObisCodesIndex == 07 ) // A
@@ -646,7 +660,7 @@ namespace HAN_OBIS
                                 Console.WriteLine("Currency consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
                             }
 
-                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
+                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
                         }
                         else if ( oBISdata[cOSEMIndex] == TYPE_UINT16_0x12)
@@ -661,7 +675,7 @@ namespace HAN_OBIS
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            obisValues.currentVolte = (int) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale);
+                            currentVolte = (int) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale);
                             value = (ushort) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale);
 
                             if ( legalObisCodesIndex == 05 ) // KVAr
@@ -704,7 +718,7 @@ namespace HAN_OBIS
                                 Console.WriteLine("\nError or one houre OBIS code? legalObisCodesIndex = {0} at {1}",legalObisCodesIndex,dateTimeString);
                                 Console.WriteLine("Volte consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", obisValues.currentVolte, legalObisCodes[legalObisCodesIndex].UoM);
+                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", currentVolte, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 9; // Next COSEM block position
                         }
                         else
@@ -742,6 +756,7 @@ namespace HAN_OBIS
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList1 )
                     {
                         bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
@@ -752,6 +767,7 @@ namespace HAN_OBIS
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList2 )
                     {
                         bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
@@ -763,6 +779,7 @@ namespace HAN_OBIS
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList3 )
                     {
                         bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
@@ -794,6 +811,7 @@ namespace HAN_OBIS
                 }
 
                 // next, call the API and send CRUD to database. Temporary print to screen. Send only every 10 seconds
+
                 if ( !OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed && OOuCP.uCP.HANOODefaultParameters.LogJson)
                 {
                     Console.BackgroundColor = ConsoleColor.Yellow;
@@ -824,7 +842,7 @@ namespace HAN_OBIS
 
         }
 
-        public bool sendJsonToEndpoint(string jsonString, string endPoint, bool LogJson )
+        public static bool sendJsonToEndpoint(string jsonString, string endPoint, bool LogJson )
         {
             try
             {
@@ -872,6 +890,5 @@ namespace HAN_OBIS
                 return false;
             }
         }
-
     }
 }
