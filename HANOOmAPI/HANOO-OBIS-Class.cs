@@ -8,12 +8,10 @@ namespace HAN_OBIS
         private static string catchVersionidentifier = string.Empty;
         private static string catchModelID = string.Empty;
         private static string catchModelType = string.Empty;
-        private static int loops = 1;
-        private static bool redirectStandardError = true;
         private static string apiAdressToEndpoint = string.Empty;
         private static double currentEnergy { get; set; } = 0.0;
         private static double sumEnergy { get; set; } = 0.0;
-        private static int currentVolte { get; set; } = 0;
+        private static int    currentVolte { get; set; } = 0;
         private static double currentAmpere { get; set; }  = 0.0;
 
         // OBIS types - Standard accoring to NVE
@@ -273,25 +271,24 @@ namespace HAN_OBIS
                 return legalObisCodes[location].UoM;
             return "Error in UoM";
         }
-
         static async Task sendJsonToEndpointNew( string jsonString, string endPoint, bool LogJson)
         {
-            await ProcessRepositories();
+            await ExecuteJsonPost(endPoint, jsonString);
         }
 
         private static readonly HttpClient client = new HttpClient();
 
-        private static async Task ProcessRepositories()
+        private static async Task ExecuteJsonPost(string UriString, string Jsonstring)
         {
+            Console.WriteLine("ExecuteJsonPost :\n{0}",Jsonstring);
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+            Uri uri = new Uri(UriString);
+            StringContent postString = new StringContent(Jsonstring, Encoding.UTF8, "application/json");
 
-            // var stringTask = client.GetStringAsync("https://api.github.com/orgs/dotnet/repos");
-            var stringTask = client.GetStringAsync("https://han.slettebakk.com/api/List3/number");
-
-            var msg = await stringTask;
-            Console.WriteLine(msg);
+            HttpResponseMessage result = await client.PostAsync(UriString, postString);
+            Console.WriteLine("Status from PostAsync (result.StatusCode)={0}\nresult.ReasonPhrase={1}\nresult=\n{2}",result.StatusCode,result.ReasonPhrase,result);
         }
 
         public static async Task  oBISBlock( byte[] oBISdata, OOUserConfigurationParameters OOuCP ) // COSEM block
@@ -563,7 +560,7 @@ namespace HAN_OBIS
                                 Console.WriteLine();
                             }
                             currentEnergy = ((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale;
-                            value = (uint) (((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale);
+                            value = (uint) currentEnergy;
 
                             if ( legalObisCodesIndex == 00 )
                             { // Powercollection list 1, 2 and 3
@@ -753,34 +750,30 @@ namespace HAN_OBIS
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList1);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List1";
+                    Console.WriteLine("\nList 1:\n{0}",jSONstringCompressed);
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList1 )
                     {
-                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
-                        if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
                 else if ( oBISdata.Length < 250 )
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList2);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List2";
+                    Console.WriteLine("\nList 2:\n{0}",jSONstringCompressed);
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList2 )
                     {
-                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
-                        if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
                 else // Long list (List3) > 250. One object per hr...
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList3);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List3";
-                    Console.WriteLine("\nHouerly log:\n{0}",jSONstringCompressed); // Make sure I have a log of this :-)
+                    Console.WriteLine("\nList 3; Houerly log:\n{0}",jSONstringCompressed); // Make sure I have a log of this :-)
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList3 )
                     {
-                        bool curlResult = sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                         await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
-                        if ( !curlResult ) Console.WriteLine("Curl issue result = {0}",curlResult);
                     }
                 }
 
@@ -840,55 +833,6 @@ namespace HAN_OBIS
                 Console.WriteLine("-------------------------------------------------------------");                
             }
 
-        }
-
-        public static bool sendJsonToEndpoint(string jsonString, string endPoint, bool LogJson )
-        {
-            try
-            {
-                using (Process myProcess = new Process()) // preparing to spawn off a 'curl' OS process
-                {
-                    // Process parameters
-                    myProcess.StartInfo.UseShellExecute = false; // Should be false on dotnet core
-                    myProcess.StartInfo.RedirectStandardOutput = true; // false=display result from app, else redirect to /dev/null
-                    myProcess.StartInfo.RedirectStandardError = redirectStandardError; // Default false, else redirect to /dev/null...
-                    myProcess.StartInfo.FileName = "curl"; // Using curl (temporary) til reprogrammed .NET core API is finished
-                    myProcess.StartInfo.CreateNoWindow = false; // true or false gives no change
-                    myProcess.StartInfo.ErrorDialog = true; 
-                    // Preparing the curl string
-                    string jsonStringLinux = jsonString.Replace("\"","\\\""); // Need to change from ' tp " since spawning the process to Linux makse string treatment strange
-                    string arguments = "-X POST \"" + endPoint + "\" -H \"Content-Type: application/json\" -d \"" + jsonStringLinux + "\"";
-                    myProcess.StartInfo.Arguments = arguments;
-                    // Log to screen if needed
-                    if ( LogJson ) Console.WriteLine("curl {0}",myProcess.StartInfo.Arguments);
-                    // then send data to REST endpoint and further for CRUD processing in database
-                    myProcess.Start();
-                    myProcess.WaitForExit();
-                    if ( !myProcess.StartInfo.RedirectStandardOutput ||  !myProcess.StartInfo.RedirectStandardError )
-                        Console.WriteLine(); // Console service makes schreen look messy
-                }
-                    redirectStandardError = true; // Make sure we do not fill the logfiles. Turn of logging
-                    if ( loops == 1 ) 
-                    {
-                        Console.WriteLine("\nData will be sendt to: {0}",endPoint);
-                        Console.WriteLine("Just to indicate we have started. Jsonstring:\n{0}\n",jsonString);
-                        Console.Write("."); // just to indicate alive
-                    } else
-                    Console.Write("."); // just to indicate alive
-
-                    if ( (loops++ % 100) == 0 )
-                    {
-                        Console.WriteLine("\nData will be sendt to: {0}",endPoint);
-                        Console.WriteLine("Just to indicate we are alive (every 100 REST calles (this is number {0})). Jsonstring:\n{1}",loops,jsonString);
-                        redirectStandardError = false;
-                    }
-                    return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
         }
     }
 }

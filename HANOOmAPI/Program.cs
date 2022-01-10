@@ -8,24 +8,8 @@ namespace HAN_OO
 {
     public class Program
     {
-        /*
-        private static async Task ProcessRepositories()
-        {
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-            client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
-            // var stringTask = client.GetStringAsync("https://api.github.com/orgs/dotnet/repos");
-            var stringTask = client.GetStringAsync("https://han.slettebakk.com/api/List3/number");
-
-            var msg = await stringTask;
-            Console.WriteLine(msg);
-        }
-        */
-
-        // private static readonly HttpClient client = new HttpClient();
-
-        static async Task Main(string[] args)
+        static async Task Main(string[] args) // made async Task to be able to use Async GET and POST
         {
             //Caal API endpoint....
             // await ProcessRepositories();

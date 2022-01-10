@@ -1,5 +1,2643 @@
 Reading port /dev/ttyUSB0
+Skipping some OBIS blockes. Waiting for text_block (STRUCT_TEXT_0x02=2) in block position 3
+-------------------------------------------------------------
+Complete OBIS block found but missing header data for LIST1, LIST2 and LIST3
+01 01 02 03 09 06 01 00 01 07  00 FF 06 00 00 14 32 02 02 0F  00 16 1B 
+Block length=23
+-------------------------------------------------------------
+Skipping some OBIS blockes. Waiting for text_block (STRUCT_TEXT_0x02=2) in block position 3
+-------------------------------------------------------------
+Complete OBIS block found but missing header data for LIST1, LIST2 and LIST3
+01 01 02 03 09 06 01 00 01 07  00 FF 06 00 00 14 17 02 02 0F  00 16 1B 
+Block length=23
+-------------------------------------------------------------
+Skipping some OBIS blockes. Waiting for text_block (STRUCT_TEXT_0x02=2) in block position 3
+-------------------------------------------------------------
+Complete OBIS block found but missing header data for LIST1, LIST2 and LIST3
+01 01 02 03 09 06 01 00 01 07  00 FF 06 00 00 14 18 02 02 0F  00 16 1B 
+Block length=23
+-------------------------------------------------------------
 
-Just to indicate we have started. Jsonstring={"dateTimePoll":"2022-01-07T22:12:48.5448994","versionIdentifier":"","modelID":"","modelType":"","activePowerQ1Q4":{"activePowerQ1Q4":5228,"UoM":"W"}}
+List 2:
+{"dateTimePoll":"2022-01-10T20:30:11.1750543","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5144,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":798,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:11.1750543","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5144,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":798,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:10 GMT
+  Content-Type: application/json; charset=utf-8
+}
 
-..........................................
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:12.8075637","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5144,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:12.8075637","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5144,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:11 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:14.8267207","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4194,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:14.8267207","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4194,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:13 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:17.8393126","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:17.8393126","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:16 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:30:20.8622209","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":382,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:20.8622209","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":382,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:19 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:22.8785577","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4191,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:22.8785577","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4191,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:21 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:24.8919394","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4251,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:24.8919394","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4251,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:24 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:27.9045167","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4251,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:27.9045167","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4251,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:27 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:30:30.9180543","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4192,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":332,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:30.9180543","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4192,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":332,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:30 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:32.9363291","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4202,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:32.9363291","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4202,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:32 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:34.9460760","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:34.9460760","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:34 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:37.9576828","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:37.9576828","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:37 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:30:40.9884558","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":385,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:40.9884558","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":385,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:40 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:42.0009298","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5176,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:42.0009298","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5176,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:41 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:45.0122546","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5170,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:45.0122546","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5170,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:44 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:47.0237176","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5155,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:47.0237176","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5155,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:46 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:30:51.0363568","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5158,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":362,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:51.0363568","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5158,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":362,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:50 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:52.0694625","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5168,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:52.0694625","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5168,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:51 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:55.0833511","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5168,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:55.0833511","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5168,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:54 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:30:57.0944655","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4171,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:30:57.0944655","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4171,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:30:56 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:31:01.1106663","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4171,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":379,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:01.1106663","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4171,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":379,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:00 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:02.1258419","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4269,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:02.1258419","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4269,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:01 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:05.1464741","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4231,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:05.1464741","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4231,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:04 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:07.1581931","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4226,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:07.1581931","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4226,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:06 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:31:11.2990235","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4226,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":396,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:11.2990235","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4226,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":396,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:10 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:12.3126182","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4226,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:12.3126182","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4226,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:11 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:15.3304280","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4219,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:15.3304280","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4219,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:14 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:17.3865184","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4176,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:17.3865184","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4176,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:16 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:31:21.4046168","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4176,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":360,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:21.4046168","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4176,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":360,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:20 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:22.4214223","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4221,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:22.4214223","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4221,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:21 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:25.4381901","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5172,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:25.4381901","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5172,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:23 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:27.4502047","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5172,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:27.4502047","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5172,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:26 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:31:31.4653229","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5198,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":612,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:31.4653229","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5198,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":612,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:30 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:32.4792489","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5182,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:32.4792489","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5182,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:31 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:34.4990833","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4240,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:34.4990833","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4240,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:33 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:37.5098539","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4240,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:37.5098539","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4240,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:36 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:31:40.5227238","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4183,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":709,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:40.5227238","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4183,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":709,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:39 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:42.5387782","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4183,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:42.5387782","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4183,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:41 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:44.5540401","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4136,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:44.5540401","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4136,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:43 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:47.5660527","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4136,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:47.5660527","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4136,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:46 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:31:50.5816131","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4185,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":348,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:50.5816131","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4185,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":348,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:49 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:52.5952185","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:52.5952185","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:51 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:54.6161726","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4180,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:54.6161726","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4180,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:53 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:31:57.6260744","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4180,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:31:57.6260744","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4180,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:56 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:32:00.6391997","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4212,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":583,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:00.6391997","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4212,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":583,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:31:59 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:02.6534968","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4182,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:02.6534968","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4182,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:01 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:04.6662494","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:04.6662494","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:03 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:07.6789267","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:07.6789267","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:06 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:32:10.6974059","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":364,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:10.6974059","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":364,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:09 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:12.7130479","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5167,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:12.7130479","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5167,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:11 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:14.7338683","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5199,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:14.7338683","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5199,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:13 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:17.7438748","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5199,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:17.7438748","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5199,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:16 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:32:20.7559235","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4183,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":389,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:20.7559235","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4183,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":389,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:19 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:22.7687209","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4218,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:22.7687209","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4218,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:21 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:24.7847089","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4189,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:24.7847089","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4189,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:23 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:27.7979497","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4219,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:27.7979497","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4219,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:26 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:32:30.8094181","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":358,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:30.8094181","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":358,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:29 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:32.8243448","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4210,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:32.8243448","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4210,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:31 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:34.8381603","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4198,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:34.8381603","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4198,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:33 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:37.8536313","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4196,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:37.8536313","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4196,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:36 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:32:40.8707257","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4196,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":371,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:40.8707257","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4196,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":371,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:39 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:42.8850400","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4161,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:42.8850400","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4161,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:41 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:44.8995614","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5197,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:44.8995614","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5197,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:44 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:47.9111258","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5197,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:47.9111258","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5197,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:47 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:32:50.9241575","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5196,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":367,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:50.9241575","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5196,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":367,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:50 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:52.9391265","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5164,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:52.9391265","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5164,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:52 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:54.9496639","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:54.9496639","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:54 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:32:57.9658167","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5177,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:32:57.9658167","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5177,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:32:57 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:33:00.9795384","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4191,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":390,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:00.9795384","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4191,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":390,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:00 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:01.9948423","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4199,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:01.9948423","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4199,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:01 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:05.0109406","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4281,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:05.0109406","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4281,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:04 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:07.0221033","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4173,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:07.0221033","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4173,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:06 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:33:11.0375014","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4173,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":306,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:11.0375014","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4173,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":306,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:10 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:12.0566671","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4206,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:12.0566671","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4206,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:11 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:15.0726279","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4188,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:15.0726279","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4188,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:14 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:17.0847556","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4211,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:17.0847556","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4211,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:16 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:33:21.0982064","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4193,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":382,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:21.0982064","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4193,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":382,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:20 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:22.1121865","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4193,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:22.1121865","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4193,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:21 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:25.1227277","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5165,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:25.1227277","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5165,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:24 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:27.1352796","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:27.1352796","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:26 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:33:31.1479649","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":389,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:31.1479649","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5169,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":389,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:30 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:32.1639163","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5179,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:32.1639163","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5179,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:31 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:35.1754189","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5162,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:35.1754189","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5162,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:34 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:37.1867091","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5129,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:37.1867091","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5129,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:36 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:33:41.1994533","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5129,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":578,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:41.1994533","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5129,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":578,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:40 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:42.2140158","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:42.2140158","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:41 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:45.2274421","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4207,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:45.2274421","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4207,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:44 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:47.2377963","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4207,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:47.2377963","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4207,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:46 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:33:51.2537149","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":385,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":229,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:51.2537149","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4201,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":385,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":229,"UoM":"V"},"voltUL3":{"voltUL3":229,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:50 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:52.2688401","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4212,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:52.2688401","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4212,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:51 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:33:57.2845606","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4219,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:33:57.2845606","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4219,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:33:56 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:34:01.3032572","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4301,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":401,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:01.3032572","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4301,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":401,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:00 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:02.3175216","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4196,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:02.3175216","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4196,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:01 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:05.3346079","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:05.3346079","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:04 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:07.3467387","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:07.3467387","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5193,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:06 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:34:11.3654761","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5188,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":371,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:11.3654761","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5188,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":371,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:10 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:12.3797484","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5188,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:12.3797484","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5188,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:11 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:15.3963354","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5177,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:15.3963354","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5177,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:14 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:17.4090483","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5161,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:17.4090483","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5161,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:16 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:34:21.4248164","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4179,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":407,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:21.4248164","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4179,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":407,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:20 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:22.4388602","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4179,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:22.4388602","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4179,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:21 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:25.4559770","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4180,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:25.4559770","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4180,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:24 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:27.4693500","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4160,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:27.4693500","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4160,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:26 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:34:31.4851098","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4160,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":344,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:31.4851098","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4160,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":344,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:30 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:32.5002483","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4141,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:32.5002483","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4141,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:31 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:34.5179184","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4148,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:34.5179184","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4148,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:33 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:37.5298030","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4277,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:37.5298030","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4277,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:36 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:34:40.5479480","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4277,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":358,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:40.5479480","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4277,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":358,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:39 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:42.5615514","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4187,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:42.5615514","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4187,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:41 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:44.5764466","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4189,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:44.5764466","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4189,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:43 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:47.5925656","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5168,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:47.5925656","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5168,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:46 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:34:50.6093352","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5176,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":384,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:50.6093352","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5176,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":384,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:49 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:52.6264286","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5176,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:52.6264286","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5176,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:51 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:54.6431295","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5166,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:54.6431295","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5166,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:53 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:34:57.6564244","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5166,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:34:57.6564244","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5166,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:56 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:35:00.6704922","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5163,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":406,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:00.6704922","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5163,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":406,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":232,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:34:59 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:02.6851464","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:02.6851464","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4178,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:01 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:04.6956213","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4146,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:04.6956213","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4146,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:03 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:07.7080290","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4265,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:07.7080290","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4265,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:06 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:35:10.7246929","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4265,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":391,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:10.7246929","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4265,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":391,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:09 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:12.7388787","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4216,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:12.7388787","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4216,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:11 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:14.7505819","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4218,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:14.7505819","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4218,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:13 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:17.7615782","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4202,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:17.7615782","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4202,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:16 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:35:20.7755865","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4182,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":362,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:20.7755865","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4182,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":362,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":231,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:19 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:22.7911873","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4212,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:22.7911873","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4212,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:21 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:24.8077901","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4199,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:24.8077901","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4199,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:23 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:27.8206233","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5211,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:27.8206233","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5211,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:26 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:35:30.8321712","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":6377,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":373,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":231,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:30.8321712","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":6377,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":373,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":231,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:29 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:32.8489600","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":6377,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:32.8489600","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":6377,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:31 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:34.8687971","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5341,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:34.8687971","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5341,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:33 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:37.8824199","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5341,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:37.8824199","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5341,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:36 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:35:40.8947999","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5341,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":337,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":19,"UoM":"A"},"voltUL1":{"voltUL1":230,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:40.8947999","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5341,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":337,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":19,"UoM":"A"},"voltUL1":{"voltUL1":230,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:39 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:42.9085687","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4363,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:42.9085687","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4363,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:42 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:44.9263436","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4364,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:44.9263436","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4364,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:44 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:47.9437502","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4435,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:47.9437502","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4435,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:47 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:35:50.9632414","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4354,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":263,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:50.9632414","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4354,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":263,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:50 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:51.9777891","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4363,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:51.9777891","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4363,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:51 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:54.9882200","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4361,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:54.9882200","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4361,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:54 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:35:57.0004760","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4361,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:35:57.0004760","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4361,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:35:56 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:36:01.0189612","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4367,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":346,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:01.0189612","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4367,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":346,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:00 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:02.0358221","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4370,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:02.0358221","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4370,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:01 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:05.0483244","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4370,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:05.0483244","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4370,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:04 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:07.0599267","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4360,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:07.0599267","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4360,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:06 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:36:11.0753835","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4360,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":562,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:11.0753835","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4360,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":562,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:10 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:12.0919674","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5351,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:12.0919674","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5351,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:11 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:15.1039185","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5335,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:15.1039185","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5335,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:14 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:17.1142141","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5345,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:17.1142141","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5345,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:16 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:36:21.1320619","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5335,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":334,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":19,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:21.1320619","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5335,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":334,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":19,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:20 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:22.1474117","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5332,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:22.1474117","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5332,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:21 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:25.1596583","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4359,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:25.1596583","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4359,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:24 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:27.1733742","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4368,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:27.1733742","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4368,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:26 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:36:31.1898285","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4368,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":799,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:31.1898285","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4368,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":799,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:30 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:32.2075199","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4344,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:32.2075199","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4344,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:31 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:35.2239288","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4352,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:35.2239288","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4352,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:34 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:37.2367130","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4349,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:37.2367130","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4349,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:35 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:36:41.2526817","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4349,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":568,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:41.2526817","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4349,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":568,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:40 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:42.2688480","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4378,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:42.2688480","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4378,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:41 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:45.2884848","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4359,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:45.2884848","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":4359,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:44 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:47.2997281","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5225,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:47.2997281","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5225,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:46 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:36:51.3170263","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5225,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":315,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:51.3170263","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5225,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":315,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":14,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:50 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:52.3329774","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5322,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:52.3329774","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5322,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:51 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:55.3502026","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5299,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:55.3502026","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5299,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:54 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 1:
+{"dateTimePoll":"2022-01-10T20:36:57.3681126","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5286,"UoM":"W"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:36:57.3681126","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5286,"UoM":"W"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:36:56 GMT
+  Content-Type: application/json; charset=utf-8
+}
+
+List 2:
+{"dateTimePoll":"2022-01-10T20:37:01.3814318","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5279,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":365,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+ExecuteJsonPost :
+{"dateTimePoll":"2022-01-10T20:37:01.3814318","versionIdentifier":"AIDON_V0001","modelID":"7359992905478362","modelType":"6525","activePowerQ1Q4":{"activePowerQ1Q4":5279,"UoM":"W"},"activePowerQ2Q3":{"activePowerQ2Q3":0,"UoM":"W"},"reactivePowerQ1Q2":{"reactivePowerQ1Q2":0,"UoM":"kVAr"},"reactivePowerQ3Q4":{"reactivePowerQ3Q4":365,"UoM":"kVAr"},"ampereIL1":{"ampereIL1":4,"UoM":"A"},"ampereIL3":{"ampereIL3":18,"UoM":"A"},"voltUL1":{"voltUL1":231,"UoM":"V"},"voltUL2":{"voltUL2":230,"UoM":"V"},"voltUL3":{"voltUL3":230,"UoM":"V"}}
+etter StringContent :System.Net.Http.StringContent
+etter PostAsync :OK
+result.StatusCode:OK
+StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+{
+  Transfer-Encoding: chunked
+  Server: Microsoft-IIS/10.0
+  X-Powered-By: ASP.NET
+  Date: Mon, 10 Jan 2022 19:37:00 GMT
+  Content-Type: application/json; charset=utf-8
+}
