@@ -6,9 +6,9 @@
 #
 var=$(ps -ef | grep [.]/HANOO)
 #
-echo "Test result var : '$var'"
+# echo "Test result var :" $var
 num=$(echo $var | grep -i -o "./HANOO" | wc -l)
- echo "Test result num : '$num'"
+# echo "Test result num : '$num'"
 #
 expected_jobs=1
 Date=$(date +'%Y/%m/%d at %T')
@@ -22,15 +22,16 @@ else
    echo "error, HANOO not found"
    echo "Few ($num) (expected >= " $expected_jobs ") ./HANOO jobs is running. Will reeboot"
    echo "$var" | while read line; do  echo $line | awk -F " " '{print "\t" $9 }' ; done
-   fail=1
-   sudo reboot
+   sudo reboot 
 fi
 # Then test if error in logfile
 #
-a=$(cat /home/pi/Documents/HAN/HANOOmAPI/bin/Debug/net6.0.0/linux-arm/publish/hanoo.log | grep "StatusCode: 400" | wc -l)
+a=$(cat /home/pi/Documents/HAN/HANOOmAPI/hanoo.log | grep "BadRequest" | wc -l)
 #
 if  [ $a -gt 10 ]
 then
    echo "Error in communication with endpoint. Tried " $a " times. Rebooting."
-   sudo reboot
+   sudo reboot 
+else
+   echo "Number of HTTP 400 error is:" $a 
 fi

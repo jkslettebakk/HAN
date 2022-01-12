@@ -13,6 +13,8 @@ namespace HAN_OBIS
         private static double sumEnergy { get; set; } = 0.0;
         private static int    currentVolte { get; set; } = 0;
         private static double currentAmpere { get; set; }  = 0.0;
+        private static int PostAsyncLoops = 0; 
+
 
         // OBIS types - Standard accoring to NVE
         private protected const byte TYPE_STRING = 0x0a;
@@ -271,7 +273,8 @@ namespace HAN_OBIS
                 return legalObisCodes[location].UoM;
             return "Error in UoM";
         }
-        static async Task sendJsonToEndpointNew( string jsonString, string endPoint, bool LogJson)
+
+        static async Task sendJsonToEndpoint( string jsonString, string endPoint, bool LogJson)
         {
             await ExecuteJsonPost(endPoint, jsonString);
         }
@@ -280,19 +283,44 @@ namespace HAN_OBIS
 
         private static async Task ExecuteJsonPost(string UriString, string Jsonstring)
         {
-            Console.WriteLine("ExecuteJsonPost :\n{0}",Jsonstring);
+            // Console.WriteLine("ExecuteJsonPost :\n{0}",Jsonstring);
+
+            string app = "application/json";
+
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(app));
             client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+
             Uri uri = new Uri(UriString);
-            StringContent postString = new StringContent(Jsonstring, Encoding.UTF8, "application/json");
+            StringContent postString = new StringContent(Jsonstring, Encoding.UTF8, app);
 
             HttpResponseMessage result = await client.PostAsync(UriString, postString);
-            Console.WriteLine("Status from PostAsync (result.StatusCode)={0}\nresult.ReasonPhrase={1}\nresult=\n{2}",result.StatusCode,result.ReasonPhrase,result);
+            // HttpResponseMessage result = await client.PostAsJsonAsync(UriString, postString);
+
+            Console.WriteLine("{0}\tStatus etter PostAsync (result.StatusCode)={1}",PostAsyncLoops++,result.StatusCode);
+
+            if ( result.StatusCode.ToString() == "BadRequest" )
+            {
+                string json = await result.Content.ReadAsStringAsync();
+
+                Console.WriteLine("Status etter PostAsync (result.StatusCode)={0}",result.StatusCode);
+                Console.WriteLine("Status etter PostAsync (result.ReasonPhrase)={0}",result.ReasonPhrase);
+                Console.WriteLine("Status etter PostAsync (result.Headers)={0}",result.Headers);
+                Console.WriteLine("Status etter PostAsync (result):\n{0}",result);
+                Console.WriteLine("Status etter PostAsync (Jsonstring):\n{0}",Jsonstring);
+                Console.WriteLine("Status etter PostAsync (json):\n{0}",json);
+                Console.WriteLine("Uri string = {0}",UriString);
+                Console.WriteLine("Post string = {0}",postString);
+            }
+
+            result.Dispose(); // What does this dispose?
+            //client.Dispose();            
         }
 
         public static async Task  oBISBlock( byte[] oBISdata, OOUserConfigurationParameters OOuCP ) // COSEM block
         {
+            Debug.AutoFlush = true;
+            
             // expected full OBIS block from DLMS/COSEM data block
             // Sample expected input:
             // DLMS: 7e a0 2a 41 08 83 13 04 13 e6 e7 00 0f 40 00 00 00 00 01 01 02 03 09 06 01 00 01 07 00 ff 06 00 00 04 51 02 02 0f 00 16 1b 6a dc 7e
@@ -750,20 +778,20 @@ namespace HAN_OBIS
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList1);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List1";
-                    Console.WriteLine("\nList 1:\n{0}",jSONstringCompressed);
+                    // Console.WriteLine("\nList 1:\n{0}",jSONstringCompressed);
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList1 )
                     {
-                        await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                     }
                 }
                 else if ( oBISdata.Length < 250 )
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList2);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List2";
-                    Console.WriteLine("\nList 2:\n{0}",jSONstringCompressed);
+                    // Console.WriteLine("\nList 2:\n{0}",jSONstringCompressed);
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList2 )
                     {
-                        await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                     }
                 }
                 else // Long list (List3) > 250. One object per hr...
@@ -773,7 +801,7 @@ namespace HAN_OBIS
                     Console.WriteLine("\nList 3; Houerly log:\n{0}",jSONstringCompressed); // Make sure I have a log of this :-)
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList3 )
                     {
-                        await sendJsonToEndpointNew(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
+                        await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                     }
                 }
 
@@ -832,7 +860,6 @@ namespace HAN_OBIS
                 Console.WriteLine("\nBlock length={0}",oBISdata.Length);
                 Console.WriteLine("-------------------------------------------------------------");                
             }
-
         }
     }
 }
