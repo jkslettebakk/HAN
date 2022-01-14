@@ -5,6 +5,7 @@ namespace HANDLMS
     {
 
         static int HANBufferLength = 0;
+        static int DLMSBlockLength = 0;
         static byte DLMSflag = 0x7E; // start flag indicator for DLMS frames (inclusive electric meeters)
         static byte frameFormatTypeMask = 0b11110000;
         // static byte frameSegmentBitMask = 0b00001000;
@@ -67,7 +68,7 @@ namespace HANDLMS
                     }
                     else if ( DLMS_start )
                     {
-                        // HAN data block without start, but could contain end
+                        // new HAN data block without start, but could contain end
                         // add to DLMS block
                         foreach ( byte b in HANData ) DLMSBlock.Add(b);
                         if (OOuCP.uCP.HANOODefaultParameters.LogDLMS) Console.WriteLine("DLMS block continue.");

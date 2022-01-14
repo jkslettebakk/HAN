@@ -531,7 +531,7 @@ namespace HANOOUserConfigurationParameters
                         else
                             Console.WriteLine("--lList2 option is invalid. Are you missing a parameter?");
                         break;
-                    case "--lList3": // Set List1 logging "false" or "true"; True will send data to HANDate endpoint
+                    case "--lList3": // Set List3 logging "false" or "true"; True will send data to HANDate endpoint
                         if( i+1 < args.Length )
                         {
                             if ( Boolean.TryParse(args[i+1], out flag) )
@@ -616,8 +616,8 @@ namespace HANOOUserConfigurationParameters
                               "\n--HANApiEndPoint \'<string>\' => text <string> to HAN API endpoint" +
                               "\n--lJsonToApi \'<bool>\' => send json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
                               "\n--lList1 \'<bool>\' => send List1 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
-                              "\n--lList2 \'<bool>\' => send List1 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
-                              "\n--lList3 \'<bool>\' => send List1 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
+                              "\n--lList2 \'<bool>\' => send List2 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
+                              "\n--lList3 \'<bool>\' => send List3 json data to HAN endpoint and database (" + uCP.HANOODefaultParameters.HANApiEndPoint + ")" +
                               "\n\t-------------------\n");
         }
     }

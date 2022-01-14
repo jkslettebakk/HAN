@@ -18,7 +18,7 @@ namespace HAN_OBIS
 
         // OBIS types - Standard accoring to NVE
         private protected const byte TYPE_STRING = 0x0a;
-        private protected const byte TYPE_UINT32_0x06 = 0x06;
+        private protected const byte TYPE_UINT32_0x06 = 0x06; // 
         private protected const byte TYPE_INT16_0x10  = 0x10;
         private protected const byte TYPE_OCTETS_0x09 = 0x09;
         private protected const byte TYPE_UINT16_0x12 = 0x12;
@@ -58,6 +58,7 @@ namespace HAN_OBIS
             public string versionIdentifier { get; set; }
             public string modelID { get; set; }
             public string modelType { get; set; }
+            public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
             public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
             public activePowerQ2Q3Object activePowerQ2Q3 { get; set; }
             public reactivePowerQ1Q2Object reactivePowerQ1Q2 { get; set; }
@@ -297,15 +298,23 @@ namespace HAN_OBIS
             HttpResponseMessage result = await client.PostAsync(UriString, postString);
             // HttpResponseMessage result = await client.PostAsJsonAsync(UriString, postString);
 
-            Console.WriteLine("{0}\tStatus etter PostAsync (result.StatusCode)={1}",PostAsyncLoops++,result.StatusCode);
+            Console.WriteLine("{0}\tStatus etter PostAsync to {1} with (result.StatusCode)={2}",PostAsyncLoops++,UriString,result.StatusCode);
 
-            if ( result.StatusCode.ToString() == "BadRequest" )
+            if ( result.StatusCode.ToString() != "OK" )
             {
                 string json = await result.Content.ReadAsStringAsync();
 
-                Console.WriteLine("Status etter PostAsync (result.StatusCode)={0}",result.StatusCode);
-                Console.WriteLine("Status etter PostAsync (result.ReasonPhrase)={0}",result.ReasonPhrase);
-                Console.WriteLine("Status etter PostAsync (result.Headers)={0}",result.Headers);
+                Console.WriteLine("PostAsync result (result.Content)={0}",result.Content);
+                Console.WriteLine("PostAsync result (result.Headers)={0}",result.Headers);
+                Console.WriteLine("PostAsync result (result.IsSuccessStatusCode)={0}",result.IsSuccessStatusCode);
+                Console.WriteLine("PostAsync result (result.ReasonPhrase)={0}",result.ReasonPhrase);
+                Console.WriteLine("PostAsync result (result.RequestMessage)={0}",result.RequestMessage);
+                Console.WriteLine("PostAsync result (result.StatusCode)={0}",result.StatusCode);
+                Console.WriteLine("PostAsync result (result.TrailingHeaders)={0}",result.TrailingHeaders);
+                Console.WriteLine("PostAsync result (result.Version)={0}",result.Version);
+
+                Console.WriteLine("---------------------------------");
+
                 Console.WriteLine("Status etter PostAsync (result):\n{0}",result);
                 Console.WriteLine("Status etter PostAsync (Jsonstring):\n{0}",Jsonstring);
                 Console.WriteLine("Status etter PostAsync (json):\n{0}",json);
@@ -313,13 +322,12 @@ namespace HAN_OBIS
                 Console.WriteLine("Post string = {0}",postString);
             }
 
-            result.Dispose(); // What does this dispose?
-            //client.Dispose();            
+            // if (result != null) result.Dispose(); // What does this dispose?
+            // client.Dispose();            
         }
 
         public static async Task  oBISBlock( byte[] oBISdata, OOUserConfigurationParameters OOuCP ) // COSEM block
         {
-            Debug.AutoFlush = true;
             
             // expected full OBIS block from DLMS/COSEM data block
             // Sample expected input:
@@ -587,11 +595,17 @@ namespace HAN_OBIS
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                                 Console.WriteLine();
                             }
+                            if ( oBISdata.Length < cOSEMIndex+4)
+                            {
+                                Console.WriteLine("Error. Index to long. Will crash. cOSEMIndex+4={0}, oBISdata.length={1}, OBIS code {2}",cOSEMIndex+4, oBISdata.Length,legalObisCodes[legalObisCodesIndex].obis);
+                                foreach( byte b in oBISdata) Console.Write("{0:X2} ",b);
+                                Console.WriteLine();
+                            }
                             currentEnergy = ((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale;
                             value = (uint) currentEnergy;
 
-                            if ( legalObisCodesIndex == 00 )
-                            { // Powercollection list 1, 2 and 3
+                            if ( legalObisCodesIndex == 00 ) // Powercollection list 1, 2 and 3
+                            {  // Wat
                                 HANList1.activePowerQ1Q4.activePowerQ1Q4 = value;
                                 HANList1.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                                 HANList2.activePowerQ1Q4.activePowerQ1Q4 = value;
@@ -599,44 +613,44 @@ namespace HAN_OBIS
                                 HANList3.activePowerQ1Q4.activePowerQ1Q4 = value;
                                 HANList3.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 04 ) // Watt
-                            {
+                            else if ( legalObisCodesIndex == 04 ) // Powercollection list 2 and 3
+                            {// Watt
                                 HANList2.activePowerQ2Q3.activePowerQ2Q3 = value;
                                 HANList2.activePowerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                                 HANList3.activePowerQ2Q3.activePowerQ2Q3 = value;
                                 HANList3.activePowerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 05 ) // KVAr
-                            {
+                            else if ( legalObisCodesIndex == 05 ) // kilo Volt Reactive list 2 and 3
+                            {// KVAr
                                 HANList2.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
                                 HANList2.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                                 HANList3.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
                                 HANList3.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 06 ) // KVAr
-                            {
+                            else if ( legalObisCodesIndex == 06 ) // kilo Volt Reactive list 2 and 3
+                            {// KVAr
                                 HANList2.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
                                 HANList2.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                                 HANList3.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
                                 HANList3.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 14 ) // Wh
-                            {   // What per houre 
+                            else if ( legalObisCodesIndex == 14 ) // kilo Volt Reactive list 3
+                            {   // Wh - What per houre 
                                 HANList3.activePowerAQ1Q4.activePowerAQ1Q4 = value;
                                 HANList3.activePowerAQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 15 ) // Wh
-                            {   // 
+                            else if ( legalObisCodesIndex == 15 ) // kilo Volt Reactive list 3
+                            {   // Wh
                                 HANList3.activePowerAQ2Q3.activePowerAQ2Q3 = value;
                                 HANList3.activePowerAQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 16 ) // KVArh
-                            {   // 
+                            else if ( legalObisCodesIndex == 16 ) // kilo Volt Reactive list 3
+                            {   // KVArh
                                 HANList3.reactivePowerRQ1Q2.reactivePowerRQ1Q2 = value;
                                 HANList3.reactivePowerRQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
-                            else if ( legalObisCodesIndex == 17 ) // KVArh
-                            {   // 
+                            else if ( legalObisCodesIndex == 17 ) // kilo Volt Reactive list 3
+                            {   // KVArh
                                 HANList3.reactivePowerRQ3Q4.reactivePowerRQ3Q4 = value;
                                 HANList3.reactivePowerRQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
                             }
@@ -774,6 +788,7 @@ namespace HAN_OBIS
             if( HANList1.versionIdentifier != "" || HANList2.versionIdentifier != "" || HANList3.versionIdentifier != "")
             {
                 // We need the Compressed Jason in most cases for display or database REST point/CRUD storage
+
                 if ( oBISdata.Length < 30 )
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList1);
@@ -784,7 +799,7 @@ namespace HAN_OBIS
                         await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                     }
                 }
-                else if ( oBISdata.Length < 250 )
+                else if ( oBISdata.Length <= 250 )
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList2);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List2";
@@ -794,16 +809,20 @@ namespace HAN_OBIS
                         await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                     }
                 }
-                else // Long list (List3) > 250. One object per hr...
+                else if ( oBISdata.Length > 250 ) // Long list (List3) > 250. One object per hr...
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList3);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List3";
                     Console.WriteLine("\nList 3; Houerly log:\n{0}",jSONstringCompressed); // Make sure I have a log of this :-)
+                    foreach( byte b in oBISdata) Console.Write("{0:X2} ",b);
+                    Console.WriteLine();
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList3 )
                     {
                         await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.LogJson);
                     }
                 }
+                else
+                    Console.WriteLine("Unhandled exception in preparing API data to endpoint.");
 
                 // Then to schreen
                 if ( OOuCP.uCP.HANOODefaultParameters.LogJsonCompressed )
@@ -841,7 +860,10 @@ namespace HAN_OBIS
                     Console.ResetColor();
                     Console.WriteLine(jSONstringCompressed);
                     // span of curl to send data to API endpoint
-                } 
+                }
+                // HANList1.Delete(); // Managed by C# 10
+                // HANList2.Delete(); // Managed by C# 10
+                // HANList3.Delete(); // Managed by C# 10
             }
             else  // No complete LIST to send to endpoint
             {
@@ -860,6 +882,7 @@ namespace HAN_OBIS
                 Console.WriteLine("\nBlock length={0}",oBISdata.Length);
                 Console.WriteLine("-------------------------------------------------------------");                
             }
+            return;
         }
     }
 }

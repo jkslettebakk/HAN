@@ -22,8 +22,8 @@
                 "lJsonToApi" : false,
                 "help" : false,
                 "lList1" : false,
-                "lList2" : true,
-                "lList3" : false
+                "lList2" : false,
+                "lList3" : true
         },
         "HANOOParameters" : {
                 "Comment" : "Default parameter settings. Might be owerwritten by --<parameter> <value> on command line (CLI)",
@@ -51,6 +51,6 @@
                 "serialPortParity" : 2,
                 "serialPortDataBits" : 8,
                 "serialPortStopBits" : 1,
-                "delayBetweenReads" : 1000
+                "delayBetweenReads" : 2000
         }
     }
