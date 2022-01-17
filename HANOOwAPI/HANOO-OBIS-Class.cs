@@ -29,153 +29,189 @@ namespace HAN_OBIS
         private protected const byte STRUCT_DATA_0x03 = 0x03;
         private protected const int  oBISLength  = 6;
 
-        public class List1 // HAN List 1 class; Aidon & KAIFA (Not for Kamstrup)
+        public class List1Object // HAN List 1 class; Aidon & KAIFA (Not for used by Kamstrup (using List2 & 3 only))
         {
-            public string dateTimePoll { get; set; } = string.Empty;
-            public string versionIdentifier { get; set; } = string.Empty;
-            public string modelID { get; set; } = string.Empty;
-            public string modelType { get; set; } = string.Empty;
-//            public activePowerQ1Q4Object activePowerQ1Q4 = new activePowerQ1Q4Object();
-            public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
-
-            public void Dispose() // something to considder?
-            {
-                // dateTimePoll = string.Empty;
-                // versionIdentifier { get; set; } = string.Empty;
-                // modelID { get; set; } = string.Empty;
-                // modelType { get; set; } = string.Empty;
-                // activePowerQ1Q4 = null;
-                // Console.WriteLine("Disposed"); // Do I need a Dispose routine? 
-            }
+            [Key]
+            [Required]
+            public Guid HANDataId { get; set; }
+            [Required]
+            [MaxLength(30)]
+            public string DateTimePoll { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(20)]
+            public string VersionIdentifier { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(40)]
+            public string ModelID { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(10)]
+            public string ModelType { get; set; } = string.Empty;
+            [Required]
+            public double ActivePowerQ1Q4 { get; set; }
+            [Required]
+            [MaxLength(5)]
+            public string UoMQ1Q4 { get; set; } = string.Empty;
         }
 
-        public class List2 // HAN List 2 class; Aidon, KAIFA & Kamstrup
+        public class List2Object // HAN List 2 class; Aidon, KAIFA & Kamstrup
         {
-            public string dateTimePoll { get; set; } = string.Empty;
-            public string versionIdentifier { get; set; } = string.Empty;
-            public string modelID { get; set; } = string.Empty;
-            public string modelType { get; set; } = string.Empty;
-            public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
-            public activePowerQ2Q3Object activePowerQ2Q3 { get; set; }
-            public reactivePowerQ1Q2Object reactivePowerQ1Q2 { get; set; }
-            public reactivePowerQ3Q4Object reactivePowerQ3Q4 { get; set; }
-            public ampereIL1Object ampereIL1 { get; set; }
-            public ampereIL2Object ampereIL2 { get; set; }
-            public ampereIL3Object ampereIL3 { get; set; }
-            public voltUL1Object voltUL1 { get; set; }
-            public voltUL2Object voltUL2 { get; set; }
-            public voltUL3Object voltUL3 { get; set; }
+            [Key]
+            [Required]
+            public Guid HANDataId { get; set; }
+            [Required]
+            [MaxLength(30)]
+            public string DateTimePoll { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(20)]
+            public string VersionIdentifier { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(40)]
+            public string ModelID { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(10)]
+            public string ModelType { get; set; } = string.Empty;
+                [Required]
+                public double ActivePowerQ1Q4 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ1Q4 { get; set; } = string.Empty;
+                [Required]
+                public double ActivePowerQ2Q3 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ2Q3 { get; set; } = string.Empty;
+                [Required]
+                public double ReactivePowerQ1Q2 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ1Q2 { get; set; } = string.Empty;
+                [Required]
+                public double ReactivePowerQ3Q4 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ3Q4 { get; set; } = string.Empty;
+                [Required]
+                public double AmpereIL1 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMIL1 { get; set; } = string.Empty;
+                [Required]
+                public double AmpereIL2 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMIL2 { get; set; } = string.Empty;
+                [Required]
+                public double AmpereIL3 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMIL3 { get; set; } = string.Empty;
+                [Required]
+                public int VoltUL1 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMUL1 { get; set; } = string.Empty;
+                [Required]
+                public int VoltUL2 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMUL2 { get; set; } = string.Empty;
+                [Required]
+                public int VoltUL3 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMUL3 { get; set; } = string.Empty;
         }
 
-        public class List3 // HAN List 3 class; ; Aidon, KAIFA & Kamstrup
+        public class List3Object // HAN List 3 class; ; Aidon, KAIFA & Kamstrup
         {
-            public string dateTimePoll { get; set; } = string.Empty;
-            public string versionIdentifier { get; set; } = string.Empty;
-            public string modelID { get; set; } = string.Empty;
-            public string modelType { get; set; } = string.Empty;
-            public activePowerQ1Q4Object activePowerQ1Q4 { get; set; }
-            public activePowerQ2Q3Object activePowerQ2Q3 { get; set; }
-            public reactivePowerQ1Q2Object reactivePowerQ1Q2 { get; set; }
-            public reactivePowerQ3Q4Object reactivePowerQ3Q4 { get; set; }
-            public ampereIL1Object ampereIL1 { get; set; }
-            public ampereIL2Object ampereIL2 { get; set; }
-            public ampereIL3Object ampereIL3 { get; set; }
-            public voltUL1Object voltUL1 { get; set; }
-            public voltUL2Object voltUL2 { get; set; }
-            public voltUL3Object voltUL3 { get; set; }
-            public meeterTimeObject meeterTime { get; set; }
-            public activePowerAQ1Q4Object activePowerAQ1Q4 { get; set; }
-            public activePowerAQ2Q3Object activePowerAQ2Q3 { get; set; }
-            public reactivePowerRQ1Q2Object reactivePowerRQ1Q2 { get; set; }
-            public reactivePowerRQ3Q4Object reactivePowerRQ3Q4 { get; set; }
-        }
-
-        public class activePowerQ1Q4Object
-        {
-            public double activePowerQ1Q4 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class activePowerQ2Q3Object
-        {
-            public double activePowerQ2Q3 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class activePowerAQ1Q4Object
-        {
-            public double activePowerAQ1Q4 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class activePowerAQ2Q3Object
-        {
-            public double activePowerAQ2Q3 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class reactivePowerQ1Q2Object
-        {
-            public double reactivePowerQ1Q2 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class reactivePowerQ3Q4Object
-        {
-            public double reactivePowerQ3Q4 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class reactivePowerRQ3Q4Object
-        {
-            public double reactivePowerRQ3Q4 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class reactivePowerRQ1Q2Object
-        {
-            public double reactivePowerRQ1Q2 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class ampereIL1Object
-        {
-            public double ampereIL1 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class ampereIL2Object
-        {
-            public double ampereIL2 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class ampereIL3Object
-        {
-            public double ampereIL3 { get; set; } = 0.0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class meeterTimeObject
-        {
-            public string meeterTime { get; set; } = string.Empty;
-        }
-
-        public class voltUL1Object
-        {
-            public int voltUL1 { get; set; } = 0;
-            public string UoM { get; set; } = string.Empty;
-        }
-
-        public class voltUL2Object
-        {
-            public int voltUL2 { get; set; } = 0;
-            public string UoM { get; set; } = string.Empty;
-        }
-        public class voltUL3Object
-        {
-            public int voltUL3 { get; set; } = 0;
-            public string UoM { get; set; } = string.Empty;
+            [Key]
+            [Required]
+            public Guid HANDataId { get; set; }
+            [Required]
+            [MaxLength(30)]
+            public string DateTimePoll { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(20)]
+            public string VersionIdentifier { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(40)]
+            public string ModelID { get; set; } = string.Empty;
+            [Required]
+            [MaxLength(10)]
+            public string ModelType { get; set; } = string.Empty;
+                [Required]
+                [MaxLength(40)]
+                public string MeeterTime { get; set; } = string.Empty;
+                [Required]
+                public double ActivePowerQ1Q4 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ1Q4 { get; set; } = string.Empty;
+                [Required]
+                public double ActivePowerQ2Q3 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ2Q3 { get; set; } = string.Empty;
+                [Required]
+                public double ReactivePowerQ1Q2 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ1Q2 { get; set; } = string.Empty;
+                [Required]
+                public double ReactivePowerQ3Q4 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMQ3Q4 { get; set; } = string.Empty;
+                [Required]
+                public double AmpereIL1 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMIL1 { get; set; } = string.Empty;
+                [Required]
+                public double AmpereIL2 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMIL2 { get; set; } = string.Empty;
+                [Required]
+                public double AmpereIL3 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMIL3 { get; set; } = string.Empty;
+                [Required]
+                public int VoltUL1 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMUL1 { get; set; } = string.Empty;
+                [Required]
+                public int VoltUL2 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMUL2 { get; set; } = string.Empty;
+                [Required]
+                public int VoltUL3 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMUL3 { get; set; } = string.Empty;
+                [Required]
+                public double ActivePowerAQ1Q4 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMAQ1Q4 { get; set; } = string.Empty;
+                [Required]
+                public double ActivePowerAQ2Q3 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMAQ2Q3 { get; set; } = string.Empty;
+                [Required]
+                public double ReactivePowerRQ1Q2 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMRQ1Q2 { get; set; } = string.Empty;
+                [Required]
+                public double ReactivePowerRQ3Q4 { get; set; }
+                [Required]
+                [MaxLength(5)]
+                public string UoMRQ3Q4 { get; set; } = string.Empty;
         }
 
         private protected struct obisCodesStruct
@@ -407,136 +443,15 @@ namespace HAN_OBIS
             // Loacl time in database friendly "ISO 8601" format (i.e. "2021-12-18T20:31:11.6880753")
             string dateTimeString = dateTime.ToString("O");
 
-            List1 HANList1 = new List1 {
-                dateTimePoll = dateTimeString,
-                versionIdentifier = catchVersionidentifier,
-                modelID = catchModelID,
-                modelType = catchModelType,
-                activePowerQ1Q4 = new activePowerQ1Q4Object {
-                    activePowerQ1Q4 = 0.0,
-                    UoM = string.Empty
-                }
-            };
-//            List1 HANList1 = new List1();
+            // Instansiate the objects..... For small footpring devices I could instansiated just the needed by using "numberOfObjects"
+            List1Object HANList1 = new List1Object();
+            HANList1.DateTimePoll = dateTimeString;
 
-            // List2 (> 240 bytes) object. List1 is a small block (Power inly) with less than 25 bytes
-            List2 HANList2 = new List2 {
-                dateTimePoll = dateTimeString,
-                versionIdentifier = catchVersionidentifier,
-                modelID = catchModelID,
-                modelType = catchModelType,
-                activePowerQ1Q4 = new activePowerQ1Q4Object {
-                    activePowerQ1Q4 = 0.0,
-                    UoM = string.Empty
-                },
-                activePowerQ2Q3 = new activePowerQ2Q3Object {
-                    activePowerQ2Q3 = 0.0,
-                    UoM = string.Empty
-                },
-                reactivePowerQ1Q2 = new reactivePowerQ1Q2Object {
-                    reactivePowerQ1Q2 = 0.0,
-                    UoM = string.Empty
-                },
-                reactivePowerQ3Q4 = new reactivePowerQ3Q4Object {
-                    reactivePowerQ3Q4 = 0.0,
-                    UoM = string.Empty
-                },
-                ampereIL1 = new ampereIL1Object {
-                    ampereIL1 = 0.0,
-                    UoM = string.Empty
-                },
-                ampereIL2 = new ampereIL2Object {
-                    ampereIL2 = 0.0,
-                    UoM = string.Empty
-                },
-                ampereIL3 = new ampereIL3Object {
-                    ampereIL3 = 0.0,
-                    UoM = string.Empty
-                },
-                voltUL1 = new voltUL1Object {
-                    voltUL1 = 0,
-                    UoM = string.Empty
-                },
-                voltUL2 = new voltUL2Object {
-                    voltUL2 = 0,
-                    UoM = string.Empty
-                },
-                voltUL3 = new voltUL3Object {
-                    voltUL3 = 0,
-                    UoM = string.Empty
-                }
-            };
+            List2Object HANList2 = new List2Object();
+            HANList2.DateTimePoll = dateTimeString;
 
-//            List2 HANList2 = new List2();
-
-            // List3 (> 240 bytes) object.
-            List3 HANList3 = new List3 {
-                dateTimePoll = dateTimeString,
-                versionIdentifier = catchVersionidentifier,
-                modelID = catchModelID,
-                modelType = catchModelType,
-                activePowerQ1Q4 = new activePowerQ1Q4Object {
-                    activePowerQ1Q4 = 0.0,
-                    UoM = string.Empty
-                },
-                activePowerQ2Q3 = new activePowerQ2Q3Object {
-                    activePowerQ2Q3 = 0.0,
-                    UoM = string.Empty
-                },
-                reactivePowerQ1Q2 = new reactivePowerQ1Q2Object {
-                    reactivePowerQ1Q2 = 0.0,
-                    UoM = string.Empty
-                },
-                reactivePowerQ3Q4 = new reactivePowerQ3Q4Object {
-                    reactivePowerQ3Q4 = 0.0,
-                    UoM = string.Empty
-                },
-                ampereIL1 = new ampereIL1Object {
-                    ampereIL1 = 0.0,
-                    UoM = string.Empty
-                },
-                ampereIL2 = new ampereIL2Object {
-                    ampereIL2 = 0.0,
-                    UoM = string.Empty
-                },
-                ampereIL3 = new ampereIL3Object {
-                    ampereIL3 = 0.0,
-                    UoM = string.Empty
-                },
-                voltUL1 = new voltUL1Object {
-                    voltUL1 = 0,
-                    UoM = string.Empty
-                },
-                voltUL2 = new voltUL2Object {
-                    voltUL2 = 0,
-                    UoM = string.Empty
-                },
-                voltUL3 = new voltUL3Object {
-                    voltUL3 = 0,
-                    UoM = string.Empty
-                },
-                meeterTime = new meeterTimeObject {
-                    meeterTime = string.Empty
-                },
-                activePowerAQ1Q4 = new activePowerAQ1Q4Object {
-                    activePowerAQ1Q4 = 0,
-                    UoM = string.Empty
-                },
-                activePowerAQ2Q3 = new activePowerAQ2Q3Object {
-                    activePowerAQ2Q3 = 0,
-                    UoM = string.Empty
-                },
-                reactivePowerRQ1Q2 = new reactivePowerRQ1Q2Object {
-                    reactivePowerRQ1Q2 = 0,
-                    UoM = string.Empty
-                },
-                reactivePowerRQ3Q4 = new reactivePowerRQ3Q4Object {
-                    reactivePowerRQ3Q4 = 0,
-                    UoM = string.Empty
-                }
-            };
-
-//            List3 HANList3 = new List3();
+            List3Object HANList3 = new List3Object();
+            HANList3.DateTimePoll = dateTimeString;
 
             if(LLogOBIS) Console.WriteLine("\n------- New COSEM block containing {0} OBIS objects --------------\n",numberOfObjects);
 
@@ -565,30 +480,30 @@ namespace HAN_OBIS
                         if ( (legalObisCodesIndex == 01) && (text.Length > 0 ) ) // Meeter Model type
                         { 
                             catchVersionidentifier = text; 
-                            HANList1.versionIdentifier = catchVersionidentifier;
-                            HANList2.versionIdentifier = catchVersionidentifier;
-                            HANList3.versionIdentifier = catchVersionidentifier;
+                            HANList1.VersionIdentifier = catchVersionidentifier;
+                            HANList2.VersionIdentifier = catchVersionidentifier;
+                            HANList3.VersionIdentifier = catchVersionidentifier;
                         } else if ( (legalObisCodesIndex == 02) && (text.Length > 0 ) ) // Meeter Model type
                         { 
                             catchModelID = text; 
-                            HANList1.modelID = catchModelID;                            
-                            HANList2.modelID = catchModelID;                            
-                            HANList3.modelID = catchModelID;                            
+                            HANList1.ModelID = catchModelID;                            
+                            HANList2.ModelID = catchModelID;                            
+                            HANList3.ModelID = catchModelID;                            
                         } else if ( (legalObisCodesIndex == 03) && (text.Length > 0 ) )  // Meeter Model type
                         { 
                             catchModelType = text; 
-                            HANList1.modelType = catchModelType;
-                            HANList2.modelType = catchModelType;
-                            HANList3.modelType = catchModelType;
+                            HANList1.ModelType = catchModelType;
+                            HANList2.ModelType = catchModelType;
+                            HANList3.ModelType = catchModelType;
                         } else if ( legalObisCodesIndex == 13 && (text.Length > 0 ) ) // Time and Date in meeter
                         {
                             Console.WriteLine("Date & Tome not handled yet. Byte (Octet-String) sequence = ");
                             // format: 2020.01.15
-                            // HANList3.meeterTime.meeterTime = text;
+                            // HANList3.MeeterTime = text;
                             for (int j=0; j<oBISdata[cOSEMIndex]; j++)  // prosess string from OBIS byte array
                             {
                                 Console.Write("{0:x2}",oBISdata[cOSEMIndex + 1 + j]);
-                                HANList3.meeterTime.meeterTime += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
+                                HANList3.MeeterTime += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
                             }
                             Console.WriteLine();
                             int year = ((int) ((oBISdata[cOSEMIndex+1]<<8)+(oBISdata[cOSEMIndex+2])));
@@ -598,12 +513,12 @@ namespace HAN_OBIS
                             int hrs = ((int) (oBISdata[cOSEMIndex+6]));
                             int minutes = ((int) (oBISdata[cOSEMIndex+7]));
                             int seconds = ((int) (oBISdata[cOSEMIndex+8]));
-                            HANList3.meeterTime.meeterTime = ((int) ((oBISdata[cOSEMIndex+1]<<8)+(oBISdata[cOSEMIndex+2]))).ToString("D4") + "-" +
-                                                             ((int) (oBISdata[cOSEMIndex+3])).ToString("D2") + "-" +
-                                                             ((int) (oBISdata[cOSEMIndex+4])).ToString("D2") + "T" +
-                                                             ((int) (oBISdata[cOSEMIndex+6])).ToString("D2") + ":" +
-                                                             ((int) (oBISdata[cOSEMIndex+7])).ToString("D2") + ":" +
-                                                             ((int) (oBISdata[cOSEMIndex+8])).ToString("D4");
+                            HANList3.MeeterTime = ((int)    ((oBISdata[cOSEMIndex+1]<<8)+(oBISdata[cOSEMIndex+2]))).ToString("D4") + "-" +
+                                                            ((int) (oBISdata[cOSEMIndex+3])).ToString("D2") + "-" +
+                                                            ((int) (oBISdata[cOSEMIndex+4])).ToString("D2") + "T" +
+                                                            ((int) (oBISdata[cOSEMIndex+6])).ToString("D2") + ":" +
+                                                            ((int) (oBISdata[cOSEMIndex+7])).ToString("D2") + ":" +
+                                                            ((int) (oBISdata[cOSEMIndex+8])).ToString("D4");
                             string meeterTime = year.ToString("D4") + "-" +
                                                 month.ToString("D2") + "-" +
                                                 day.ToString("D2") + "T" +
@@ -613,7 +528,7 @@ namespace HAN_OBIS
 
                             Console.WriteLine("Meeter current \'int\' date and time:{0}-{1}-{2}T{3}:{4}:{5}",year, month, day,hrs,minutes,seconds);
                             Console.WriteLine("Meeter current \'string\' date and time:{0}",meeterTime);
-                            Console.WriteLine("Meeter current \'HANList3.meeterTime.meeterTime\' date and time:{0}",HANList3.meeterTime.meeterTime);
+                            Console.WriteLine("Meeter current \'HANList3.MeeterTime\' date and time:{0}",HANList3.MeeterTime);
                         } else
                             Console.WriteLine("Error in STRUCT_TEXT_0x02 ({0}) text input from HAN",STRUCT_TEXT_0x02);
 
@@ -636,21 +551,21 @@ namespace HAN_OBIS
                         // Set Json heading data
                         if ( catchVersionidentifier.Length > 0 )
                         {
-                            HANList1.versionIdentifier = catchVersionidentifier;
-                            HANList2.versionIdentifier = catchVersionidentifier;
-                            HANList3.versionIdentifier = catchVersionidentifier;
+                            HANList1.VersionIdentifier = catchVersionidentifier;
+                            HANList2.VersionIdentifier = catchVersionidentifier;
+                            HANList3.VersionIdentifier = catchVersionidentifier;
                         }
                         if ( catchModelID.Length > 0 )
                         {
-                            HANList1.modelID = catchModelID;
-                            HANList2.modelID = catchModelID;
-                            HANList3.modelID = catchModelID;
+                            HANList1.ModelID = catchModelID;
+                            HANList2.ModelID = catchModelID;
+                            HANList3.ModelID = catchModelID;
                         }
                         if ( catchModelType.Length > 0 )
                         {
-                            HANList1.modelType = catchModelType;
-                            HANList2.modelType = catchModelType;
-                            HANList3.modelType = catchModelType;
+                            HANList1.ModelType = catchModelType;
+                            HANList2.ModelType = catchModelType;
+                            HANList3.ModelType = catchModelType;
                         }
 
                         // Data block to be prosessed
@@ -685,53 +600,53 @@ namespace HAN_OBIS
 
                             if ( legalObisCodesIndex == 00 ) // Powercollection list 1, 2 and 3
                             {  // Wat
-                                HANList1.activePowerQ1Q4.activePowerQ1Q4 = value;
-                                HANList1.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList2.activePowerQ1Q4.activePowerQ1Q4 = value;
-                                HANList2.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.activePowerQ1Q4.activePowerQ1Q4 = value;
-                                HANList3.activePowerQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList1.ActivePowerQ1Q4 = value;
+                                HANList1.UoMQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.ActivePowerQ1Q4 = value;
+                                HANList2.UoMQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ActivePowerQ1Q4 = value;
+                                HANList3.UoMQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 04 ) // Powercollection list 2 and 3
                             {// Watt
-                                HANList2.activePowerQ2Q3.activePowerQ2Q3 = value;
-                                HANList2.activePowerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.activePowerQ2Q3.activePowerQ2Q3 = value;
-                                HANList3.activePowerQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.ActivePowerQ2Q3 = value;
+                                HANList2.UoMQ2Q3 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ActivePowerQ2Q3 = value;
+                                HANList3.UoMQ2Q3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 05 ) // kilo Volt Reactive list 2 and 3
                             {// KVAr
-                                HANList2.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
-                                HANList2.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
-                                HANList3.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.ReactivePowerQ1Q2 = value;
+                                HANList2.UoMQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ReactivePowerQ1Q2 = value;
+                                HANList3.UoMQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 06 ) // kilo Volt Reactive list 2 and 3
                             {// KVAr
-                                HANList2.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
-                                HANList2.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
-                                HANList3.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.ReactivePowerQ3Q4 = value;
+                                HANList2.UoMQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ReactivePowerQ3Q4 = value;
+                                HANList3.UoMQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 14 ) // kilo Volt Reactive list 3
                             {   // Wh - What per houre 
-                                HANList3.activePowerAQ1Q4.activePowerAQ1Q4 = value;
-                                HANList3.activePowerAQ1Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ActivePowerAQ1Q4 = value;
+                                HANList3.UoMAQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 15 ) // kilo Volt Reactive list 3
                             {   // Wh
-                                HANList3.activePowerAQ2Q3.activePowerAQ2Q3 = value;
-                                HANList3.activePowerAQ2Q3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ActivePowerAQ2Q3 = value;
+                                HANList3.UoMAQ2Q3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 16 ) // kilo Volt Reactive list 3
                             {   // KVArh
-                                HANList3.reactivePowerRQ1Q2.reactivePowerRQ1Q2 = value;
-                                HANList3.reactivePowerRQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ReactivePowerRQ1Q2 = value;
+                                HANList3.UoMRQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 17 ) // kilo Volt Reactive list 3
                             {   // KVArh
-                                HANList3.reactivePowerRQ3Q4.reactivePowerRQ3Q4 = value;
-                                HANList3.reactivePowerRQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ReactivePowerRQ3Q4 = value;
+                                HANList3.UoMRQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                              else
                             {   // Some HAN data not treated correctly
@@ -760,24 +675,24 @@ namespace HAN_OBIS
 
                             if ( legalObisCodesIndex == 07 ) // A
                             {
-                                HANList2.ampereIL1.ampereIL1 = value;
-                                HANList2.ampereIL1.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ampereIL1.ampereIL1 = value;
-                                HANList3.ampereIL1.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.AmpereIL1 = value;
+                                HANList2.UoMIL1 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.AmpereIL1 = value;
+                                HANList3.UoMIL1 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 08 ) // A
                             {
-                                HANList2.ampereIL2.ampereIL2 = value;
-                                HANList2.ampereIL2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ampereIL2.ampereIL2 = value;
-                                HANList3.ampereIL2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.AmpereIL2 = value;
+                                HANList2.UoMIL2 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.AmpereIL2 = value;
+                                HANList3.UoMIL2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 09 ) // A
                             {
-                                HANList2.ampereIL3.ampereIL3 = value;
-                                HANList2.ampereIL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ampereIL3.ampereIL3 = value;
-                                HANList3.ampereIL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.AmpereIL3 = value;
+                                HANList2.UoMIL3 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.AmpereIL3 = value;
+                                HANList3.UoMIL3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                              else
                             {   // Some HAN data not treated correctly
@@ -805,38 +720,38 @@ namespace HAN_OBIS
 
                             if ( legalObisCodesIndex == 05 ) // KVAr
                             {
-                                HANList2.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
-                                HANList2.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.reactivePowerQ1Q2.reactivePowerQ1Q2 = value;
-                                HANList3.reactivePowerQ1Q2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                // HANList2.ReactivePowerQ1Q2 = value;
+                                // HANList2.UoMRQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ReactivePowerQ1Q2 = value;
+                                HANList3.UoMRQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 06 ) // KVAr
                             {
-                                HANList2.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
-                                HANList2.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.reactivePowerQ3Q4.reactivePowerQ3Q4 = value;
-                                HANList3.reactivePowerQ3Q4.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                // HANList2.ReactivePowerQ3Q4 = value;
+                                // HANList2.UoMRQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.ReactivePowerQ3Q4 = value;
+                                HANList3.UoMRQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 10 ) // V
                             {
-                                HANList2.voltUL1.voltUL1 = value;
-                                HANList2.voltUL1.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.voltUL1.voltUL1 = value;
-                                HANList3.voltUL1.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.VoltUL1 = value;
+                                HANList2.UoMUL1 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.VoltUL1 = value;
+                                HANList3.UoMUL1 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 11 ) // V
                             {
-                                HANList2.voltUL2.voltUL2 = value;
-                                HANList2.voltUL2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.voltUL2.voltUL2 = value;
-                                HANList3.voltUL2.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.VoltUL2 = value;
+                                HANList2.UoMUL2 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.VoltUL2 = value;
+                                HANList3.UoMUL2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 12 ) // V
                             {
-                                HANList2.voltUL3.voltUL3 = value;
-                                HANList2.voltUL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.voltUL3.voltUL3 = value;
-                                HANList3.voltUL3.UoM = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList2.VoltUL3 = value;
+                                HANList2.UoMUL3 = legalObisCodes[legalObisCodesIndex].UoM;
+                                HANList3.VoltUL3 = value;
+                                HANList3.UoMUL3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else
                             {   // Some HAN data not treated correctly
@@ -871,18 +786,17 @@ namespace HAN_OBIS
                 string jSONstring = string.Empty;
                 string jSONstringCompressed = string.Empty;
 
-            if( HANList1.versionIdentifier != "" || HANList2.versionIdentifier != "" || HANList3.versionIdentifier != "")
+            if( !String.IsNullOrEmpty(HANList1.VersionIdentifier) || !String.IsNullOrEmpty(HANList2.VersionIdentifier) || !String.IsNullOrEmpty(HANList3.VersionIdentifier))
             {
                 // We need the Compressed Jason in most cases for display or database REST point/CRUD storage
 
-                if ( numberOfObjects == List1Objects ) // List1
+                if ( numberOfObjects == List1Objects ) // List1Object
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList1);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List1";
                     // Console.WriteLine("\nList 1:\n{0}",jSONstringCompressed);
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList1 )
                     {
-                        Console.WriteLine("Posting to:{0}\nwith this data:\n{1}",apiAdressToEndpoint,jSONstringCompressed);
                         await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.lApi);
                     }
                 }
@@ -893,11 +807,10 @@ namespace HAN_OBIS
                     // Console.WriteLine("\nList 2:\n{0}",jSONstringCompressed);
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList2 )
                     {
-                        Console.WriteLine("Posting to:{0}\nwith this data:\n{1}",apiAdressToEndpoint,jSONstringCompressed);
                         await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.lApi);
                     }
                 }
-                else if ( numberOfObjects == List3Objects ) // Long list (List3) > 250. One object per hr...
+                else if ( numberOfObjects == List3Objects ) // Long list (List3Object) > 250. One object per hr...
                 {
                     jSONstringCompressed = JsonSerializer.Serialize(HANList3);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List3";
@@ -967,8 +880,8 @@ namespace HAN_OBIS
                 Console.WriteLine("-------------------------------------------------------------");                
             }
             // HANList1 = null;
-            // HANList1 = null;
-            // HANList1 = null;
+            // HANList2 = null;
+            // HANList3 = null;
             return;
         }
     }

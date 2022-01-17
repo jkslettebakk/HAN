@@ -18,7 +18,7 @@
                 "LogCRC" : false,
                 "LogJson" : false,
                 "LogJsonCompressed" : false,
-                "HANApiEndPoint" : "https://han.slettebakk.com/api",
+                "HANApiEndPoint" : "https://han2.slettebakk.com/api",
                 "lJsonToApi" : false,
                 "help" : false,
                 "lList1" : false,
@@ -40,10 +40,10 @@
                 "--pn <value>" : "Override default port name with <value>. e.g. --pn /dev/ttyUSB4 set portname to /dev/ttyUSB4",
                 "--pb <value>" : "Override default baud-rate with <value>. e.g. --pb 19200 sett baurate to 19200 bits-per-second (bps)",
                 "--lJsonToApi <value>" : "Defalult false. If set true will dend data to 'API' endpoint",
-                "--lList1 <value>" : "Default false. A lot of data. List data every 2-5 seconds",
+                "--lList1 <value>" : "Default false. List data every 2-5 seconds",
                 "--lList2 <value>" : "Default true. List data every houre. List Wh, most comparable value",
-                "--lList3 <value>" : "Default false. Log every 10 seconds",
-                "--lApi <value>" : "Default false. Log every 2.5 seconds"
+                "--lList3 <value>" : "Default false. List a lot of data. Log every 10 seconds",
+                "--lApi <value>" : "Default false. List a lot of data. Log every 10 seconds"
         },
         "HANOODeviceData" : {
                 "Comment" : "Default parameter settings for different HAN devices (e.g. Aido, Kamstrup etc.)",
