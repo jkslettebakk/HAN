@@ -9,10 +9,9 @@ namespace HAN_OBIS
         private static string catchModelID = string.Empty;
         private static string catchModelType = string.Empty;
         private static string apiAdressToEndpoint = string.Empty;
-        private static double currentEnergy { get; set; } = 0.0;
-        private static double sumEnergy { get; set; } = 0.0;
-        private static int    currentVolte { get; set; } = 0;
-        private static double currentAmpere { get; set; }  = 0.0;
+        private static double currentPower { get; set; } = 0.0; // last updated Energy (or Power) (W,kW,kVAr, kWh etc) value
+        private static int    currentVolte { get; set; } = 0; // last updated Volt value
+        private static double currentAmpere { get; set; }  = 0.0; // Last updated Ampere value
         private static int PostAsyncLoops = 0; 
         private static byte List1Objects = 1;
         private static byte List2Objects = 12;
@@ -223,7 +222,8 @@ namespace HAN_OBIS
             public byte E { get; set; }
             public byte F { get; set; }
             public string UoM { get; set; }
-            public double scale { get; set; }
+            public double resolution { get; set; }
+            public double format { get; set; }
             public string obis { get; set; }
             public string obisType { get; set; }
             public string objectName { set; get; }
@@ -234,41 +234,41 @@ namespace HAN_OBIS
         //a obis struct list
         private protected static List<obisCodesStruct> legalObisCodes = new List<obisCodesStruct>
         {
-            new obisCodesStruct{A=1,B=0,C=1, D=7,E=0,  F=255,obis="1.0.1.7.0.255",  UoM= "W",    scale = 1.0000,objectName="Q1Q4",              vendorObject="Q1+Q4",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=1,C= 0,D=2,E=129,F=255,obis="1.1.0.2.129.255",UoM= " ",    scale = 1.0000,objectName="Version identifier",vendorObject="Version identifier",HAN_Vendor ="Aidon & Kamstrup"},
-            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  0,F=255,obis="0.0.96.1.0.255", UoM= " ",    scale = 1.0000,objectName="Model ID",          vendorObject="Model ID",          HAN_Vendor ="Aidon"}, 
-            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  7,F=255,obis="0.0.96.1.7.255", UoM= " ",    scale = 1.0000,objectName="Model type",        vendorObject="Model type",        HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 2,D=7,E=  0,F=255,obis="1.0.2.7.0.255",  UoM= "W",    scale = 1.0000,objectName="Q2Q3",              vendorObject="Q2+Q3",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 3,D=7,E=  0,F=255,obis="1.0.3.7.0.255",  UoM= "kVAr", scale = 1.0000,objectName="Q1Q2",              vendorObject="Q1+Q2",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 4,D=7,E=  0,F=255,obis="1.0.4.7.0.255",  UoM= "kVAr", scale = 1.0000,objectName="Q3Q4",              vendorObject="Q3+Q4",             HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=31,D=7,E=  0,F=255,obis="1.0.31.7.0.255", UoM= "A",    scale = 0.1000,objectName="IL1",               vendorObject="IL1",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=51,D=7,E=  0,F=255,obis="1.0.51.7.0.255", UoM= "A",    scale = 0.1000,objectName="IL2",               vendorObject="IL2",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=71,D=7,E=  0,F=255,obis="1.0.71.7.0.255", UoM= "A",    scale = 0.1000,objectName="IL3",               vendorObject="IL3",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=32,D=7,E=  0,F=255,obis="1.0.32.7.0.255", UoM= "V",    scale = 0.1000,objectName="UL1",               vendorObject="UL1",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=52,D=7,E=  0,F=255,obis="1.0.52.7.0.255", UoM= "V",    scale = 0.1000,objectName="UL2",               vendorObject="UL2",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C=72,D=7,E=  0,F=255,obis="1.0.72.7.0.255", UoM= "V",    scale = 0.1000,objectName="UL3",               vendorObject="UL3",               HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=0,B=0,C= 1,D=0,E=  0,F=255,obis="0.0.1.0.0.255",  UoM= " ",    scale = 1.0000,objectName="Clock and Date",    vendorObject="Clock and Date",    HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 1,D=8,E=  0,F=255,obis="1.0.1.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="AQ1Q4",             vendorObject="A+Q1+Q4",           HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 2,D=8,E=  0,F=255,obis="1.0.2.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="AQ2Q3",             vendorObject="A-Q2+Q3",           HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 3,D=8,E=  0,F=255,obis="1.0.3.8.0.255",  UoM= "kVArh",scale = 0.1000,objectName="RQ1Q2",             vendorObject="R+Q1+Q2",           HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=0,C= 4,D=8,E=  0,F=255,obis="1.0.4.8.0.255",  UoM= "kVArh",scale = 0.1000,objectName="RQ3Q4",             vendorObject="R-Q3+Q4",           HAN_Vendor ="Aidon"},
-            new obisCodesStruct{A=1,B=1,C= 0,D=0,E=  5,F=255,obis="1.1.0.0.5.255",  UoM= " ",    scale = 1.0000,objectName="GS1 number",        vendorObject="GS1 number",        HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 1,D=7,E=  0,F=255,obis="1.1.1.7.0.255",  UoM= "W",    scale = 0.1000,objectName="P14",               vendorObject="P14",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 2,D=7,E=  0,F=255,obis="1.1.2.7.0.255",  UoM= "W",    scale = 0.1000,objectName="P23",               vendorObject="P23",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=31,D=7,E=  0,F=255,obis="1.1.31.7.0.255", UoM= "A",    scale = 0.0010,objectName="IL1",               vendorObject="IL1",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=51,D=7,E=  0,F=255,obis="1.1.51.7.0.255", UoM= "A",    scale = 0.0010,objectName="IL2",               vendorObject="IL2",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=71,D=7,E=  0,F=255,obis="1.1.71.7.0.255", UoM= "A",    scale = 0.0010,objectName="IL3",               vendorObject="IL3",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=32,D=7,E=  0,F=255,obis="1.1.32.7.0.255", UoM= "V",    scale = 0.1000,objectName="UL1",               vendorObject="UL1",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=52,D=7,E=  0,F=255,obis="1.1.52.7.0.255", UoM= "V",    scale = 0.1000,objectName="UL2",               vendorObject="UL2",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=72,D=7,E=  0,F=255,obis="1.1.72.7.0.255", UoM= "V",    scale = 0.1000,objectName="UL3",               vendorObject="UL3",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=0,B=1,C= 1,D=0,E=  0,F=255,obis="0.1.1.0.0.255",  UoM= " ",    scale = 1.0000,objectName="RTC",               vendorObject="RTC",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 1,D=8,E=  0,F=255,obis="1.1.1.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="A14",               vendorObject="A14",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 2,D=8,E=  0,F=255,obis="1.1.2.8.0.255",  UoM= "Wh",   scale = 0.1000,objectName="A23",               vendorObject="A23",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C=96,D=1,E=  1,F=255,obis="1.1.96.1.1.255", UoM= " ",    scale = 1.0000,objectName="Meter type",        vendorObject="Meter type",        HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 3,D=7,E=  0,F=255,obis="1.1.3.7.0.255",  UoM= "Var",  scale = 1.0000,objectName="Q12",               vendorObject="Q12",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 4,D=7,E=  0,F=255,obis="1.1.4.7.0.255",  UoM= "Var",  scale = 1.0000,objectName="Q34",               vendorObject="Q34",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 3,D=8,E=  0,F=255,obis="1.1.3.8.0.255",  UoM= "Varh", scale = 1.0000,objectName="R12",               vendorObject="R12",               HAN_Vendor ="Kamstrup"},
-            new obisCodesStruct{A=1,B=1,C= 4,D=8,E=  0,F=255,obis="1.1.4.8.0.255",  UoM= "Varh", scale = 1.0000,objectName="R34",               vendorObject="R34",               HAN_Vendor ="Kamstrup"}
+            new obisCodesStruct{A=1,B=0,C=1, D=7,E=0,  F=255,obis="1.0.1.7.0.255",  UoM= "kW",   format=4.3,resolution=0.0010,objectName="Q1Q4",              vendorObject="Q1+Q4",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=1,C= 0,D=2,E=129,F=255,obis="1.1.0.2.129.255",UoM= " ",    format=0.0,resolution=1.0000,objectName="Version identifier",vendorObject="Version identifier",HAN_Vendor ="Aidon & Kamstrup"},
+            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  0,F=255,obis="0.0.96.1.0.255", UoM= " ",    format=0.0,resolution=1.0000,objectName="Model ID",          vendorObject="Model ID",          HAN_Vendor ="Aidon"}, 
+            new obisCodesStruct{A=0,B=0,C=96,D=1,E=  7,F=255,obis="0.0.96.1.7.255", UoM= " ",    format=0.0,resolution=1.0000,objectName="Model type",        vendorObject="Model type",        HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 2,D=7,E=  0,F=255,obis="1.0.2.7.0.255",  UoM= "kW",   format=4.3,resolution=0.0010,objectName="Q2Q3",              vendorObject="Q2+Q3",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 3,D=7,E=  0,F=255,obis="1.0.3.7.0.255",  UoM= "kVAr", format=4.3,resolution=0.0010,objectName="Q1Q2",              vendorObject="Q1+Q2",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 4,D=7,E=  0,F=255,obis="1.0.4.7.0.255",  UoM= "kVAr", format=4.3,resolution=0.0010,objectName="Q3Q4",              vendorObject="Q3+Q4",             HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=31,D=7,E=  0,F=255,obis="1.0.31.7.0.255", UoM= "A",    format=0.1,resolution=0.1000,objectName="IL1",               vendorObject="IL1",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=51,D=7,E=  0,F=255,obis="1.0.51.7.0.255", UoM= "A",    format=0.1,resolution=0.1000,objectName="IL2",               vendorObject="IL2",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=71,D=7,E=  0,F=255,obis="1.0.71.7.0.255", UoM= "A",    format=0.1,resolution=0.1000,objectName="IL3",               vendorObject="IL3",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=32,D=7,E=  0,F=255,obis="1.0.32.7.0.255", UoM= "V",    format=0.1,resolution=0.1000,objectName="UL1",               vendorObject="UL1",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=52,D=7,E=  0,F=255,obis="1.0.52.7.0.255", UoM= "V",    format=0.1,resolution=0.1000,objectName="UL2",               vendorObject="UL2",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C=72,D=7,E=  0,F=255,obis="1.0.72.7.0.255", UoM= "V",    format=0.1,resolution=0.1000,objectName="UL3",               vendorObject="UL3",               HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=0,B=0,C= 1,D=0,E=  0,F=255,obis="0.0.1.0.0.255",  UoM= " ",    format=1.0,resolution=1.0000,objectName="Clock and Date",    vendorObject="Clock and Date",    HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 1,D=8,E=  0,F=255,obis="1.0.1.8.0.255",  UoM= "kWh",  format=0.1,resolution=0.0100,objectName="AQ1Q4",             vendorObject="A+Q1+Q4",           HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 2,D=8,E=  0,F=255,obis="1.0.2.8.0.255",  UoM= "kWh",  format=0.1,resolution=0.0100,objectName="AQ2Q3",             vendorObject="A-Q2+Q3",           HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 3,D=8,E=  0,F=255,obis="1.0.3.8.0.255",  UoM= "kVArh",format=0.1,resolution=0.0100,objectName="RQ1Q2",             vendorObject="R+Q1+Q2",           HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=0,C= 4,D=8,E=  0,F=255,obis="1.0.4.8.0.255",  UoM= "kVArh",format=0.1,resolution=0.0100,objectName="RQ3Q4",             vendorObject="R-Q3+Q4",           HAN_Vendor ="Aidon"},
+            new obisCodesStruct{A=1,B=1,C= 0,D=0,E=  5,F=255,obis="1.1.0.0.5.255",  UoM= " ",    format=1.0,resolution=1.0000,objectName="GS1 number",        vendorObject="GS1 number",        HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 1,D=7,E=  0,F=255,obis="1.1.1.7.0.255",  UoM= "W",    format=0.1,resolution=0.1000,objectName="P14",               vendorObject="P14",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 2,D=7,E=  0,F=255,obis="1.1.2.7.0.255",  UoM= "W",    format=0.1,resolution=0.1000,objectName="P23",               vendorObject="P23",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=31,D=7,E=  0,F=255,obis="1.1.31.7.0.255", UoM= "A",    format=0.0,resolution=0.0010,objectName="IL1",               vendorObject="IL1",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=51,D=7,E=  0,F=255,obis="1.1.51.7.0.255", UoM= "A",    format=0.0,resolution=0.0010,objectName="IL2",               vendorObject="IL2",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=71,D=7,E=  0,F=255,obis="1.1.71.7.0.255", UoM= "A",    format=0.0,resolution=0.0010,objectName="IL3",               vendorObject="IL3",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=32,D=7,E=  0,F=255,obis="1.1.32.7.0.255", UoM= "V",    format=0.1,resolution=0.1000,objectName="UL1",               vendorObject="UL1",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=52,D=7,E=  0,F=255,obis="1.1.52.7.0.255", UoM= "V",    format=0.1,resolution=0.1000,objectName="UL2",               vendorObject="UL2",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=72,D=7,E=  0,F=255,obis="1.1.72.7.0.255", UoM= "V",    format=0.1,resolution=0.1000,objectName="UL3",               vendorObject="UL3",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=0,B=1,C= 1,D=0,E=  0,F=255,obis="0.1.1.0.0.255",  UoM= " ",    format=1.0,resolution=1.0000,objectName="RTC",               vendorObject="RTC",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 1,D=8,E=  0,F=255,obis="1.1.1.8.0.255",  UoM= "Wh",   format=0.1,resolution=0.1000,objectName="A14",               vendorObject="A14",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 2,D=8,E=  0,F=255,obis="1.1.2.8.0.255",  UoM= "Wh",   format=0.1,resolution=0.1000,objectName="A23",               vendorObject="A23",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C=96,D=1,E=  1,F=255,obis="1.1.96.1.1.255", UoM= " ",    format=1.0,resolution=1.0000,objectName="Meter type",        vendorObject="Meter type",        HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 3,D=7,E=  0,F=255,obis="1.1.3.7.0.255",  UoM= "Var",  format=1.0,resolution=1.0000,objectName="Q12",               vendorObject="Q12",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 4,D=7,E=  0,F=255,obis="1.1.4.7.0.255",  UoM= "Var",  format=1.0,resolution=1.0000,objectName="Q34",               vendorObject="Q34",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 3,D=8,E=  0,F=255,obis="1.1.3.8.0.255",  UoM= "Varh", format=1.0,resolution=1.0000,objectName="R12",               vendorObject="R12",               HAN_Vendor ="Kamstrup"},
+            new obisCodesStruct{A=1,B=1,C= 4,D=8,E=  0,F=255,obis="1.1.4.8.0.255",  UoM= "Varh", format=1.0,resolution=1.0000,objectName="R34",               vendorObject="R34",               HAN_Vendor ="Kamstrup"}
         };
 
         private static void showObisValues()
@@ -337,7 +337,8 @@ namespace HAN_OBIS
                 return legalObisCodes[location].UoM;
             return "Error in UoM";
         }
-
+        
+        // API functions
         static async Task sendJsonToEndpoint( string jsonString, string endPoint, bool logApi)
         {
             await ExecuteJsonPost(endPoint, jsonString, logApi);
@@ -359,10 +360,11 @@ namespace HAN_OBIS
             StringContent postString = new StringContent(Jsonstring, Encoding.UTF8, app);
 
             HttpResponseMessage result = await client.PostAsync(UriString, postString);
+            // public abstract Microsoft.AspNetCore.Http.IResponseCookies Cookies { get; };
 
             if ( logApi )
             {
-                Console.WriteLine("{0}\tStatus etter PostAsync to {1} with (result.StatusCode)={2}",PostAsyncLoops++,UriString,result.StatusCode);
+                Console.WriteLine("{0}\tStatus Posting to {1} = {2}",PostAsyncLoops++,UriString,result.StatusCode);
             }
             if ( !result.IsSuccessStatusCode )
             {
@@ -387,6 +389,10 @@ namespace HAN_OBIS
                 Console.WriteLine("Status etter PostAsync (json):\n{0}",json);
                 Console.WriteLine("Uri string = {0}",UriString);
                 Console.WriteLine("Post string = {0}",postString);
+
+                // string cookieName = CookieName();
+                result.Dispose();
+                // result.EnsureSuccessStatusCode ();
             }
             // if (result != null) result.Dispose(); // What does this dispose?
             // client.Dispose();            
@@ -471,12 +477,10 @@ namespace HAN_OBIS
                         cOSEMIndex += 1; // Index for length of text
                         if(LLogOBIS) Console.WriteLine("Cosem index = {0}, tekst lengde = {1:X2} ({2})", cOSEMIndex, oBISdata[cOSEMIndex], oBISdata[cOSEMIndex]);
 
+                        // prosess string from OBIS byte array
                         string text = string.Empty;
-                        for (int j=0; j<oBISdata[cOSEMIndex]; j++)  // prosess string from OBIS byte array
-                        {
-                            if(LLogOBIS) Console.Write("{0}",Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]));
-                            text += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
-                        }
+                        for (int j=0; j<oBISdata[cOSEMIndex]; j++) text += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
+                            if(LLogOBIS) Console.WriteLine("{0}",text);
                         if ( (legalObisCodesIndex == 01) && (text.Length > 0 ) ) // Meeter Model type
                         { 
                             catchVersionidentifier = text; 
@@ -497,38 +501,17 @@ namespace HAN_OBIS
                             HANList3.ModelType = catchModelType;
                         } else if ( legalObisCodesIndex == 13 && (text.Length > 0 ) ) // Time and Date in meeter
                         {
-                            Console.WriteLine("Date & Tome not handled yet. Byte (Octet-String) sequence = ");
-                            // format: 2020.01.15
-                            // HANList3.MeeterTime = text;
-                            for (int j=0; j<oBISdata[cOSEMIndex]; j++)  // prosess string from OBIS byte array
-                            {
-                                Console.Write("{0:x2}",oBISdata[cOSEMIndex + 1 + j]);
-                                HANList3.MeeterTime += Convert.ToChar(oBISdata[cOSEMIndex + 1 + j]);
-                            }
-                            Console.WriteLine();
-                            int year = ((int) ((oBISdata[cOSEMIndex+1]<<8)+(oBISdata[cOSEMIndex+2])));
-                            int month = ((int) (oBISdata[cOSEMIndex+3]));
-                            int day = ((int) (oBISdata[cOSEMIndex+4]));
-                            int something = ((int) (oBISdata[cOSEMIndex+5]));
-                            int hrs = ((int) (oBISdata[cOSEMIndex+6]));
-                            int minutes = ((int) (oBISdata[cOSEMIndex+7]));
-                            int seconds = ((int) (oBISdata[cOSEMIndex+8]));
+                            HANList3.MeeterTime = dateTime.ToString("O");
+                            if ( oBISdata.Length <= cOSEMIndex + 8 ) {
+
                             HANList3.MeeterTime = ((int)    ((oBISdata[cOSEMIndex+1]<<8)+(oBISdata[cOSEMIndex+2]))).ToString("D4") + "-" +
                                                             ((int) (oBISdata[cOSEMIndex+3])).ToString("D2") + "-" +
                                                             ((int) (oBISdata[cOSEMIndex+4])).ToString("D2") + "T" +
                                                             ((int) (oBISdata[cOSEMIndex+6])).ToString("D2") + ":" +
                                                             ((int) (oBISdata[cOSEMIndex+7])).ToString("D2") + ":" +
-                                                            ((int) (oBISdata[cOSEMIndex+8])).ToString("D4");
-                            string meeterTime = year.ToString("D4") + "-" +
-                                                month.ToString("D2") + "-" +
-                                                day.ToString("D2") + "T" +
-                                                hrs.ToString("D2") + ":" +
-                                                minutes.ToString("D2") + ":" +
-                                                seconds.ToString("D4");
-
-                            Console.WriteLine("Meeter current \'int\' date and time:{0}-{1}-{2}T{3}:{4}:{5}",year, month, day,hrs,minutes,seconds);
-                            Console.WriteLine("Meeter current \'string\' date and time:{0}",meeterTime);
-                            Console.WriteLine("Meeter current \'HANList3.MeeterTime\' date and time:{0}",HANList3.MeeterTime);
+                                                            ((int) (oBISdata[cOSEMIndex+8])).ToString();
+                            } else
+                            HANList3.MeeterTime = dateTime.ToString("O");
                         } else
                             Console.WriteLine("Error in STRUCT_TEXT_0x02 ({0}) text input from HAN",STRUCT_TEXT_0x02);
 
@@ -576,7 +559,6 @@ namespace HAN_OBIS
                         if ( oBISdata[cOSEMIndex] == TYPE_UINT32_0x06 )
                         {
                             // Power/Energy values (W og kW)
-                            uint value;
                             if(LLogOBIS) Console.WriteLine("Found TYPE_UINT32_0x06 (1 byte) + 4 byte data + 02 02 + UoM?? (4 byte) == 11 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 11 + 2) structType = oBISdata[cOSEMIndex + 11 + 1]; // next data type
                             if(LLogOBIS) Console.Write("{0}=",legalObisCodes[legalObisCodesIndex].objectName);
@@ -589,78 +571,75 @@ namespace HAN_OBIS
                             }
                             if ( oBISdata.Length < cOSEMIndex+4 )
                             {
-                                Console.WriteLine("Error. Index to long. Will crash. cOSEMIndex+4={0}, oBISdata.length={1}, OBIS code {2}",cOSEMIndex+4, oBISdata.Length,legalObisCodes[legalObisCodesIndex].obis);
-                                Console.WriteLine("Will return to DMLS for next OBIS block.... I need to change the DLMS rotine, bit not now...");
+                                Console.WriteLine("Error. Index to long. cOSEMIndex+4={0}, oBISdata.length={1}, OBIS code {2}",cOSEMIndex+4, oBISdata.Length,legalObisCodes[legalObisCodesIndex].obis);
+                                Console.WriteLine("Will return to DMLS for next OBIS block. Dumping problem OBIS block... I need to change the DLMS rotine, but not now...");
                                 foreach( byte b in oBISdata ) Console.Write("{0:X2} ",b);                               
                                 Console.WriteLine();
                                 return;
                             }
-                            currentEnergy = ((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].scale;
-                            value = (uint) currentEnergy;
+                            currentPower = Math.Round(((((oBISdata[cOSEMIndex+1]<<24)+oBISdata[cOSEMIndex+2]<<16)+oBISdata[cOSEMIndex+3]<<8)+oBISdata[cOSEMIndex+4]<<0)*legalObisCodes[legalObisCodesIndex].resolution,3);
 
-                            if ( legalObisCodesIndex == 00 ) // Powercollection list 1, 2 and 3
+                            if ( legalObisCodesIndex == 00 ) // Powercollection list 1, 2 and 3; Kamstrup will never be updated for List 1
                             {  // Wat
-                                HANList1.ActivePowerQ1Q4 = value;
+                                HANList1.ActivePowerQ1Q4 = currentPower;
                                 HANList1.UoMQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList2.ActivePowerQ1Q4 = value;
+                                HANList2.ActivePowerQ1Q4 = currentPower;
                                 HANList2.UoMQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ActivePowerQ1Q4 = value;
+                                HANList3.ActivePowerQ1Q4 = currentPower;
                                 HANList3.UoMQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 04 ) // Powercollection list 2 and 3
                             {// Watt
-                                HANList2.ActivePowerQ2Q3 = value;
+                                HANList2.ActivePowerQ2Q3 = currentPower;
                                 HANList2.UoMQ2Q3 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ActivePowerQ2Q3 = value;
+                                HANList3.ActivePowerQ2Q3 = currentPower;
                                 HANList3.UoMQ2Q3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 05 ) // kilo Volt Reactive list 2 and 3
                             {// KVAr
-                                HANList2.ReactivePowerQ1Q2 = value;
+                                HANList2.ReactivePowerQ1Q2 = currentPower;
                                 HANList2.UoMQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ReactivePowerQ1Q2 = value;
+                                HANList3.ReactivePowerQ1Q2 = currentPower;
                                 HANList3.UoMQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 06 ) // kilo Volt Reactive list 2 and 3
                             {// KVAr
-                                HANList2.ReactivePowerQ3Q4 = value;
+                                HANList2.ReactivePowerQ3Q4 = currentPower;
                                 HANList2.UoMQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ReactivePowerQ3Q4 = value;
+                                HANList3.ReactivePowerQ3Q4 = currentPower;
                                 HANList3.UoMQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 14 ) // kilo Volt Reactive list 3
                             {   // Wh - What per houre 
-                                HANList3.ActivePowerAQ1Q4 = value;
+                                HANList3.ActivePowerAQ1Q4 = currentPower;
                                 HANList3.UoMAQ1Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 15 ) // kilo Volt Reactive list 3
                             {   // Wh
-                                HANList3.ActivePowerAQ2Q3 = value;
+                                HANList3.ActivePowerAQ2Q3 = currentPower;
                                 HANList3.UoMAQ2Q3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 16 ) // kilo Volt Reactive list 3
                             {   // KVArh
-                                HANList3.ReactivePowerRQ1Q2 = value;
+                                HANList3.ReactivePowerRQ1Q2 = currentPower;
                                 HANList3.UoMRQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 17 ) // kilo Volt Reactive list 3
                             {   // KVArh
-                                HANList3.ReactivePowerRQ3Q4 = value;
+                                HANList3.ReactivePowerRQ3Q4 = currentPower;
                                 HANList3.UoMRQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                              else
                             {   // Some HAN data not treated correctly
                                 Console.WriteLine("\nError or one unhandled OBIS? legalObisCodesIndex = {0} at {1}",legalObisCodesIndex,dateTimeString);
-                                Console.WriteLine("Energi consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
+                                Console.WriteLine("Energi consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],currentPower,legalObisCodes[legalObisCodesIndex].UoM);
                             }
 
-                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", currentEnergy, legalObisCodes[legalObisCodesIndex].UoM);
+                            if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", currentPower, legalObisCodes[legalObisCodesIndex].UoM);
                             cOSEMIndex += 11; // Next COSEM block position
                         } 
                         else if ( oBISdata[cOSEMIndex] == TYPE_INT16_0x10 )
-                        {
-                            // Current (A)
-                            ushort value;
+                        { // Current (A)
                             if(LLogOBIS) Console.WriteLine("Found TYPE_INT16_0x10 (1 byte) + 2 byte data + 02 02 + UoM?? (4 byte) == 9 bytes");
                             if ( oBISdata.Length > cOSEMIndex + 9 + 2) structType = oBISdata[cOSEMIndex + 9 + 1];
                             if(LLogOBIS) Console.Write("{0} has {1}=",legalObisCodes[legalObisCodesIndex].obis,legalObisCodes[legalObisCodesIndex].objectName);
@@ -670,34 +649,33 @@ namespace HAN_OBIS
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            currentAmpere =  Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale, 2);
-                            value =  (ushort) Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale, 2);
+                            currentAmpere =  Math.Round(((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].resolution, 1);
 
                             if ( legalObisCodesIndex == 07 ) // A
                             {
-                                HANList2.AmpereIL1 = value;
+                                HANList2.AmpereIL1 = currentAmpere;
                                 HANList2.UoMIL1 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.AmpereIL1 = value;
+                                HANList3.AmpereIL1 = currentAmpere;
                                 HANList3.UoMIL1 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 08 ) // A
                             {
-                                HANList2.AmpereIL2 = value;
+                                HANList2.AmpereIL2 = currentAmpere;
                                 HANList2.UoMIL2 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.AmpereIL2 = value;
+                                HANList3.AmpereIL2 = currentAmpere;
                                 HANList3.UoMIL2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 09 ) // A
                             {
-                                HANList2.AmpereIL3 = value;
+                                HANList2.AmpereIL3 = currentAmpere;
                                 HANList2.UoMIL3 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.AmpereIL3 = value;
+                                HANList3.AmpereIL3 = currentAmpere;
                                 HANList3.UoMIL3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                              else
                             {   // Some HAN data not treated correctly
                                 Console.WriteLine("\nError or one houre OBIS code? legalObisCodesIndex = {0} at {1}",legalObisCodesIndex,dateTimeString);
-                                Console.WriteLine("Currency consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],value,legalObisCodes[legalObisCodesIndex].UoM);
+                                Console.WriteLine("Currency consumption type = {0}, value= {1} and UoM= {2}",oBISdata[cOSEMIndex],currentAmpere,legalObisCodes[legalObisCodesIndex].UoM);
                             }
 
                             if(LLogOBIS) Console.WriteLine("{0:0.00} {1}", currentAmpere, legalObisCodes[legalObisCodesIndex].UoM);
@@ -715,42 +693,42 @@ namespace HAN_OBIS
                                 for ( int j=0; j< 9; j++) Console.Write("{0:X2} ",oBISdata[cOSEMIndex+j]);
                                 Console.Write("({0}) ",legalObisCodes[legalObisCodesIndex].UoM);
                             }
-                            currentVolte = (int) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale);
-                            value = (ushort) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].scale);
+                            currentVolte = (int) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].resolution);
+                            value = (ushort) (((oBISdata[cOSEMIndex+1]<<8)+oBISdata[cOSEMIndex+2]<<0)*legalObisCodes[legalObisCodesIndex].resolution);
 
                             if ( legalObisCodesIndex == 05 ) // KVAr
                             {
                                 // HANList2.ReactivePowerQ1Q2 = value;
                                 // HANList2.UoMRQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ReactivePowerQ1Q2 = value;
+                                HANList3.ReactivePowerQ1Q2 = currentPower;
                                 HANList3.UoMRQ1Q2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 06 ) // KVAr
                             {
                                 // HANList2.ReactivePowerQ3Q4 = value;
                                 // HANList2.UoMRQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.ReactivePowerQ3Q4 = value;
+                                HANList3.ReactivePowerQ3Q4 = currentAmpere;
                                 HANList3.UoMRQ3Q4 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 10 ) // V
                             {
-                                HANList2.VoltUL1 = value;
+                                HANList2.VoltUL1 = currentVolte;
                                 HANList2.UoMUL1 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.VoltUL1 = value;
+                                HANList3.VoltUL1 = currentVolte;
                                 HANList3.UoMUL1 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 11 ) // V
                             {
-                                HANList2.VoltUL2 = value;
+                                HANList2.VoltUL2 = currentVolte;
                                 HANList2.UoMUL2 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.VoltUL2 = value;
+                                HANList3.VoltUL2 = currentVolte;
                                 HANList3.UoMUL2 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else if ( legalObisCodesIndex == 12 ) // V
                             {
-                                HANList2.VoltUL3 = value;
+                                HANList2.VoltUL3 = currentVolte;
                                 HANList2.UoMUL3 = legalObisCodes[legalObisCodesIndex].UoM;
-                                HANList3.VoltUL3 = value;
+                                HANList3.VoltUL3 = currentVolte;
                                 HANList3.UoMUL3 = legalObisCodes[legalObisCodesIndex].UoM;
                             }
                             else
@@ -815,8 +793,6 @@ namespace HAN_OBIS
                     jSONstringCompressed = JsonSerializer.Serialize(HANList3);
                     apiAdressToEndpoint = OOuCP.uCP.HANOODefaultParameters.HANApiEndPoint + "/List3";
                     Console.WriteLine("\nList 3; Houerly log:\n{0}",jSONstringCompressed); // Make sure I have a log of this :-)
-                    foreach( byte b in oBISdata) Console.Write("{0:X2} ",b);
-                    Console.WriteLine();
                     if ( OOuCP.uCP.HANOODefaultParameters.lJsonToApi && OOuCP.uCP.HANOODefaultParameters.lList3 )
                     {
                         await sendJsonToEndpoint(jSONstringCompressed, apiAdressToEndpoint, OOuCP.uCP.HANOODefaultParameters.lApi);

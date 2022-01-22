@@ -19,3 +19,7 @@ global using HANOOUserConfigurationParameters;
 global using HANDLMS;
 global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
+global using System.Reflection;
+// global using Microsoft.AspNetCore.App.Ref;
+// global using System.Reflection.Assembly;
+// global using System.Diagnostics.FileVersionInfo;

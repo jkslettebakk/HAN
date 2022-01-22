@@ -12,7 +12,7 @@ num=$(echo $var | grep -i -o "[.]/HANOO" | wc -l)
 #
 expected_jobs=1
 Date=$(date +'%Y/%m/%d at %T')
-echo "-------- Logging status at:" $Date " --------"
+echo "-------------- Logging status at:" $Date " --------------"
 #
 # Check if ./HANOO is running
 if [ $num -ge $expected_jobs ]
@@ -28,21 +28,22 @@ fi
 # Then test if error in logfile
 #
 error400=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "Error 400" | wc -l)
-BadRequest=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "BadRequest" | wc -l)
+
 #
-if   [ $error400 -gt 1 ] || [ $BadRequest -gt 0 ] ;
+if  [ $error400 -gt 10 ]
 then
-   echo "Error 400 in communication with endpoint. Tried " $error400 " times. Will now restart app by /etc/./rc.local"
-   echo "Killing prosess in HANOO job running :" $var
+   echo "Error 400 in communication with endpoint. Tried " $error400 " times. Rebooting. Will change to app restart /etc/./rc.local?"
+   echo "Testing kill prosess on HANOO job running :" $var
    jobID=$(echo $var | awk '{print $2;}') # Pull out the job ID
-   echo "The job ID to be killed:" $jobID
+   echo "Process ID=" $jobID
+   echo "$var" | while read line; do  echo $line | awk -F " " '{print "\tJub number:" $2 }' ; done
+   echo $num " jobs running. Killing " $jobID
    sudo kill $jobID
    echo "Restarting jobs by /etc/./rc.local"
    $(/etc/./rc.local)
    # sudo reboot 
 else
    echo "Number of HTTP 400 error is:" $error400
-   echo "Number of HTTP BadRequest error is:" $BadRequest
 fi
 #
 # Skal vi restarte jobbnen ved 1500 poster?
@@ -51,7 +52,7 @@ numLogs=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "with (result.St
 #
 if  [ $numLogs -gt 1600 ]
 then
-   echo "Error 400 is probably comming soon! Now we have " $numLogs " sucsessful posts. Restart app with /etc/./rc.local"
+   echo "Error 400 is probably comming soon! Now we have " $numLogs " sucsessful posts. Restart app with /etc/./rc.local? Har kommentert denne ut...."
    #sudo reboot 
 else
    echo "Number of HTTP OK is:" $numLogs 
@@ -61,9 +62,8 @@ unhandledExcep=$(($unhadledException + $(cat /home/pi/Documents/HAN/HANOOwAPI/ha
 #
 if  [ $unhandledExcep -gt 0 ]
 then
-   echo $unhandledExcep " Unhandled exception/Error. Will restart.... Unhandled exceptions could be system error as well."
+   echo $unhandledExcep "Unhandled exception/Error. Will restart.... Unhandled exceptions could be system error as well."
    echo "Will logg more info in /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions"
-   $(echo "----------------------------------------------------------" >> /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions)
    $(tail -20 /home/pi/Documents/HAN/HANOOwAPI/hanoo.log >> /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions)
    lines=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions | wc -l)
    echo $lines " lines logged to hanoo.exceptions."

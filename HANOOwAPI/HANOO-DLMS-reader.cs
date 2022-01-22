@@ -1,6 +1,14 @@
 
 namespace HANDLMS
 {
+    class Foo
+    {
+        public string GetAssemblyVersion()
+        {
+            return GetType().Assembly.GetName().Version.ToString();
+        }
+    }
+
     public class OO_HAN_Read_DLMS
     {
 
@@ -24,6 +32,21 @@ namespace HANDLMS
 
             serialPort = OOuCP.setSerialPortParameters( OOuCP );
 
+            string Version = new Foo().GetAssemblyVersion();
+
+//            Console.WriteLine($"GetType().Assembly.GetName().Version: " +
+//                              $"{Version}");
+//
+//            Console.WriteLine($"Assembly.GetEntryAssembly().GetName().Version: " +
+//                              $"{Assembly.GetEntryAssembly().GetName().Version}");
+//
+//            Console.WriteLine($"Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version:" +
+//                              $"{Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version}");
+//
+//            Console.WriteLine($"Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion:" +
+//                              $"{Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute> ().InformationalVersion}");
+
+            Console.WriteLine("Welcome to HAN reader version {0}",Version);
             Console.WriteLine("Reading port {0}",serialPort.PortName);
 
             serialPort.Open();

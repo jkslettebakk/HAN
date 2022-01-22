@@ -18,7 +18,7 @@
                 "LogCRC" : false,
                 "LogJson" : false,
                 "LogJsonCompressed" : false,
-                "HANApiEndPoint" : "https://han2.slettebakk.com/api",
+                "HANApiEndPoint" : "https://han.slettebakk.com/api",
                 "lJsonToApi" : false,
                 "help" : false,
                 "lList1" : false,
