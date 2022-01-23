@@ -389,10 +389,10 @@ namespace HAN_OBIS
                 Console.WriteLine("Status etter PostAsync (json):\n{0}",json);
                 Console.WriteLine("Uri string = {0}",UriString);
                 Console.WriteLine("Post string = {0}",postString);
-
-                // string cookieName = CookieName();
+                Console.WriteLine("Running \"result.Dispose()\".");
+                // 
                 result.Dispose();
-                // result.EnsureSuccessStatusCode ();
+                // 
             }
             // if (result != null) result.Dispose(); // What does this dispose?
             // client.Dispose();            
