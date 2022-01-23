@@ -531,7 +531,7 @@ namespace HAN_OBIS
                         legalObisCodesIndex = areObisFound( oBISdata, cOSEMIndex + 4);  // Obis code starts at cOSEMIndex
                         if(LLogOBIS) Console.WriteLine("COSEM Object = {0}", showObis(legalObisCodesIndex) );
 
-                        // Set Json heading data
+                        // Set Json heading data to comblete List1, List2 and List3 Json block
                         if ( catchVersionidentifier.Length > 0 )
                         {
                             HANList1.VersionIdentifier = catchVersionidentifier;

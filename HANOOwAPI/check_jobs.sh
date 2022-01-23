@@ -2,7 +2,16 @@
 #
 # set -x
 #
-# Check if python3 jobs is running
+# Define functions
+hanooBackup() {
+   echo "In the hanooBackup function. Logging data from hanoo.log to hanoo.exceptions"
+   $(echo "-------------------------   " $Date "  ---------------------------------" >> /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions)
+   $(tail -20 /home/pi/Documents/HAN/HANOOwAPI/hanoo.log >> /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions)
+   lines=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions | wc -l)
+   echo $lines " lines logged to hanoo.exceptions."
+}
+
+# Check if HANOO jobs is running
 #
 var=$(ps -ef | grep [.]/HANOO)
 #
@@ -32,10 +41,11 @@ BadRequest=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "BadRequest" 
 #
 if   [ $error400 -gt 1 ] || [ $BadRequest -gt 0 ] ;
 then
-   echo "Error 400 in communication with endpoint. Tried " $error400 " times. Will now restart app by /etc/./rc.local"
+   echo "Error 400 in communication with endpoint. Tried " $error400 " times. Will now kill, then restart app by /etc/./rc.local"
    echo "Killing prosess in HANOO job running :" $var
    jobID=$(echo $var | awk '{print $2;}') # Pull out the job ID
    echo "The job ID to be killed:" $jobID
+   hanooBackup # backing up data from .log file
    sudo kill $jobID
    echo "Restarting jobs by /etc/./rc.local"
    $(/etc/./rc.local)
@@ -47,7 +57,7 @@ fi
 #
 # Skal vi restarte jobbnen ved 1500 poster?
 #
-numLogs=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "with (result.StatusCode)=OK" | wc -l)
+numLogs=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep " = OK" | wc -l)
 #
 if  [ $numLogs -gt 1600 ]
 then
@@ -56,17 +66,13 @@ then
 else
    echo "Number of HTTP OK is:" $numLogs 
 fi
-unhandledExcep=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "Unhandled exception." | wc -l)
-unhandledExcep=$(($unhadledException + $(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "Error. Index to long. Will crash." | wc -l) ))
+unhandledExcep=$(($(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "Error. Index to long. Will crash." | wc -l) + $(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.log | grep "Unhandled exception." | wc -l)))
 #
 if  [ $unhandledExcep -gt 0 ]
 then
    echo $unhandledExcep " Unhandled exception/Error. Will restart.... Unhandled exceptions could be system error as well."
    echo "Will logg more info in /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions"
-   $(echo "----------------------------------------------------------" >> /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions)
-   $(tail -20 /home/pi/Documents/HAN/HANOOwAPI/hanoo.log >> /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions)
-   lines=$(cat /home/pi/Documents/HAN/HANOOwAPI/hanoo.exceptions | wc -l)
-   echo $lines " lines logged to hanoo.exceptions."
+   hanooBackup # backing up data from .log file
    sudo reboot 
 else
    echo $unhandledExcep "Unhandled exception. Continue."
