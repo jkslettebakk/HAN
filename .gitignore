@@ -17,6 +17,7 @@ nupkg/
 *.userosscache
 *.sln.docstates
 *.log
+git-token.txt
 
 # Build results
 [Dd]ebug/
