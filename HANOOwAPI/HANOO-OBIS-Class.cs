@@ -360,18 +360,19 @@ namespace HAN_OBIS
             StringContent postString = new StringContent(Jsonstring, Encoding.UTF8, app);
 
             HttpResponseMessage result = await client.PostAsync(UriString, postString);
+            PostAsyncLoops++;
             // public abstract Microsoft.AspNetCore.Http.IResponseCookies Cookies { get; };
 
             if ( logApi )
             {
-                Console.WriteLine("{0}\tStatus Posting to {1} = {2}",PostAsyncLoops++,UriString,result.StatusCode);
+                Console.WriteLine("{0}\tStatus Posting to {1} = {2}",PostAsyncLoops,UriString,result.StatusCode);
             }
             if ( !result.IsSuccessStatusCode )
             {
                 string json = await result.Content.ReadAsStringAsync();
 
                 // Data from the "result" object
-                Console.WriteLine("{0}\tStatus etter PostAsync to {1} with (result.StatusCode)={2}",PostAsyncLoops++,UriString,result.StatusCode);
+                Console.WriteLine("{0}\tStatus etter PostAsync to {1} with (result.StatusCode)={2}",PostAsyncLoops,UriString,result.StatusCode);
                 // Data from the "result" object
                 Console.WriteLine("PostAsync result (result.Content)={0}",result.Content);
                 Console.WriteLine("PostAsync result (result.Headers)={0}",result.Headers);
